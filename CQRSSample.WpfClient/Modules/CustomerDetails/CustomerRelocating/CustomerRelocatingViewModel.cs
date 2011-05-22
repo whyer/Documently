@@ -7,7 +7,7 @@ using CQRSSample.WpfClient.ApplicationFramework;
 
 namespace CQRSSample.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
-    public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocatingCustomerCommand>
+    public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocateCustomerCommand>
     {
         private readonly IBus _bus;
         private readonly IEventAggregator _eventAggregator;
@@ -26,7 +26,7 @@ namespace CQRSSample.WpfClient.Modules.CustomerDetails.CustomerRelocating
         public void WithCustomer(Guid customerId)
         {
             ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
-            Command = new ValidatingCommand<RelocatingCustomerCommand>(new RelocatingCustomerCommand(ViewModel.AggregateRootId), Validator);
+            Command = new ValidatingCommand<RelocateCustomerCommand>(new RelocateCustomerCommand(ViewModel.AggregateRootId), Validator);
         }
 
         public CustomerAddressDto ViewModel { get; private set; }

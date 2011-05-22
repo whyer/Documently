@@ -63,8 +63,15 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonDomain">
+      <HintPath>..\External Libs\CommonDomain\bin\CommonDomain.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\External Libs\MSpec\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External Libs\NUnit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -72,6 +79,8 @@
     <Compile Include="AggregateRootTestFixture.cs" />
     <Compile Include="Commands\All_commands_must_be_Serializable.cs" />
     <Compile Include="CommandTestFixture.cs" />
+    <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Events\All_domain_events_must_be_Serializable.cs" />
     <Compile Include="FakeBus.cs" />
     <Compile Include="FakeRepository.cs" />
@@ -79,6 +88,16 @@
     <Compile Include="TestExtensions.cs" />
     <Compile Include="CustomerSpecs\when_creating_a_new_customer.cs" />
     <Compile Include="CustomerSpecs\when_non_existing_customer_is_relocating.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CQRSSample.Commands\CQRSSample.Commands.csproj">
+      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
+      <Name>CQRSSample.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CQRSSample.Domain\CQRSSample.Domain.csproj">
+      <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
+      <Name>CQRSSample.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

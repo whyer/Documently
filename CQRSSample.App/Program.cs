@@ -71,7 +71,7 @@ namespace CQRSSample.App
 
         private static void RelocateCustomer(IBus bus, Guid aggregateId)
         {
-            bus.Send(new RelocatingCustomerCommand(aggregateId, "Messestraße",  "2", "4444", "Linz"));
+            bus.Send(new RelocateCustomerCommand(aggregateId, "Messestraße",  "2", "4444", "Linz"));
 
             Console.WriteLine("Customer relocated. Press any key to show list of customers.");
             Console.ReadLine();

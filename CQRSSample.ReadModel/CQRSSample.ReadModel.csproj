@@ -37,12 +37,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerAddressDto.cs" />
     <Compile Include="CustomerAddressView.cs" />
+    <Compile Include="CustomerListDto.cs" />
     <Compile Include="CustomerListView.cs" />
+    <Compile Include="Dto.cs" />
     <Compile Include="HandlesEvent.cs" />
     <Compile Include="IReadRepository.cs" />
     <Compile Include="IReportingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CQRSSample.Domain\CQRSSample.Domain.csproj">

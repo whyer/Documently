@@ -11,46 +11,46 @@ using Raven.Client.Document;
 
 namespace CQRSSample.WpfClient
 {
-    public class WpfClientBootstrapper : Bootstrapper<ShellViewModel>
-    {
-        private IWindsorContainer _container;
+	public class WpfClientBootstrapper : Bootstrapper<ShellViewModel>
+	{
+		private IWindsorContainer _container;
 
-        protected override void Configure()
-        {
-            var viewStore = new DocumentStore{ ConnectionStringName = BootStrapper.RavenDbConnectionStringName };
-            viewStore.Initialize();
+		protected override void Configure()
+		{
+			var viewStore = new DocumentStore { ConnectionStringName = BootStrapper.RavenDbConnectionStringName };
+			viewStore.Initialize();
 
-            _container = BootStrapper.BootStrap(viewStore);
-            // adds and configures all components using WindsorInstallers from executing assembly  
-            _container.Install(FromAssembly.This());
-        }
+			_container = BootStrapper.BootStrap(viewStore);
+			// adds and configures all components using WindsorInstallers from executing assembly  
+			_container.Install(FromAssembly.This());
+		}
 
-        protected override object GetInstance(Type service, string key)
-        {
-            return string.IsNullOrWhiteSpace(key) ? _container.Resolve(service) : _container.Resolve(key, service);
-        }
+		protected override object GetInstance(Type service, string key)
+		{
+			return string.IsNullOrWhiteSpace(key) ? _container.Resolve(service) : _container.Resolve(key, service);
+		}
 
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return (IEnumerable<object>) _container.ResolveAll(service);
-        }
+		protected override IEnumerable<object> GetAllInstances(Type service)
+		{
+			return (IEnumerable<object>)_container.ResolveAll(service);
+		}
 
-        protected override void BuildUp(object instance)
-        {
-            _container.BuildUp(instance);
-        }
-    }
+		protected override void BuildUp(object instance)
+		{
+			_container.BuildUp(instance);
+		}
+	}
 
 
-    public static class WindsorExtensions
-    {
+	public static class WindsorExtensions
+	{
 
-        public static void BuildUp(this IWindsorContainer container, object instance)
-        {
-            instance.GetType().GetProperties()
-                 .Where(property => property.CanWrite && property.PropertyType.IsPublic)
-                 .Where(property => container.Kernel.HasComponent(property.PropertyType))
-                 .ForEach(property => property.SetValue(instance, container.Resolve(property.PropertyType), null));
-        }
-    }
+		public static void BuildUp(this IWindsorContainer container, object instance)
+		{
+			instance.GetType().GetProperties()
+				 .Where(property => property.CanWrite && property.PropertyType.IsPublic)
+				 .Where(property => container.Kernel.HasComponent(property.PropertyType))
+				 .ForEach(property => property.SetValue(instance, container.Resolve(property.PropertyType), null));
+		}
+	}
 }

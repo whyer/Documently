@@ -41,7 +41,11 @@
     <Compile Include="CommandHandlers\RelocatingCustomerCommandHandler.cs" />
     <Compile Include="CommandHandlers\Handles.cs" />
     <Compile Include="CommandHandlers\TransactionHandler.cs" />
+    <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Customer.cs" />
+    <Compile Include="Domain\CustomerName.cs" />
+    <Compile Include="Domain\NonExistingCustomerException.cs" />
+    <Compile Include="Domain\PhoneNumber.cs" />
     <Compile Include="Events\CustomerCreatedEvent.cs" />
     <Compile Include="Events\CustomerRelocatedEvent.cs" />
     <Compile Include="Events\DomainEvent.cs" />

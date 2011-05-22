@@ -1,3 +1,4 @@
+// ReSharper disable InconsistentNaming
 using CQRSSample.Commands;
 
 namespace CQRSSample.Domain.CommandHandlers
@@ -11,5 +12,4 @@ namespace CQRSSample.Domain.CommandHandlers
 	{
 	}
 }
-
 // ReSharper restore InconsistentNaming

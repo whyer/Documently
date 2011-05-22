@@ -34,7 +34,6 @@ namespace CQRSSample.Domain.Domain
 			return new Customer(id, customerName, address, phoneNumber);
 		}
 
-
 		//Domain-Eventhandlers
 		private void Apply(CustomerCreatedEvent @event)
 		{

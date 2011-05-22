@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CommonDomain;
 using CommonDomain.Persistence;
+using System.Linq;
 
 namespace CQRSSample.Specs
 {
@@ -11,7 +12,8 @@ namespace CQRSSample.Specs
 
 		public TAggregate GetById<TAggregate>(Guid id, int version) where TAggregate : class, IAggregate
 		{
-			return Activator.CreateInstance(typeof(TAggregate), id) as TAggregate;
+			var aggregate = Activator.CreateInstance(typeof(TAggregate)) as TAggregate;
+			return aggregate;
 		}
 
 		public void Save(IAggregate aggregate, Guid commitId, Action<IDictionary<string, object>> updateHeaders)

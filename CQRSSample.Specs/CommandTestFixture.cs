@@ -36,9 +36,9 @@ namespace CQRSSample.Specs
 		[SetUp]
 		public void Setup()
 		{
-			Repository = new FakeRepository();
-			CaughtException = new ThereWasNoExceptionButOneWasExpectedException();
 			AggregateRoot = new TAggregateRoot();
+			Repository = new FakeRepository(AggregateRoot);
+			CaughtException = new ThereWasNoExceptionButOneWasExpectedException();
 			foreach (var @event in Given())
 			{
 				AggregateRoot.ApplyEvent(@event);

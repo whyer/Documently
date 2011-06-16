@@ -1,13 +1,9 @@
 
-/CQRSSample.5.1.ReSharper.user
+*.ReSharper.user
 /_ReSharper.CQRSSample
-/CQRSSample.suo
-/CQRSSample/bin
-/CQRSSample/obj
+*.suo
+bin/
+obj/
 *.csproj.user
-/CQRSSample.App/bin
-/CQRSSample.App/obj
-/CQRSSample.*/bin
-/CQRSSample.*/obj
 /External Libs/RavenDB/Server/Data
 /External Libs/RavenDB/Server/Raven.Server.log*

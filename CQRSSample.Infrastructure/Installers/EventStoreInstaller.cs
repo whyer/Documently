@@ -7,6 +7,7 @@ using CommonDomain.Persistence.EventStore;
 using EventStore;
 using EventStore.Dispatcher;
 using EventStore.Serialization;
+using MassTransit;
 
 namespace CQRSSample.Infrastructure.Installers
 {
@@ -21,10 +22,16 @@ namespace CQRSSample.Infrastructure.Installers
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
 			//Bus
-			var bus = new InProcessBus(container);
-			container.Register(Component.For<IBus>().Instance(bus));
-
-			var eventStore = GetInitializedEventStore(bus);
+			//var bus = new InProcessBus(container);
+			var bus = ServiceBusFactory.New(sbc =>
+			                                	{
+			                                		sbc.UseRabbitMq();
+													sbc.ReceiveFrom("rabbitmq://localhost/Documently");
+													sbc.UseRabbitMqRouting();
+			                                	});
+			var busAdapter = new MassTransitBusAdapter(bus);
+			container.Register(Component.For<IBus>().Instance(busAdapter));
+			var eventStore = GetInitializedEventStore(busAdapter);
 			var repository = new EventStoreRepository(eventStore, new AggregateFactory(), new ConflictDetector());
 
 			container.Register(Component.For<IStoreEvents>().Instance(eventStore));

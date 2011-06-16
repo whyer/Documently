@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace CQRSSample.WpfClient.ApplicationFramework.Converters
+namespace Documently.WpfClient.ApplicationFramework.Converters
 {
     public class CollapsedWhenNullConverter : IValueConverter
     {

@@ -1,6 +1,6 @@
 using Caliburn.Micro;
 
-namespace CQRSSample.WpfClient.Modules.CustomerDetails.WhatsNext
+namespace Documently.WpfClient.Modules.CustomerDetails.WhatsNext
 {
     public class WhatsNextViewModel : Screen
     {

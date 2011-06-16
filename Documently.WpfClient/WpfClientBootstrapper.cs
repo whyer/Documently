@@ -6,10 +6,10 @@ using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using CQRSSample.Infrastructure;
-using CQRSSample.WpfClient.Modules.Shell;
+using Documently.WpfClient.Modules.Shell;
 using Raven.Client.Document;
 
-namespace CQRSSample.WpfClient
+namespace Documently.WpfClient
 {
 	public class WpfClientBootstrapper : Bootstrapper<ShellViewModel>
 	{

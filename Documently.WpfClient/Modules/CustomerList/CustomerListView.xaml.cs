@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace CQRSSample.WpfClient.Modules.CustomerList
+namespace Documently.WpfClient.Modules.CustomerList
 {
     /// <summary>
     /// Interaction logic for CustomerListView.xaml

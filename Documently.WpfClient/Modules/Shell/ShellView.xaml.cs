@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CQRSSample.WpfClient.Modules.Shell
+namespace Documently.WpfClient.Modules.Shell
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml

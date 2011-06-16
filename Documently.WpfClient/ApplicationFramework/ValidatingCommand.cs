@@ -8,7 +8,7 @@ using Documently.Commands;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace CQRSSample.WpfClient.ApplicationFramework
+namespace Documently.WpfClient.ApplicationFramework
 {
 	public class ValidatingCommand<T> : DynamicCommand<T>, IDataErrorInfo where T : Command
 	{

@@ -3,7 +3,7 @@ using Caliburn.Micro;
 using CQRSSample.Infrastructure;
 using Documently.Commands;
 
-namespace CQRSSample.WpfClient.Modules.CustomerDetails.CreateCustomer
+namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 {
     public class CreateCustomerViewModel : Screen
     {

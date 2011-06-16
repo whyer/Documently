@@ -2,14 +2,14 @@ using System;
 using Caliburn.Micro;
 using CQRSSample.Infrastructure;
 using CQRSSample.ReadModel;
-using CQRSSample.WpfClient.Modules.CustomerDetails;
-using CQRSSample.WpfClient.Modules.CustomerDetails.CreateCustomer;
-using CQRSSample.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview;
-using CQRSSample.WpfClient.Modules.CustomerDetails.CustomerRelocating;
-using CQRSSample.WpfClient.Modules.CustomerDetails.WhatsNext;
-using CQRSSample.WpfClient.Modules.CustomerList;
+using Documently.WpfClient.Modules.CustomerDetails;
+using Documently.WpfClient.Modules.CustomerDetails.CreateCustomer;
+using Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview;
+using Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating;
+using Documently.WpfClient.Modules.CustomerDetails.WhatsNext;
+using Documently.WpfClient.Modules.CustomerList;
 
-namespace CQRSSample.WpfClient.Modules.Shell
+namespace Documently.WpfClient.Modules.Shell
 {
     public class ShellViewModel : Conductor<object>, IHandle<CreateCustomerSavedEvent>, IHandle<ShowAddNewCustomerEvent>, IHandle<ShowSearchCustomerEvent>, IHandle<CustomerRelocatingSavedEvent>, IHandle<ShowCustomerDetailsEvent>
     {

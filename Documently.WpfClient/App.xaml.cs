@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CQRSSample.WpfClient
+namespace Documently.WpfClient
 {
     public partial class App : Application
     {

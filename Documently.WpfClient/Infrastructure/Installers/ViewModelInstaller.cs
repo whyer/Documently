@@ -4,7 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace CQRSSample.WpfClient.Infrastructure.Installers
+namespace Documently.WpfClient.Infrastructure.Installers
 {
     public class ViewModelInstaller : IWindsorInstaller
     {

@@ -2,10 +2,10 @@ using System;
 using Caliburn.Micro;
 using CQRSSample.Infrastructure;
 using CQRSSample.ReadModel;
-using CQRSSample.WpfClient.ApplicationFramework;
 using Documently.Commands;
+using Documently.WpfClient.ApplicationFramework;
 
-namespace CQRSSample.WpfClient.Modules.CustomerDetails.CustomerRelocating
+namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
     public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocateCustomerCommand>
     {

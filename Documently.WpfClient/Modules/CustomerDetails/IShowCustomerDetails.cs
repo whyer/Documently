@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRSSample.WpfClient.Modules.CustomerDetails
+namespace Documently.WpfClient.Modules.CustomerDetails
 {
     public interface IShowCustomerDetails
     {

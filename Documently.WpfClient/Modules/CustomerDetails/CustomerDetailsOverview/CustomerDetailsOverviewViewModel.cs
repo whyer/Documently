@@ -2,7 +2,7 @@ using System;
 using Caliburn.Micro;
 using CQRSSample.ReadModel;
 
-namespace CQRSSample.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
+namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 {
     public class CustomerDetailsOverviewViewModel : Screen, IShowCustomerDetails
     {

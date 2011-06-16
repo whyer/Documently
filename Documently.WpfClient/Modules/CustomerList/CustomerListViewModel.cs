@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
 using CQRSSample.ReadModel;
 using System.Linq;
 
-namespace CQRSSample.WpfClient.Modules.CustomerList
+namespace Documently.WpfClient.Modules.CustomerList
 {
     public class CustomerListViewModel : Screen
     {

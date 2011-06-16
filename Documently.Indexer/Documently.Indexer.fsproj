@@ -32,6 +32,9 @@
     <DocumentationFile>bin\Release\Documently.Indexer.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonDomain">
+      <HintPath>..\External Libs\CommonDomain\bin\CommonDomain.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>

@@ -11,6 +11,15 @@ namespace Documently.Domain.Events
 	[Serializable]
 	public abstract class DomainEvent
 	{
+		protected DomainEvent()
+		{
+		}
+
+		protected DomainEvent(Guid aggregateId)
+		{
+			_AggregateId = aggregateId;
+		}
+
 		private Guid _AggregateId;
 		public Guid AggregateId
 		{

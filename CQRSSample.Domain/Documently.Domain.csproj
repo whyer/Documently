@@ -61,6 +61,7 @@
     <Compile Include="Domain\PhoneNumber.cs" />
     <Compile Include="Events\CustomerCreatedEvent.cs" />
     <Compile Include="Events\CustomerRelocatedEvent.cs" />
+    <Compile Include="Events\DocumentIndexed.cs" />
     <Compile Include="Events\DocumentMetaDataCreated.cs" />
     <Compile Include="Events\AssociatedIndexingPending.cs" />
     <Compile Include="Events\DomainEvent.cs" />

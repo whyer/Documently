@@ -1,6 +1,6 @@
 using Documently.Commands;
 
-namespace CQRSSample.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers
 {
 	public class TransactionHandler
 	{

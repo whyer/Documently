@@ -1,4 +1,4 @@
-using CQRSSample.Domain.Events;
+using Documently.Domain.Events;
 using Raven.Client;
 
 namespace CQRSSample.ReadModel

@@ -1,8 +1,8 @@
 using System;
-using CQRSSample.Domain.CommandHandlers;
-using CQRSSample.Domain.Domain;
-using CQRSSample.Domain.Events;
 using Documently.Commands;
+using Documently.Domain.CommandHandlers;
+using Documently.Domain.Domain;
+using Documently.Domain.Events;
 using NUnit.Framework;
 
 namespace CQRSSample.Specs.Customers

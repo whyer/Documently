@@ -82,6 +82,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External Libs\NUnit\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SharpTestsEx">
+      <HintPath>..\packages\SharpTestsEx.1.1.1\lib\SharpTestsEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +93,7 @@
     <Compile Include="CommandTestFixture.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Documents\when_creating_new_document_meta_data.cs" />
+    <Compile Include="Documents\when_uploaded_document_itself.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Events\All_domain_events_must_be_Serializable.cs" />
     <Compile Include="FakeBus.cs" />

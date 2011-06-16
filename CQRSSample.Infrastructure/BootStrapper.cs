@@ -1,8 +1,8 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using CQRSSample.Domain.Events;
 using CQRSSample.ReadModel;
+using Documently.Domain.Events;
 using Raven.Client;
 
 namespace CQRSSample.Infrastructure

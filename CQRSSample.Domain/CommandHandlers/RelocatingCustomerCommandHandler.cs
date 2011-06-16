@@ -1,9 +1,9 @@
 using System;
 using CommonDomain.Persistence;
-using CQRSSample.Domain.Domain;
 using Documently.Commands;
+using Documently.Domain.Domain;
 
-namespace CQRSSample.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers
 {
 	public class RelocatingCustomerCommandHandler : Handles<RelocateCustomerCommand>
 	{

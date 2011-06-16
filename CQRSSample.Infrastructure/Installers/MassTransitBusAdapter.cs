@@ -1,6 +1,6 @@
 using System;
-using CQRSSample.Domain.Events;
 using Documently.Commands;
+using Documently.Domain.Events;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;

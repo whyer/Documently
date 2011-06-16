@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CQRSSample.Domain.Domain
+namespace Documently.Domain.Domain
 {
 	public class NonExistingCustomerException : Exception
 	{

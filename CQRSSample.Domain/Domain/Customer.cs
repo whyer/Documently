@@ -1,8 +1,8 @@
 using System;
 using CommonDomain.Core;
-using CQRSSample.Domain.Events;
+using Documently.Domain.Events;
 
-namespace CQRSSample.Domain.Domain
+namespace Documently.Domain.Domain
 {
 	public class Customer : AggregateBase<DomainEvent>
 	{

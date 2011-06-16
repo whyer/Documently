@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CommonDomain;
-using CQRSSample.Domain.CommandHandlers;
-using CQRSSample.Domain.Events;
 using Documently.Commands;
+using Documently.Domain.CommandHandlers;
+using Documently.Domain.Events;
 using NUnit.Framework;
+using System.Linq;
 
 namespace CQRSSample.Specs
 {
@@ -19,6 +20,7 @@ namespace CQRSSample.Specs
 		protected Handles<TCommand> CommandHandler;
 		protected Exception CaughtException;
 		protected ICollection PublishedEvents;
+		protected IEnumerable<DomainEvent> PublishedEventsT { get { return PublishedEvents.Cast<DomainEvent>(); } } 
 		protected FakeRepository Repository;
 		protected virtual void SetupDependencies() { }
 

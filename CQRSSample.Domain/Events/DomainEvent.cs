@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CQRSSample.Domain.Events
+namespace Documently.Domain.Events
 {
 	//public interface IDomainEvent
 	//{
@@ -11,7 +11,13 @@ namespace CQRSSample.Domain.Events
 	[Serializable]
 	public class DomainEvent
 	{
-		public Guid AggregateId { get; set; }
+		private Guid _AggregateId;
+		public Guid AggregateId
+		{
+			get { return _AggregateId; }
+			set { _AggregateId = value; }
+		}
+
 		//public int Version { get; set; }
 	}
 }

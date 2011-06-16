@@ -2,7 +2,7 @@
 
 using Documently.Commands;
 
-namespace CQRSSample.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers
 {
 	public interface Handles<in T> : Handles where T : Command
 	{

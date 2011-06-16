@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Castle.Windsor;
-using CQRSSample.Domain.CommandHandlers;
-using CQRSSample.Domain.Events;
 using Documently.Commands;
+using Documently.Domain.CommandHandlers;
+using Documently.Domain.Events;
 using EventStore;
 using EventStore.Dispatcher;
 

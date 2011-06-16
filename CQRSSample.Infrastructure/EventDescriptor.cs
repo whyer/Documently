@@ -1,5 +1,5 @@
 using System;
-using CQRSSample.Domain.Events;
+using Documently.Domain.Events;
 
 namespace CQRSSample.Infrastructure
 {

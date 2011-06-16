@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRSSample.Domain.Events
+namespace Documently.Domain.Events
 {
 	[Serializable]
 	public class CustomerCreatedEvent : DomainEvent

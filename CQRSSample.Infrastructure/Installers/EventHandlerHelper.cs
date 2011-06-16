@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CQRSSample.Domain.Events;
 using CQRSSample.ReadModel;
+using Documently.Domain.Events;
 
 namespace CQRSSample.Infrastructure.Installers
 {

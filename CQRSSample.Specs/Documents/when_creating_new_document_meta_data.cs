@@ -1,42 +1,32 @@
 ﻿using System;
-using CQRSSample.Domain.CommandHandlers;
-using CQRSSample.Domain.Events;
-using CommonDomain.Core;
-using CommonDomain.Persistence;
 using Documently.Commands;
+using Documently.Domain.CommandHandlers;
+using Documently.Domain.Domain;
+using Documently.Domain.Events;
 using Magnum;
-using MassTransit;
+using NUnit.Framework;
+using System.Linq;
+using SharpTestsEx;
 
 namespace CQRSSample.Specs.Documents
 {
 	public class when_creating_new_document_meta_data
 		: CommandTestFixture<SaveDocumentMetaData, DocumentMetaDataHandler, Document>
 	{
+		private DateTime _Created = DateTime.UtcNow;
+
 		protected override SaveDocumentMetaData When()
 		{
-			return new SaveDocumentMetaData(CombGuid.Generate(), "My document", DateTime.UtcNow);
+			return new SaveDocumentMetaData(CombGuid.Generate(), "My document", _Created);
 		}
-	}
 
-	public class DocumentMetaDataHandler : Consumes<SaveDocumentMetaData>, Handles<SaveDocumentMetaData>
-	{
-		private readonly IRepository _Repo;
-
-		public DocumentMetaDataHandler(IRepository repo)
+		[Test]
+		public void should_get_created_document_event()
 		{
-			if (repo == null) throw new ArgumentNullException("repo");
-			_Repo = repo;
+			var evt = (DocumentMetaDataCreated)PublishedEventsT.First();
+			evt.Title.Should().Be("My document");
+			evt.ProcessingState.Should().Be(DocumentState.Created);
+			evt.UtcDate.Should().Be(_Created);
 		}
-
-		public void Handle(SaveDocumentMetaData command)
-		{
-			_Repo.Save(new Document(
-				
-				), CombGuid.Generate(), null);
-		}
-	}
-
-	public class Document : AggregateBase<DomainEvent>
-	{
 	}
 }

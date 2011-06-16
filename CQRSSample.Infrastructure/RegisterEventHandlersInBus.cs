@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using Castle.Windsor;
-using CQRSSample.Domain.Events;
 using CQRSSample.ReadModel;
+using Documently.Domain.Events;
 
 namespace CQRSSample.Infrastructure
 {

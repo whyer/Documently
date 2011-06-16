@@ -5,18 +5,18 @@ namespace Documently.Commands
 	[Serializable]
 	public class SaveDocumentMetaData : Command
 	{
-		private readonly string _Name;
+		private readonly string _Title;
 		private readonly DateTime _UtcTime;
 
-		public SaveDocumentMetaData(Guid id, string name, DateTime utcTime) : base(id)
+		public SaveDocumentMetaData(Guid id, string title, DateTime utcTime) : base(id)
 		{
-			_Name = name;
+			_Title = title;
 			_UtcTime = utcTime;
 		}
 
-		public string Name
+		public string Title
 		{
-			get { return _Name; }
+			get { return _Title; }
 		}
 
 		public DateTime UtcTime

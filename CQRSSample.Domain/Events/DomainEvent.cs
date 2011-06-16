@@ -9,7 +9,7 @@ namespace Documently.Domain.Events
 	//}
 
 	[Serializable]
-	public class DomainEvent
+	public abstract class DomainEvent
 	{
 		private Guid _AggregateId;
 		public Guid AggregateId

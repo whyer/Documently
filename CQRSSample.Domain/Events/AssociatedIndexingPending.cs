@@ -3,6 +3,7 @@ using Documently.Domain.Domain;
 
 namespace Documently.Domain.Events
 {
+	[Serializable]
 	public class AssociatedIndexingPending : DomainEvent
 	{
 		private readonly DocumentState _ProcessingState;

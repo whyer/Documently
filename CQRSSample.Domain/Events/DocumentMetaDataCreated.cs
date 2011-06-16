@@ -3,6 +3,7 @@ using Documently.Domain.Domain;
 
 namespace Documently.Domain.Events
 {
+	[Serializable]
 	public class DocumentMetaDataCreated : DomainEvent
 	{
 		private readonly string _Title;

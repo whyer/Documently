@@ -2,6 +2,7 @@ using System;
 
 namespace Documently.Commands
 {
+	[Serializable]
 	public class InitializeDocumentIndexing : Command
 	{
 		private readonly Guid _BlobId;

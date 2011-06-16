@@ -85,15 +85,15 @@
     <Compile Include="RegisterEventHandlersInBus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSSample.Commands\Documently.Commands.csproj">
+    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
       <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
       <Name>Documently.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CQRSSample.Domain\Documently.Domain.csproj">
+    <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CQRSSample.ReadModel\Documently.ReadModel.csproj">
+    <ProjectReference Include="..\Documently.ReadModel\Documently.ReadModel.csproj">
       <Project>{6E654F57-BF65-463C-82C6-DB360D0F844D}</Project>
       <Name>Documently.ReadModel</Name>
     </ProjectReference>

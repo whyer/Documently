@@ -49,7 +49,7 @@
     <Compile Include="RavenReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSSample.Domain\Documently.Domain.csproj">
+    <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
     </ProjectReference>

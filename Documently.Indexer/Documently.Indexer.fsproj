@@ -69,7 +69,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSSample.Domain\Documently.Domain.csproj">
+    <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Name>Documently.Domain</Name>
       <Project>{a9ee33ab-b226-491c-8f14-a78069618f21}</Project>
       <Private>True</Private>

@@ -1,21 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.App", "CQRSSample.App\Documently.App.csproj", "{26BE4D35-6797-4531-B324-C10C94A65295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.App", "Documently.App\Documently.App.csproj", "{26BE4D35-6797-4531-B324-C10C94A65295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Specs", "CQRSSample.Specs\Documently.Specs.csproj", "{98A4577F-5574-45CE-B463-DBEC137B7468}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Specs", "Documently.Specs\Documently.Specs.csproj", "{98A4577F-5574-45CE-B463-DBEC137B7468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Domain", "CQRSSample.Domain\Documently.Domain.csproj", "{A9EE33AB-B226-491C-8F14-A78069618F21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Domain", "Documently.Domain\Documently.Domain.csproj", "{A9EE33AB-B226-491C-8F14-A78069618F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Infrastructure", "CQRSSample.Infrastructure\Documently.Infrastructure.csproj", "{F2DE41A9-C7A9-433C-9217-EEA6EE859159}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Infrastructure", "Documently.Infrastructure\Documently.Infrastructure.csproj", "{F2DE41A9-C7A9-433C-9217-EEA6EE859159}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.ReadModel", "CQRSSample.ReadModel\Documently.ReadModel.csproj", "{6E654F57-BF65-463C-82C6-DB360D0F844D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.ReadModel", "Documently.ReadModel\Documently.ReadModel.csproj", "{6E654F57-BF65-463C-82C6-DB360D0F844D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{9D95C07B-4CA9-41A2-9BD7-99E038AD79BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.WpfClient", "CQRSSample.WpfClient\Documently.WpfClient.csproj", "{00697C09-EF1D-4F73-8AFD-D58B8A550111}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.WpfClient", "Documently.WpfClient\Documently.WpfClient.csproj", "{00697C09-EF1D-4F73-8AFD-D58B8A550111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Commands", "CQRSSample.Commands\Documently.Commands.csproj", "{22374340-0C08-4F74-86B7-6C229BE1E550}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Commands", "Documently.Commands\Documently.Commands.csproj", "{22374340-0C08-4F74-86B7-6C229BE1E550}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Documently.Indexer", "Documently.Indexer\Documently.Indexer.fsproj", "{8185076D-D671-428C-BA8B-7B630B21C199}"
 EndProject

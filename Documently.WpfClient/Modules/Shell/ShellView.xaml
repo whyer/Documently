@@ -6,29 +6,37 @@
             xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
             Title="CQRS Sample Client"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
+	<StackPanel>
+		<ribbon:Ribbon>
+			<ribbon:Ribbon.ApplicationMenu>
+				<ribbon:RibbonApplicationMenu SmallImageSource="..\..\ApplicationFramework\Icons\customers.png">
+					<ribbon:RibbonApplicationMenuItem Header="Hello _Ribbon" ImageSource="..\..\ApplicationFramework\Icons\customers.png"/>
+				</ribbon:RibbonApplicationMenu>
+			</ribbon:Ribbon.ApplicationMenu>
 
+			<ribbon:RibbonTab x:Name="DocTab" Header="Documents">
+				<ribbon:RibbonGroup Header="Search">
+					<ribbon:RibbonButton x:Name="SearchDocument" LargeImageSource="..\..\ApplicationFramework\Icons\filing-cabinet.png" Label="Document Search" />
+				</ribbon:RibbonGroup>
 
-        <ribbon:Ribbon>
-            <ribbon:Ribbon.ApplicationMenu>
-                <ribbon:RibbonApplicationMenu SmallImageSource="..\..\ApplicationFramework\Icons\customers.png">
-                    <ribbon:RibbonApplicationMenuItem Header="Hello _Ribbon" ImageSource="..\..\ApplicationFramework\Icons\customers.png"/>
-                </ribbon:RibbonApplicationMenu>
-            </ribbon:Ribbon.ApplicationMenu>
+				<ribbon:RibbonGroup Header="Document Actions">
+					<ribbon:RibbonButton x:Name="CreateDocumentMetaData" LargeImageSource="..\..\ApplicationFramework\Icons\clipboard.png" Label="Add Document Data" />
+					<ribbon:RibbonButton x:Name="AttachDocumentToMetaData" LargeImageSource="..\..\ApplicationFramework\Icons\brush.png" Label="Attach File" />
+				</ribbon:RibbonGroup>
+			</ribbon:RibbonTab>
 
-            <ribbon:RibbonTab x:Name="HomeTab" Header="Customers">
-                <ribbon:RibbonGroup Header="Search">
-                    <ribbon:RibbonButton x:Name="SearchCustomer" LargeImageSource="..\..\ApplicationFramework\Icons\customers.png" Label="Customer search" />
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup Header="Customer Details">
-                    <ribbon:RibbonButton x:Name="AddNewCustomer" LargeImageSource="..\..\ApplicationFramework\Icons\customer.png" Label="Add new customer" />
-                    <ribbon:RibbonButton x:Name="RelocateCustomer" Visibility="{Binding ShowCustomerDetailButtons, Converter={StaticResource booleanToVisibility}}" LargeImageSource="..\..\ApplicationFramework\Icons\relocate.png" Label="Customer relocated" />
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
-        </ribbon:Ribbon>
-        
+			<ribbon:RibbonTab x:Name="HomeTab" Header="Customers">
+				<ribbon:RibbonGroup Header="Search">
+					<ribbon:RibbonButton x:Name="SearchCustomer" LargeImageSource="..\..\ApplicationFramework\Icons\customers.png" Label="Customer search" />
+				</ribbon:RibbonGroup>
+				<ribbon:RibbonGroup Header="Customer Details">
+					<ribbon:RibbonButton x:Name="AddNewCustomer" LargeImageSource="..\..\ApplicationFramework\Icons\customer.png" Label="Add new customer" />
+					<ribbon:RibbonButton x:Name="RelocateCustomer" Visibility="{Binding ShowCustomerDetailButtons, Converter={StaticResource booleanToVisibility}}" LargeImageSource="..\..\ApplicationFramework\Icons\relocate.png" Label="Customer relocated" />
+				</ribbon:RibbonGroup>
+			</ribbon:RibbonTab>
+		</ribbon:Ribbon>
 
-        <ContentControl x:Name="ActiveItem" Margin="0 20 0 0" />
+		<ContentControl x:Name="ActiveItem" Margin="0 20 0 0" />
 
-    </StackPanel>
+	</StackPanel>
 </Window>

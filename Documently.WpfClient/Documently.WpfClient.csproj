@@ -201,6 +201,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationFramework\Controls\" />
+    <Folder Include="Modules\DocumentDetails\" />
+    <Folder Include="Modules\DocumentList\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
@@ -229,6 +231,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ApplicationFramework\Icons\relocate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ApplicationFramework\Icons\box.png" />
+    <Resource Include="ApplicationFramework\Icons\brush.png" />
+    <Resource Include="ApplicationFramework\Icons\clipboard.png" />
+    <Resource Include="ApplicationFramework\Icons\filing-cabinet.png" />
+    <Resource Include="ApplicationFramework\Icons\hammer.png" />
+    <Resource Include="ApplicationFramework\Icons\lamp.png" />
+    <Resource Include="ApplicationFramework\Icons\pig.png" />
+    <Resource Include="ApplicationFramework\Icons\scale-pan.png" />
+    <Resource Include="ApplicationFramework\Icons\taxi.png" />
+    <Resource Include="ApplicationFramework\Icons\time-glass.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,8 +8,8 @@
     <ProjectGuid>{F2DE41A9-C7A9-433C-9217-EEA6EE859159}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CQRSSample.Infrastructure</RootNamespace>
-    <AssemblyName>CQRSSample.Infrastructure</AssemblyName>
+    <RootNamespace>Documently.Infrastructure</RootNamespace>
+    <AssemblyName>Documently.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -85,17 +85,17 @@
     <Compile Include="RegisterEventHandlersInBus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSSample.Commands\CQRSSample.Commands.csproj">
+    <ProjectReference Include="..\CQRSSample.Commands\Documently.Commands.csproj">
       <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>CQRSSample.Commands</Name>
+      <Name>Documently.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CQRSSample.Domain\CQRSSample.Domain.csproj">
+    <ProjectReference Include="..\CQRSSample.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
-      <Name>CQRSSample.Domain</Name>
+      <Name>Documently.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CQRSSample.ReadModel\CQRSSample.ReadModel.csproj">
+    <ProjectReference Include="..\CQRSSample.ReadModel\Documently.ReadModel.csproj">
       <Project>{6E654F57-BF65-463C-82C6-DB360D0F844D}</Project>
-      <Name>CQRSSample.ReadModel</Name>
+      <Name>Documently.ReadModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

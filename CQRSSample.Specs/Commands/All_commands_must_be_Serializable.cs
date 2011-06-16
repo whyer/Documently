@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using CQRSSample.Commands;
+using Documently.Commands;
 using NUnit.Framework;
 
 namespace CQRSSample.Specs.Commands

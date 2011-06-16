@@ -1,6 +1,6 @@
 ﻿using System;
-using CQRSSample.Commands;
 using CQRSSample.Domain.Events;
+using Documently.Commands;
 
 namespace CQRSSample.Infrastructure
 {

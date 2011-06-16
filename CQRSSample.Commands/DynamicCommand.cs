@@ -1,6 +1,6 @@
 ﻿using System.Dynamic;
 
-namespace CQRSSample.Commands
+namespace Documently.Commands
 {
 	public class DynamicCommand<T> : DynamicObject where T : Command
 	{

@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRSSample.Commands
+namespace Documently.Commands
 {
 	public abstract class Command
 	{

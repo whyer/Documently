@@ -1,5 +1,6 @@
 // ReSharper disable InconsistentNaming
-using CQRSSample.Commands;
+
+using Documently.Commands;
 
 namespace CQRSSample.Domain.CommandHandlers
 {

@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using CQRSSample.Commands;
+using Documently.Commands;
 using FluentValidation;
 using FluentValidation.Results;
 

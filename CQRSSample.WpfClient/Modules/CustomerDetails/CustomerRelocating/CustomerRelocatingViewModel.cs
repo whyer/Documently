@@ -1,9 +1,9 @@
 using System;
 using Caliburn.Micro;
-using CQRSSample.Commands;
 using CQRSSample.Infrastructure;
 using CQRSSample.ReadModel;
 using CQRSSample.WpfClient.ApplicationFramework;
+using Documently.Commands;
 
 namespace CQRSSample.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {

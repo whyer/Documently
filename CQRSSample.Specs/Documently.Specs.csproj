@@ -66,6 +66,18 @@
     <Reference Include="CommonDomain">
       <HintPath>..\External Libs\CommonDomain\bin\CommonDomain.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\packages\Magnum.1.1.1.0\lib\NET40\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit">
+      <HintPath>..\packages\MassTransit.2.0.0.1\lib\NET40\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.Transports.Msmq">
+      <HintPath>..\packages\MassTransit.2.0.0.1\lib\NET40\MassTransit.Transports.Msmq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External Libs\NUnit\nunit.framework.dll</HintPath>
@@ -77,24 +89,28 @@
     <Compile Include="Commands\All_commands_must_be_Serializable.cs" />
     <Compile Include="CommandTestFixture.cs" />
     <Compile Include="CollectionExtensions.cs" />
+    <Compile Include="Documents\when_creating_new_document_meta_data.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Events\All_domain_events_must_be_Serializable.cs" />
     <Compile Include="FakeBus.cs" />
     <Compile Include="FakeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestExtensions.cs" />
-    <Compile Include="CustomerSpecs\when_creating_a_new_customer.cs" />
-    <Compile Include="CustomerSpecs\when_non_existing_customer_is_relocating.cs" />
+    <Compile Include="Customers\when_creating_a_new_customer.cs" />
+    <Compile Include="Customers\when_non_existing_customer_is_relocating.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSSample.Commands\CQRSSample.Commands.csproj">
+    <ProjectReference Include="..\CQRSSample.Commands\Documently.Commands.csproj">
       <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>CQRSSample.Commands</Name>
+      <Name>Documently.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CQRSSample.Domain\CQRSSample.Domain.csproj">
+    <ProjectReference Include="..\CQRSSample.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
-      <Name>CQRSSample.Domain</Name>
+      <Name>Documently.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

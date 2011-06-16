@@ -1,11 +1,11 @@
 using System;
-using CQRSSample.Commands;
 using CQRSSample.Domain.CommandHandlers;
 using CQRSSample.Domain.Domain;
 using CQRSSample.Domain.Events;
+using Documently.Commands;
 using NUnit.Framework;
 
-namespace CQRSSample.Specs.CustomerSpecs
+namespace CQRSSample.Specs.Customers
 {
 	public class when_creating_a_new_customer :
 		CommandTestFixture<CreateCustomerCommand, CreateCustomerCommandHandler, Customer>

@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace CQRSSample.Commands
+namespace Documently.Commands
 {
 	[Serializable]
 	public class RelocateCustomerCommand : Command

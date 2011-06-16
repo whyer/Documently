@@ -1,7 +1,7 @@
 using System;
 using CommonDomain.Persistence;
-using CQRSSample.Commands;
 using CQRSSample.Domain.Domain;
+using Documently.Commands;
 
 namespace CQRSSample.Domain.CommandHandlers
 {

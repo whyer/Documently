@@ -1,7 +1,7 @@
 using System;
 using Caliburn.Micro;
-using CQRSSample.Commands;
 using CQRSSample.Infrastructure;
+using Documently.Commands;
 
 namespace CQRSSample.WpfClient.Modules.CustomerDetails.CreateCustomer
 {

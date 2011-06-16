@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CommonDomain;
-using CQRSSample.Commands;
 using CQRSSample.Domain.CommandHandlers;
 using CQRSSample.Domain.Events;
+using Documently.Commands;
 using NUnit.Framework;
 
 namespace CQRSSample.Specs

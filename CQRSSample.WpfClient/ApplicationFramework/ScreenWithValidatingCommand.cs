@@ -1,5 +1,5 @@
 using Caliburn.Micro;
-using CQRSSample.Commands;
+using Documently.Commands;
 using FluentValidation;
 using FluentValidation.Results;
 

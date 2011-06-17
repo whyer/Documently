@@ -2,7 +2,7 @@ using System;
 using CommonDomain;
 using CommonDomain.Persistence;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public class AggregateFactory : IConstructAggregates
 	{

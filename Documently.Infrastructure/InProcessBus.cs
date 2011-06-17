@@ -7,7 +7,7 @@ using Documently.Domain.Events;
 using EventStore;
 using EventStore.Dispatcher;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public class InProcessBus : IBus, IPublishMessages
 	{

@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public class DelegateAdjuster
 	{

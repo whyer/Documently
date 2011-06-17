@@ -1,3 +1,4 @@
+using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -9,27 +10,29 @@ using EventStore.Dispatcher;
 using EventStore.Serialization;
 using MassTransit;
 
-namespace CQRSSample.Infrastructure.Installers
+namespace Documently.Infrastructure.Installers
 {
 	public class EventStoreInstaller : IWindsorInstaller
 	{
-		private readonly byte[] _encryptionKey = new byte[]
-		                                         	{
-		                                         		0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe,
-		                                         		0xf
-		                                         	};
+		private readonly byte[] _EncryptionKey = new byte[]
+		{
+			0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 
+			0xa, 0xb, 0xc, 0xd, 0xe, 0xf
+		};
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
 			//Bus
 			//var bus = new InProcessBus(container);
 			var bus = ServiceBusFactory.New(sbc =>
-			                                	{
-			                                		sbc.UseRabbitMq();
-													sbc.ReceiveFrom("rabbitmq://localhost/Documently");
-													sbc.UseRabbitMqRouting();
-			                                	});
+			{
+				sbc.UseRabbitMq();
+				sbc.ReceiveFrom("rabbitmq://localhost/Documently");
+				sbc.UseRabbitMqRouting();
+			});
+
 			var busAdapter = new MassTransitBusAdapter(bus);
+
 			container.Register(Component.For<IBus>().Instance(busAdapter));
 			var eventStore = GetInitializedEventStore(busAdapter);
 			var repository = new EventStoreRepository(eventStore, new AggregateFactory(), new ConflictDetector());
@@ -47,11 +50,12 @@ namespace CQRSSample.Infrastructure.Installers
 				.Build();
 		}
 
+		// possibility to encrypt everything stored
 		private ISerialize BuildSerializer()
 		{
 			var serializer = new JsonSerializer() as ISerialize;
 			serializer = new GzipSerializer(serializer);
-			return new RijndaelSerializer(serializer, _encryptionKey);
+			return new RijndaelSerializer(serializer, _EncryptionKey);
 		}
 	}
 }

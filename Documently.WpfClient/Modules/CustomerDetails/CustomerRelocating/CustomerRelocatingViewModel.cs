@@ -1,8 +1,8 @@
 using System;
 using Caliburn.Micro;
-using CQRSSample.Infrastructure;
 using CQRSSample.ReadModel;
 using Documently.Commands;
+using Documently.Infrastructure;
 using Documently.WpfClient.ApplicationFramework;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating

@@ -5,7 +5,7 @@ using CQRSSample.ReadModel;
 using Documently.Domain.Events;
 using Raven.Client;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public class BootStrapper
 	{

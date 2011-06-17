@@ -110,6 +110,8 @@
     <Compile Include="Modules\CustomerList\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\DocumentDetails\CreateMeta\CreateDocumentMetaDataViewModel.cs" />
+    <Compile Include="Modules\DocumentSearch\DocumentSearchViewModel.cs" />
     <Compile Include="Modules\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -201,8 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationFramework\Controls\" />
-    <Folder Include="Modules\DocumentDetails\" />
-    <Folder Include="Modules\DocumentList\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">

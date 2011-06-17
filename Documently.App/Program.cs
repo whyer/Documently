@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
-using CQRSSample.Infrastructure;
 using CQRSSample.ReadModel;
 using Castle.Windsor;
 using Documently.Commands;
+using Documently.Infrastructure;
 using Magnum;
 using Raven.Client;
 using Raven.Client.Document;
@@ -37,7 +37,7 @@ namespace CQRSSample.App
 				//Customer relocating (Write/Command)
 				RelocateCustomer(bus, aggregateId);
 
-				//show all customers [in memory] (Read/Query)
+				//show all customers [in RMQ] (Read/Query)
 				ShowCustomerListView(viewStore);
 			}
 			catch (WebException ex)

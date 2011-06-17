@@ -2,7 +2,7 @@
 using Documently.Commands;
 using Documently.Domain.Events;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public interface IBus
 	{

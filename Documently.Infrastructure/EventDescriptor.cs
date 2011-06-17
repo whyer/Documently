@@ -1,7 +1,7 @@
 using System;
 using Documently.Domain.Events;
 
-namespace CQRSSample.Infrastructure
+namespace Documently.Infrastructure
 {
 	public class EventDescriptor
 	{

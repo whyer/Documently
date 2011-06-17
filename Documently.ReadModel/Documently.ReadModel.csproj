@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="CustomerAddressDto.cs" />
     <Compile Include="CustomerAddressView.cs" />
+    <Compile Include="CustomerHasLivedInCitiesView.cs" />
+    <Compile Include="CustomerHasLivedInDto.cs" />
     <Compile Include="CustomerListDto.cs" />
     <Compile Include="CustomerListView.cs" />
     <Compile Include="Dto.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using CQRSSample.ReadModel;
 using Documently.Domain.Events;
 
-namespace CQRSSample.Infrastructure.Installers
+namespace Documently.Infrastructure.Installers
 {
 	public class EventHandlerHelper
 	{

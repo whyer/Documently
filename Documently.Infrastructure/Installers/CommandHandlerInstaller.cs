@@ -3,7 +3,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Documently.Domain.CommandHandlers;
 
-namespace CQRSSample.Infrastructure.Installers
+namespace Documently.Infrastructure.Installers
 {
 	public class CommandHandlerInstaller : IWindsorInstaller
 	{

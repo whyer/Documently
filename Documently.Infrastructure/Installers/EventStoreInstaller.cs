@@ -29,11 +29,15 @@ namespace Documently.Infrastructure.Installers
 				sbc.UseRabbitMq();
 				sbc.ReceiveFrom("rabbitmq://localhost/Documently");
 				sbc.UseRabbitMqRouting();
+				sbc.Subscribe(s => s.LoadFrom(container));
 			});
 
 			var busAdapter = new MassTransitBusAdapter(bus);
 
-			container.Register(Component.For<IBus>().Instance(busAdapter));
+			container.Register(
+				Component.For<IBus>().Instance(busAdapter),
+				Component.For<IServiceBus>().Instance(bus));
+
 			var eventStore = GetInitializedEventStore(busAdapter);
 			var repository = new EventStoreRepository(eventStore, new AggregateFactory(), new ConflictDetector());
 

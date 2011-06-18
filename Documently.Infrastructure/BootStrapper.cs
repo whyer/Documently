@@ -3,6 +3,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using CQRSSample.ReadModel;
 using Documently.Domain.Events;
+using MassTransit;
 using Raven.Client;
 
 namespace Documently.Infrastructure
@@ -21,23 +22,27 @@ namespace Documently.Infrastructure
 			// adds and configures all components using WindsorInstallers from executing assembly  
 			container.Install(FromAssembly.This());
 
-			SetupDomainEventHandlers(container.Resolve<IBus>(), container.Resolve<IDocumentStore>());
+			var view = SetupDomainEventHandlers(container.Resolve<IServiceBus>(), container.Resolve<IDocumentStore>());
 			//RegisterEventHandlersInBus.BootStrap(container);
+
+			container.Register(Component.For<CustomerListView>().Instance(view));
 
 			return container;
 		}
 
-		private static void SetupDomainEventHandlers(IBus bus, IDocumentStore documentStore)
+		private static CustomerListView SetupDomainEventHandlers(IServiceBus bus, IDocumentStore documentStore)
 		{
 			//TODO: Resolve through IoC
 
 			var view = new CustomerListView(documentStore);
-			bus.RegisterHandler<CustomerCreatedEvent>(view.Handle);
-			bus.RegisterHandler<CustomerRelocatedEvent>(view.Handle);
+			bus.SubscribeHandler<CustomerCreatedEvent>(view.Handle);
+			bus.SubscribeHandler<CustomerRelocatedEvent>(view.Handle);
 
 			var addressView = new CustomerAddressView(documentStore);
-			bus.RegisterHandler<CustomerCreatedEvent>(addressView.Handle);
-			bus.RegisterHandler<CustomerRelocatedEvent>(addressView.Handle);
+			bus.SubscribeHandler<CustomerCreatedEvent>(addressView.Handle);
+			bus.SubscribeHandler<CustomerRelocatedEvent>(addressView.Handle);
+
+			return view;
 		}
 	}
 }

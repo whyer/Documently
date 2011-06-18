@@ -18,10 +18,17 @@ namespace Documently.Domain.Domain
 
 		public Document(string title, DateTime utcCreated)
 		{
-			Id = CombGuid.Generate();
+			var @event = new DocumentMetaDataCreated(
+				 CombGuid.Generate(), title, DocumentState.Created, utcCreated);
 
-			RaiseEvent(new DocumentMetaDataCreated(
-				Id, title, DocumentState.Created, utcCreated));
+			Apply(@event);
+
+			RaiseEvent(@event);
+		}
+
+		public void Apply(DocumentMetaDataCreated evt)
+		{
+			Id = evt.AggregateId;
 		}
 
 		public void AssociateWithDocumentBlob(Guid blobId)
@@ -32,11 +39,6 @@ namespace Documently.Domain.Domain
 			};
 
 			RaiseEvent(evt);
-		}
-
-		public void Apply(DocumentMetaDataCreated evt)
-		{
-			Id = evt.AggregateId;
 		}
 	}
 }

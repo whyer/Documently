@@ -5,10 +5,11 @@ using Castle.Windsor;
 using Documently.Commands;
 using Documently.Infrastructure;
 using Magnum;
+using MassTransit;
 using Raven.Client;
 using Raven.Client.Document;
 
-namespace CQRSSample.App
+namespace Documently.App
 {
 	internal class Program
 	{
@@ -28,7 +29,7 @@ namespace CQRSSample.App
 			{
 				container = BootStrapper.BootStrap(viewStore);
 
-				var bus = container.Resolve<IBus>();
+				var bus = container.Resolve<IServiceBus>();
 				var aggregateId = CombGuid.Generate();
 
 				//create customer (Write/Command)
@@ -50,6 +51,7 @@ namespace CQRSSample.App
 			}
 			finally
 			{
+				Bus.Shutdown();
 				if (container != null) container.Dispose();
 			}
 			Console.WriteLine("Press any key to finish.");
@@ -76,17 +78,17 @@ namespace CQRSSample.App
 			}
 		}
 
-		private static void RelocateCustomer(IBus bus, Guid aggregateId)
+		private static void RelocateCustomer(IServiceBus bus, Guid aggregateId)
 		{
-			bus.Send(new RelocateCustomerCommand(aggregateId, "Messestraße", "2", "4444", "Linz"));
+			bus.Publish(new RelocateCustomerCommand(aggregateId, "Messestraße", "2", "4444", "Linz"));
 
 			Console.WriteLine("Customer relocated. Press any key to show list of customers.");
 			Console.ReadLine();
 		}
 
-		private static void CreateCustomer(IBus bus, Guid aggregateId)
+		private static void CreateCustomer(IServiceBus bus, Guid aggregateId)
 		{
-			bus.Send(new CreateCustomerCommand(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
+			bus.Publish(new CreateCustomerCommand(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
 			Console.WriteLine("Customer created. Press any key to relocate customer.");
 			Console.ReadLine();
 		}

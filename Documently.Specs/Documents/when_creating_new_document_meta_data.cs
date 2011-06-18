@@ -13,7 +13,7 @@ namespace CQRSSample.Specs.Documents
 	public class when_creating_new_document_meta_data
 		: CommandTestFixture<SaveDocumentMetaData, DocumentMetaDataHandler, Document>
 	{
-		private DateTime _Created = DateTime.UtcNow;
+		private readonly DateTime _Created = DateTime.UtcNow;
 
 		protected override SaveDocumentMetaData When()
 		{

@@ -2,7 +2,6 @@ using System;
 using CommonDomain.Persistence;
 using Documently.Commands;
 using Documently.Domain.Domain;
-using Magnum;
 using MassTransit;
 
 namespace Documently.Domain.CommandHandlers

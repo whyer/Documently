@@ -44,6 +44,7 @@
       <HintPath>..\packages\MassTransit.2.0.0.1\lib\NET40\MassTransit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandlers\CreateCustomerCommandHandler.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="CommandHandlers\RelocatingCustomerCommandHandler.cs" />
     <Compile Include="CommandHandlers\Handles.cs" />
     <Compile Include="CommandHandlers\TransactionHandler.cs" />
+    <Compile Include="CommandHandlers\TxHandler.cs" />
     <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\CustomerName.cs" />

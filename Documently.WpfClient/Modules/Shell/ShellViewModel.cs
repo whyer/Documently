@@ -16,7 +16,7 @@ namespace Documently.WpfClient.Modules.Shell
 	public class ShellViewModel : Conductor<object>,
 	                              IHandle<CreateCustomerSavedEvent>,
 	                              IHandle<ShowAddNewCustomerEvent>,
-	                              IHandle<ShowSearchCustomerEvent>,
+								  IHandle<ShowSearchCustomerEvent>,
 	                              IHandle<CustomerRelocatingSavedEvent>,
 	                              IHandle<ShowCustomerDetailsEvent>,
 		IHandle<DocumentMetaDataSaved>

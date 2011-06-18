@@ -1,13 +1,11 @@
 using System;
-using Documently.Commands;
-using Documently.Domain.Events;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
 
 namespace Documently.Infrastructure
 {
-	class MassTransitBusAdapter : IBus, IPublishMessages
+	internal class MassTransitBusAdapter : IBus, IPublishMessages
 	{
 		private readonly IServiceBus _Bus;
 
@@ -16,12 +14,12 @@ namespace Documently.Infrastructure
 			_Bus = bus;
 		}
 
-		public void Send<T>(T command) where T : Command
+		void IBus.Send<T>(T command)
 		{
 			_Bus.Publish(command);
 		}
 
-		public void RegisterHandler<T>(Action<T> handler) where T : DomainEvent
+		void IBus.RegisterHandler<T>(Action<T> handler)
 		{
 			_Bus.SubscribeHandler(handler);
 		}
@@ -31,7 +29,7 @@ namespace Documently.Infrastructure
 			_Bus.Dispose();
 		}
 
-		public void Publish(Commit commit)
+		void IPublishMessages.Publish(Commit commit)
 		{
 			_Bus.Publish(commit);
 		}

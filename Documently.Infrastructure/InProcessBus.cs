@@ -23,8 +23,7 @@ namespace Documently.Infrastructure
 
 		public void Send<T>(T command) where T : Command
 		{
-			var transactionHandler = new TransactionHandler();
-			transactionHandler.Execute(command, GetCommandHandlerForCommand<T>());
+			GetCommandHandlerForCommand<T>().Handle(command);
 		}
 
 		public void RegisterHandler<T>(Action<T> handler) where T : DomainEvent

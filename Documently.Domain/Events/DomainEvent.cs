@@ -8,6 +8,9 @@ namespace Documently.Domain.Events
 	//    int Version { get; set; }
 	//}
 
+	/// <summary>
+	/// Denotes an event in the domain model.
+	/// </summary>
 	[Serializable]
 	public abstract class DomainEvent
 	{
@@ -15,18 +18,19 @@ namespace Documently.Domain.Events
 		{
 		}
 
-		protected DomainEvent(Guid aggregateId)
+		protected DomainEvent(Guid aggregateId, uint aggregateVersion)
 		{
-			_AggregateId = aggregateId;
+			AggregateId = aggregateId;
+			Version = aggregateVersion;
 		}
 
-		private Guid _AggregateId;
-		public Guid AggregateId
-		{
-			get { return _AggregateId; }
-			set { _AggregateId = value; }
-		}
+		public Guid AggregateId { get; set; }
 
-		//public int Version { get; set; }
+		/// <summary>
+		/// Gets the version of the aggregate which this event corresponds to.
+		/// E.g. CreateNewCustomerCommand would map to (:NewCustomerCreated).Version = 1,
+		/// as that event corresponds to the creation of the customer.
+		/// </summary>
+		public uint Version { get; private set; }
 	}
 }

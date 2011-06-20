@@ -33,10 +33,7 @@ namespace Documently.Domain.Domain
 
 		public void AssociateWithDocumentBlob(Guid blobId)
 		{
-			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId)
-			{
-				AggregateId = Id
-			};
+			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId, Id, (uint)Version + 1);
 
 			RaiseEvent(evt);
 		}

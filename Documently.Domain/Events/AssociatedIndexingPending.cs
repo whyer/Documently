@@ -9,7 +9,7 @@ namespace Documently.Domain.Events
 		private readonly DocumentState _ProcessingState;
 		private readonly Guid _BlobId;
 
-		public AssociatedIndexingPending(DocumentState processingState, Guid blobId)
+		public AssociatedIndexingPending(DocumentState processingState, Guid blobId, Guid arId, uint version) : base(arId, version)
 		{
 			_ProcessingState = processingState;
 			_BlobId = blobId;

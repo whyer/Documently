@@ -53,7 +53,7 @@ complex .NET libraries like Windows Forms or ASP.NET from F#.";
 			var bus = new Bus();
 			var ar = CombGuid.Generate();
 			Consumes<AssociatedIndexingPending>.All s = new IndexerService(bus, Path.Combine(Environment.CurrentDirectory, _Tmp, _BlobId.ToString()));
-			s.Consume(new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, _BlobId) { AggregateId = ar});
+			s.Consume(new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, _BlobId, ar, 2));
 			bus.Published.Should().Be.InstanceOf<DocumentIndexed>();
 			((DocumentIndexed) bus.Published).AggregateId.Equals(ar).Should().Be.True();
 		}

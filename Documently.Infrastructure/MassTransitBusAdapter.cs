@@ -2,6 +2,7 @@ using System;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
+using Magnum.Reflection;
 
 namespace Documently.Infrastructure
 {
@@ -31,7 +32,18 @@ namespace Documently.Infrastructure
 
 		void IPublishMessages.Publish(Commit commit)
 		{
+			commit.Events.ForEach(@event =>
+				{
+					this.FastInvoke("PublishEvent", @event.Body);
+				});
+				
 			_Bus.Publish(commit);
+		}
+
+		void PublishEvent<T>(T message)
+			where T : class
+		{
+			_Bus.Publish(message);
 		}
 	}
 }

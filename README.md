@@ -23,6 +23,8 @@ require RabbitMQ. In the future I might remove the requirement on the message br
    only ~\.erlang.cookie.
 2. Run the sample as above.
 
+CommonDomain documentation at https://github.com/haf/CommonDomain/wiki/Intro-to-Common-Domain
+
 ###TODO
 
 * Wpf GUI for the document stuff

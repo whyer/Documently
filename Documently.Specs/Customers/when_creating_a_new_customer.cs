@@ -4,6 +4,7 @@ using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
 using Documently.Domain.Events;
 using NUnit.Framework;
+using SharpTestsEx;
 
 namespace CQRSSample.Specs.Customers
 {
@@ -30,16 +31,16 @@ namespace CQRSSample.Specs.Customers
 		[Test]
 		public void Then_the_published_event_will_contain_the_address_of_the_client()
 		{
-			PublishedEvents.Last<CustomerCreatedEvent>().Street.WillBe("Ringstraﬂe");
-			PublishedEvents.Last<CustomerCreatedEvent>().StreetNumber.WillBe("1");
-			PublishedEvents.Last<CustomerCreatedEvent>().PostalCode.WillBe("1010");
-			PublishedEvents.Last<CustomerCreatedEvent>().City.WillBe("Wien");
+			PublishedEvents.Last<CustomerCreatedEvent>().Street.Should().Be.EqualTo("Ringstraﬂe");
+			PublishedEvents.Last<CustomerCreatedEvent>().StreetNumber.Should().Be.EqualTo("1");
+			PublishedEvents.Last<CustomerCreatedEvent>().PostalCode.Should().Be.EqualTo("1010");
+			PublishedEvents.Last<CustomerCreatedEvent>().City.Should().Be.EqualTo("Wien");
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_phone_number_of_the_client()
 		{
-			PublishedEvents.Last<CustomerCreatedEvent>().PhoneNumber.WillBe("01/123456");
+			PublishedEvents.Last<CustomerCreatedEvent>().PhoneNumber.Should().Be.EqualTo("01/123456");
 		}
 	}
 }

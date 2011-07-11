@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Documently.Infrastructure
 {
-	public class DelegateAdjuster
+	public static class DelegateAdjuster
 	{
 		public static Action<BaseT> CastArgument<BaseT, DerivedT>(Expression<Action<DerivedT>> source) where DerivedT : BaseT
 		{

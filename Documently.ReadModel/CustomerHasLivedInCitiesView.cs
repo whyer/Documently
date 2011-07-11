@@ -1,7 +1,7 @@
 using Documently.Domain.Events;
 using Raven.Client;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	class CustomerHasLivedInCitiesView : HandlesEvent<CustomerCreatedEvent>, HandlesEvent<CustomerRelocatedEvent>
 	{
@@ -12,7 +12,7 @@ namespace CQRSSample.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Handle(CustomerCreatedEvent @event)
+		public void Consume(CustomerCreatedEvent @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
@@ -22,7 +22,7 @@ namespace CQRSSample.ReadModel
 			}
 		}
 
-		public void Handle(CustomerRelocatedEvent @event)
+		public void Consume(CustomerRelocatedEvent @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{

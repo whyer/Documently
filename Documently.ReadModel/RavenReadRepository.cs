@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Raven.Client;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public class RavenReadRepository : IReadRepository
 	{

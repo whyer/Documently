@@ -9,7 +9,8 @@ namespace Documently.Infrastructure
 		public IAggregate Build(Type type, Guid id, IMemento snapshot)
 		{
 			//return Activator.CreateInstance(type, id) as IAggregate; 
-			return Activator.CreateInstance(type) as IAggregate; // todo
+			// Note: here we could provide some nice AOP support!
+			return Activator.CreateInstance(type) as IAggregate;
 		}
 	}
 }

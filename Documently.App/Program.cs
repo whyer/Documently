@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
-using CQRSSample.ReadModel;
 using Castle.Windsor;
 using Documently.Commands;
 using Documently.Infrastructure;
+using Documently.ReadModel;
 using Magnum;
 using MassTransit;
 using Raven.Client;

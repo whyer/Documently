@@ -70,16 +70,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregateFactory.cs" />
+    <Compile Include="DomainInfrastructure\AggregateFactory.cs" />
     <Compile Include="BootStrapper.cs" />
-    <Compile Include="DelegateAdjuster.cs" />
-    <Compile Include="EventDescriptor.cs" />
+    <Compile Include="Misc\DelegateAdjuster.cs" />
+    <Compile Include="Misc\EventDescriptor.cs" />
     <Compile Include="IBus.cs" />
     <Compile Include="InProcessBus.cs" />
     <Compile Include="Installers\CommandHandlerInstaller.cs" />
-    <Compile Include="Installers\EventHandlerHelper.cs" />
+    <Compile Include="Misc\EventHandlerHelper.cs" />
     <Compile Include="Installers\EventStoreInstaller.cs" />
-    <Compile Include="MassTransitBusAdapter.cs" />
+    <Compile Include="Installers\BusInstaller.cs" />
+    <Compile Include="MassTransitPublisher.cs" />
     <Compile Include="Installers\ReadRepositoryInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterEventHandlersInBus.cs" />

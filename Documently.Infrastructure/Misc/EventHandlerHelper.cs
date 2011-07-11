@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CQRSSample.ReadModel;
 using Documently.Domain.Events;
+using Documently.ReadModel;
 
 namespace Documently.Infrastructure.Installers
 {
-	public class EventHandlerHelper
+	public static class EventHandlerHelper
 	{
 		public static IDictionary<Type, IList<Type>> GetEventHandlers()
 		{
@@ -17,6 +17,7 @@ namespace Documently.Infrastructure.Installers
 				.Where(x => x.GetInterfaces().Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof (HandlesEvent<>)))
 				.ToList()
 				.ForEach(x => AddItem(handlers, x));
+
 			return handlers;
 		}
 

@@ -1,7 +1,7 @@
 using Documently.Domain.Events;
 using Raven.Client;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public class CustomerAddressView : HandlesEvent<CustomerCreatedEvent>, HandlesEvent<CustomerRelocatedEvent>
 	{
@@ -12,7 +12,7 @@ namespace CQRSSample.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Handle(CustomerRelocatedEvent @event)
+		public void Consume(CustomerRelocatedEvent @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
@@ -25,19 +25,19 @@ namespace CQRSSample.ReadModel
 			}
 		}
 
-		public void Handle(CustomerCreatedEvent @event)
+		public void Consume(CustomerCreatedEvent @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
 				var dto = new CustomerAddressDto
-				          	{
-				          		AggregateRootId = @event.AggregateId,
-				          		CustomerName = @event.CustomerName,
-				          		Street = @event.Street,
-				          		StreetNumber = @event.StreetNumber,
-				          		PostalCode = @event.PostalCode,
-				          		City = @event.City
-				          	};
+				{
+					AggregateRootId = @event.AggregateId,
+					CustomerName = @event.CustomerName,
+					Street = @event.Street,
+					StreetNumber = @event.StreetNumber,
+					PostalCode = @event.PostalCode,
+					City = @event.City
+				};
 				session.Store(dto);
 				session.SaveChanges();
 			}

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public class CustomerHasLivedInDto : Dto
 	{

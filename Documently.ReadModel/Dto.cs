@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public abstract class Dto
 	{

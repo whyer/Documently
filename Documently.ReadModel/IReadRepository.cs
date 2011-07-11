@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public interface IReadRepository
 	{

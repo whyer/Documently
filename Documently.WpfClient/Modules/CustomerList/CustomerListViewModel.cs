@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using CQRSSample.ReadModel;
 using Caliburn.Micro;
+using Documently.ReadModel;
 
 namespace Documently.WpfClient.Modules.CustomerList
 {

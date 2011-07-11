@@ -6,49 +6,60 @@ using Documently.Domain.CommandHandlers;
 using Documently.Domain.Events;
 using EventStore;
 using EventStore.Dispatcher;
+using MassTransit;
+using MassTransit.Pipeline;
 
 namespace Documently.Infrastructure
 {
-	public class InProcessBus : IBus, IPublishMessages
+	public class InProcessBus : IBus, IPublishMessages, IServiceBus
 	{
-		private readonly IWindsorContainer _container;
+		private readonly IWindsorContainer _Container;
 
-		private readonly Dictionary<Type, List<Action<DomainEvent>>> _routes =
+		private readonly Dictionary<Type, List<Action<DomainEvent>>> _Routes =
 			new Dictionary<Type, List<Action<DomainEvent>>>();
 
 		public InProcessBus(IWindsorContainer container)
 		{
-			_container = container;
+			_Container = container;
 		}
 
-		public void Send<T>(T command) where T : Command
+		void IServiceBus.Publish<T>(T message, Action<IPublishContext<T>> contextCallback)
 		{
-			GetCommandHandlerForCommand<T>().Handle(command);
+			throw new NotImplementedException(); // Ignore?
 		}
 
-		public void RegisterHandler<T>(Action<T> handler) where T : DomainEvent
+		void IBus.Send<T>(T command)
 		{
-			List<Action<DomainEvent>> handlers;
-			if (!_routes.TryGetValue(typeof (T), out handlers))
-			{
-				handlers = new List<Action<DomainEvent>>();
-				_routes.Add(typeof (T), handlers);
-			}
-			handlers.Add(DelegateAdjuster.CastArgument<DomainEvent, T>(x => handler(x)));
+			if (command == null) throw new ArgumentNullException("command");
+			GetCommandHandlerForCommand<T>()
+				.Handle(command);
 		}
 
 		private Handles<T> GetCommandHandlerForCommand<T>() where T : Command
 		{
-			return _container.Resolve<Handles<T>>();
+			return _Container.Resolve<Handles<T>>();
 		}
 
-		public void Publish(Commit commit)
+		void IBus.RegisterHandler<T>(Action<T> handler)
+		{
+			List<Action<DomainEvent>> handlers;
+			if (!_Routes.TryGetValue(typeof (T), out handlers))
+			{
+				handlers = new List<Action<DomainEvent>>();
+				_Routes.Add(typeof (T), handlers);
+			}
+			handlers.Add(DelegateAdjuster.CastArgument<DomainEvent, T>(x => handler(x)));
+		}
+
+		void IPublishMessages.Publish(Commit commit)
 		{
 			foreach (var @event in commit.Events)
 			{
 				List<Action<DomainEvent>> handlers;
 
-				if (!_routes.TryGetValue(@event.Body.GetType(), out handlers)) return;
+				if (!_Routes.TryGetValue(@event.Body.GetType(), out handlers)) 
+					return;
+
 				foreach (var handler in handlers)
 				{
 					//dispatch on thread pool for added awesomeness
@@ -57,6 +68,46 @@ namespace Documently.Infrastructure
 					handler((DomainEvent) @event.Body);
 				}
 			}
+		}
+
+		TService IServiceBus.GetService<TService>()
+		{
+			throw new NotSupportedException();
+		}
+
+		IEndpoint IServiceBus.GetEndpoint(Uri address)
+		{
+			throw new NotImplementedException();
+		}
+
+		UnsubscribeAction IServiceBus.Configure(Func<IInboundPipelineConfigurator, UnsubscribeAction> configure)
+		{
+			throw new NotSupportedException();
+		}
+
+		IEndpoint IServiceBus.Endpoint
+		{
+			get { throw new NotSupportedException(); }
+		}
+
+		IInboundMessagePipeline IServiceBus.InboundPipeline
+		{
+			get { throw new NotSupportedException(); }
+		}
+
+		IOutboundMessagePipeline IServiceBus.OutboundPipeline
+		{
+			get { throw new NotSupportedException(); }
+		}
+
+		IServiceBus IServiceBus.ControlBus
+		{
+			get { throw new NotSupportedException(); }
+		}
+
+		IEndpointCache IServiceBus.EndpointCache
+		{
+			get { throw new NotSupportedException(); }
 		}
 
 		public void Dispose()

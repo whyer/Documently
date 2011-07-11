@@ -1,9 +1,9 @@
 using Documently.Domain.Events;
+using MassTransit;
 
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
-	public interface HandlesEvent<in T> where T : DomainEvent
+	public interface HandlesEvent<T> : Consumes<T>.All where T : DomainEvent
 	{
-		void Handle(T domainEvent);
 	}
 }

@@ -2,11 +2,15 @@
 using System.Linq;
 using System.Reflection;
 using Castle.Windsor;
-using CQRSSample.ReadModel;
 using Documently.Domain.Events;
+using Documently.ReadModel;
 
 namespace Documently.Infrastructure
 {
+	/// <summary>
+	/// Helper class that registers all types implementing <see cref="HandlesEvent{T}"/>
+	/// in the container.
+	/// </summary>
 	public class RegisterEventHandlersInBus
 	{
 		private static MethodInfo _createPublishActionMethod;
@@ -27,7 +31,8 @@ namespace Documently.Infrastructure
 			var handlers = typeof (CustomerListView)
 				.Assembly
 				.GetExportedTypes()
-				.Where(x => x.GetInterfaces().Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof (HandlesEvent<>)))
+				.Where(x => x.GetInterfaces()
+					.Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof (HandlesEvent<>)))
 				.ToList();
 
 			foreach (var handlerType in handlers)
@@ -48,7 +53,7 @@ namespace Documently.Infrastructure
 			where TMessage : DomainEvent
 			where TMessageHandler : HandlesEvent<TMessage>
 		{
-			return messageHandler.Handle;
+			return messageHandler.Consume;
 		}
 
 		private void RegisterTheCreatedAction(IBus bus, Type handleEventType, object action)

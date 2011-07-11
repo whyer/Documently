@@ -1,6 +1,6 @@
 using System;
-using CQRSSample.ReadModel;
 using Caliburn.Micro;
+using Documently.ReadModel;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 {

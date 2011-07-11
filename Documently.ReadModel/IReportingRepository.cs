@@ -1,4 +1,4 @@
-namespace CQRSSample.ReadModel
+namespace Documently.ReadModel
 {
 	public interface IReportingRepository
 	{

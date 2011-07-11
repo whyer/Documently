@@ -1,7 +1,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using CQRSSample.ReadModel;
+using Documently.ReadModel;
 
 namespace Documently.Infrastructure.Installers
 {

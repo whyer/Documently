@@ -1,7 +1,7 @@
 using System;
-using CQRSSample.ReadModel;
 using Caliburn.Micro;
 using Documently.Infrastructure;
+using Documently.ReadModel;
 using Documently.WpfClient.Modules.CustomerDetails;
 using Documently.WpfClient.Modules.CustomerDetails.CreateCustomer;
 using Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview;

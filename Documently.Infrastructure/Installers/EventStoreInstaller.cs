@@ -22,24 +22,10 @@ namespace Documently.Infrastructure.Installers
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			//Bus
-			//var bus = new InProcessBus(container);
-			var bus = ServiceBusFactory.New(sbc =>
-			{
-				sbc.UseRabbitMq();
-				sbc.ReceiveFrom("rabbitmq://localhost/Documently");
-				sbc.UseRabbitMqRouting();
-				sbc.Subscribe(s => s.LoadFrom(container));
-			});
-
-			var busAdapter = new MassTransitBusAdapter(bus);
-
-			container.Register(
-				Component.For<IBus>().Instance(busAdapter),
-				Component.For<IServiceBus>().Instance(bus));
-
-			var eventStore = GetInitializedEventStore(busAdapter);
-			var repository = new EventStoreRepository(eventStore, new AggregateFactory(), new ConflictDetector());
+			var eventStore = GetInitializedEventStore(container.Resolve<IPublishMessages>());
+			var repository = new EventStoreRepository(eventStore,
+				new AggregateFactory(),
+				new ConflictDetector());
 
 			container.Register(Component.For<IStoreEvents>().Instance(eventStore));
 			container.Register(Component.For<IRepository>().Instance(repository));
@@ -49,7 +35,8 @@ namespace Documently.Infrastructure.Installers
 		{
 			return Wireup.Init()
 				//.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, new ByteStreamDocumentSerializer(BuildSerializer()))
-				.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, new NullDocumentSerializer())
+				.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, 
+					new ByteStreamDocumentSerializer(new JsonSerializer()))
 				.UsingSynchronousDispatcher(bus)
 				.Build();
 		}

@@ -6,11 +6,11 @@ using Magnum.Reflection;
 
 namespace Documently.Infrastructure
 {
-	internal class MassTransitBusAdapter : IBus, IPublishMessages
+	internal class MassTransitPublisher : IBus, IPublishMessages
 	{
 		private readonly IServiceBus _Bus;
 
-		public MassTransitBusAdapter(IServiceBus bus)
+		public MassTransitPublisher(IServiceBus bus)
 		{
 			_Bus = bus;
 		}
@@ -36,8 +36,6 @@ namespace Documently.Infrastructure
 				{
 					this.FastInvoke("PublishEvent", @event.Body);
 				});
-				
-			_Bus.Publish(commit);
 		}
 
 		void PublishEvent<T>(T message)

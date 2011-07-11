@@ -8,8 +8,8 @@
     <ProjectGuid>{6E654F57-BF65-463C-82C6-DB360D0F844D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CQRSSample.ReadModel</RootNamespace>
-    <AssemblyName>CQRSSample.ReadModel</AssemblyName>
+    <RootNamespace>Documently.ReadModel</RootNamespace>
+    <AssemblyName>Documently.ReadModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,6 +34,7 @@
     <Reference Include="EventStore.Persistence.RavenPersistence">
       <HintPath>..\External Libs\CommonDomain\bin\EventStore.Persistence.RavenPersistence.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>

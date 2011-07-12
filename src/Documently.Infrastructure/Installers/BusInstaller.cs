@@ -1,6 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EventStore.Dispatcher;
 using MassTransit;
 
 namespace Documently.Infrastructure.Installers
@@ -29,14 +30,14 @@ namespace Documently.Infrastructure.Installers
 				sbc.UseRabbitMq();
 				sbc.ReceiveFrom(_EndpointUri);
 				sbc.UseRabbitMqRouting();
-				sbc.Subscribe(s => s.LoadFrom(container));
+				sbc.Subscribe(c => c.LoadFrom(container));
 			});
-
+			
 			var busAdapter = new MassTransitPublisher(bus);
-
+			
 			container.Register(
 				Component.For<IServiceBus>().Instance(bus),
-				Component.For<IBus>().Instance(busAdapter));
+				Component.For<IBus>().Instance(busAdapter).Forward<IPublishMessages>());
 		}
 	}
 }

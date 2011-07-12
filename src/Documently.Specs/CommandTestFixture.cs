@@ -5,6 +5,7 @@ using CommonDomain;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Events;
+using MassTransit;
 using NUnit.Framework;
 using System.Linq;
 
@@ -13,11 +14,11 @@ namespace CQRSSample.Specs
 	[TestFixture]
 	public abstract class CommandTestFixture<TCommand, TCommandHandler, TAggregateRoot>
 		where TCommand : Command
-		where TCommandHandler : class, Handles<TCommand>
+		where TCommandHandler : class, Consumes<TCommand>.All
 		where TAggregateRoot : IAggregate, new()
 	{
 		protected TAggregateRoot AggregateRoot;
-		protected Handles<TCommand> CommandHandler;
+		protected Consumes<TCommand>.All CommandHandler;
 		protected Exception CaughtException;
 		protected ICollection PublishedEvents;
 		protected IEnumerable<DomainEvent> PublishedEventsT { get { return PublishedEvents.Cast<DomainEvent>(); } } 
@@ -64,7 +65,7 @@ namespace CQRSSample.Specs
 			}
 		}
 
-		private Handles<TCommand> BuildCommandHandler()
+		private Consumes<TCommand>.All BuildCommandHandler()
 		{
 			return Activator.CreateInstance(typeof(TCommandHandler), Repository) as TCommandHandler;
 		}

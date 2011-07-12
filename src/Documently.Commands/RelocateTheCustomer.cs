@@ -11,6 +11,10 @@ namespace Documently.Commands
 		public string PostalCode { get; set; }
 		public string City { get; set; }
 
+		public RelocateTheCustomer()
+		{
+		}
+
 		public RelocateTheCustomer(Guid id) : base(id)
 		{
 		}

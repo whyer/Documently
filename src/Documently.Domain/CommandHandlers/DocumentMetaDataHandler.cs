@@ -6,11 +6,11 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public class DocumentMetaDataHandler : Handles<SaveDocumentMetaData>
+	public class DocumentMetaDataHandler : Consumes<SaveDocumentMetaData>.All
 	{
-		private readonly IRepository _Repo;
+		private readonly Func<IRepository> _Repo;
 
-		public DocumentMetaDataHandler(IRepository repo)
+		public DocumentMetaDataHandler(Func<IRepository> repo)
 		{
 			if (repo == null) throw new ArgumentNullException("repo");
 			_Repo = repo;
@@ -18,7 +18,7 @@ namespace Documently.Domain.CommandHandlers
 
 		public void Consume(SaveDocumentMetaData command)
 		{
-			_Repo.Save(new Document(command.Title, command.UtcTime), command.Id, null);
+			_Repo().Save(new Document(command.Title, command.UtcTime), command.Id, null);
 		}
 	}
 }

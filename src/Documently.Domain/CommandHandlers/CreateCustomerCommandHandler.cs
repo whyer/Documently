@@ -1,27 +1,31 @@
+using System;
 using CommonDomain.Persistence;
 using Documently.Commands;
 using Documently.Domain.Domain;
 using Magnum;
+using MassTransit;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public class CreateCustomerCommandHandler : Handles<CreateNewCustomer>
+	public class CreateCustomerCommandHandler : Consumes<CreateNewCustomer>.All
 	{
-		private readonly IRepository _Repository;
+		private readonly Func<IRepository> _Repository;
 
-		public CreateCustomerCommandHandler(IRepository repository)
+		public CreateCustomerCommandHandler(Func<IRepository> repository)
 		{
 			_Repository = repository;
 		}
 
 		public void Consume(CreateNewCustomer command)
 		{
+			var repo = _Repository();
+
 			var client = Customer.CreateNew(command.Id, new CustomerName(command.CustomerName),
 			                                new Address(command.Street, command.StreetNumber,
 			                                            command.PostalCode, command.City),
 			                                new PhoneNumber(command.PhoneNumber));
 
-			_Repository.Save(client, CombGuid.Generate(), null);
+			repo.Save(client, CombGuid.Generate(), null);
 		}
 	}
 }

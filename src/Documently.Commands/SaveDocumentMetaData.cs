@@ -8,6 +8,10 @@ namespace Documently.Commands
 		private readonly string _Title;
 		private readonly DateTime _UtcTime;
 
+		public SaveDocumentMetaData()
+		{
+		}
+
 		public SaveDocumentMetaData(Guid id, string title, DateTime utcTime) : base(id)
 		{
 			_Title = title;

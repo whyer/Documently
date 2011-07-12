@@ -10,6 +10,10 @@ namespace Documently.Domain.Events
 		public readonly string PostalCode;
 		public readonly string City;
 
+		public CustomerRelocatedEvent()
+		{
+		}
+
 		public CustomerRelocatedEvent(Guid id, string street, string streetNumber, string postalCode, string city)
 		{
 			AggregateId = id;

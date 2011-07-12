@@ -35,9 +35,9 @@ namespace Documently.Infrastructure
 				.Consume(command);
 		}
 
-		private Handles<T> GetCommandHandlerForCommand<T>() where T : Command
+		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : Command
 		{
-			return _Container.Resolve<Handles<T>>();
+			return _Container.Resolve<Consumes<T>.All>();
 		}
 
 		void IBus.RegisterHandler<T>(Action<T> handler)

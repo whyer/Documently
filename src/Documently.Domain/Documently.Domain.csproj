@@ -57,7 +57,6 @@
     <Compile Include="CommandHandlers\DocumentIndexingHandler.cs" />
     <Compile Include="CommandHandlers\DocumentMetaDataHandler.cs" />
     <Compile Include="CommandHandlers\RelocatingCustomerCommandHandler.cs" />
-    <Compile Include="CommandHandlers\Handles.cs" />
     <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\CustomerName.cs" />

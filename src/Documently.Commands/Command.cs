@@ -4,8 +4,12 @@ namespace Documently.Commands
 {
 	public abstract class Command
 	{
-		public readonly Guid Id;
-		public readonly int Version;
+		public Guid Id { get; protected set; }
+		public int Version { get; protected set; }
+
+		protected Command()
+		{
+		}
 
 		protected Command(Guid id)
 		{

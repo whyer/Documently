@@ -7,6 +7,10 @@ namespace Documently.Commands
 	{
 		private readonly Guid _BlobId;
 
+		public InitializeDocumentIndexing()
+		{
+		}
+
 		public InitializeDocumentIndexing(Guid aggregateId, Guid blobId) : base(aggregateId)
 		{
 			_BlobId = blobId;

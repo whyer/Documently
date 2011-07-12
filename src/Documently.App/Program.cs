@@ -9,16 +9,22 @@ using Documently.ReadModel;
 using Magnum;
 using MassTransit;
 using Raven.Client;
+using log4net;
+using log4net.Config;
 
 namespace Documently.App
 {
 	internal class Program
 	{
+		private static readonly ILog _Logger = LogManager.GetLogger(typeof (Program));
+		
 		private IWindsorContainer _Container;
 
 		private static void Main()
 		{
 			Description();
+			XmlConfigurator.Configure();
+
 			var p = new Program();
 			try { p.Start(); }
 			finally { p.Stop(); }
@@ -28,6 +34,7 @@ namespace Documently.App
 		{
 			try
 			{
+				_Logger.Info("installing and setting up components");
 				_Container = new WindsorContainer()
 					.Install(
 						new RavenDbServerInstaller(),
@@ -39,22 +46,31 @@ namespace Documently.App
 
 				var customerId = CombGuid.Generate();
 
+				Console.WriteLine("create new customer by pressing a key");
+				Console.ReadKey(true);
+
 				//create customer (Write/Command)
 				CreateCustomer(customerId);
 
+				Console.WriteLine("Customer created. Press any key to relocate customer.");
+				Console.ReadKey(true);
+
 				//Customer relocating (Write/Command)
 				RelocateCustomer(customerId);
+
+				Console.WriteLine("Customer relocated. Press any key to show list of customers.");
+				Console.ReadKey(true);
 
 				//show all customers [in RMQ] (Read/Query)
 				ShowCustomerListView();
 			}
 			catch (WebException ex)
 			{
-				Console.WriteLine(@"Unable to connect to RavenDB Server. Have you started 'RavenDB\Server\Raven.Server.exe'?");
+				_Logger.Error(@"Unable to connect to RavenDB Server. Have you started 'RavenDB\Server\Raven.Server.exe'?", ex);
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("Fehler: " + ex.Message);
+				_Logger.Error("exception thrown", ex);
 			}
 
 			Console.WriteLine("Press any key to finish.");
@@ -72,6 +88,7 @@ namespace Documently.App
 		private void ShowCustomerListView()
 		{
 			var store = _Container.Resolve<IDocumentStore>();
+
 			using (var session = store.OpenSession())
 			{
 				foreach (var dto in session.Query<CustomerListDto>())
@@ -86,18 +103,12 @@ namespace Documently.App
 		{
 			GetDomainService()
 				.Send(new CreateNewCustomer(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
-
-			Console.WriteLine("Customer created. Press any key to relocate customer.");
-			Console.ReadLine();
 		}
 
 		private void RelocateCustomer(Guid customerId)
 		{
 			GetDomainService()
 				.Send(new RelocateTheCustomer(customerId, "Messestraße", "2", "4444", "Linz"));
-
-			Console.WriteLine("Customer relocated. Press any key to show list of customers.");
-			Console.ReadLine();
 		}
 
 		private IEndpoint GetDomainService()

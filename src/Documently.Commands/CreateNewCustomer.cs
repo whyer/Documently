@@ -12,6 +12,10 @@ namespace Documently.Commands
 		public string City { get; set; }
 		public string PhoneNumber { get; set; }
 
+		public CreateNewCustomer()
+		{
+		}
+
 		public CreateNewCustomer(Guid id) : base(id)
 		{
 		}

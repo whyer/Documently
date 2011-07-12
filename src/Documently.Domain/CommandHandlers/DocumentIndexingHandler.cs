@@ -7,12 +7,12 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public class DocumentIndexingHandler : Handles<InitializeDocumentIndexing>
+	public class DocumentIndexingHandler : Consumes<InitializeDocumentIndexing>.All
 	{
-		private readonly IRepository _Repo;
+		private readonly Func<IRepository> _Repo;
 		//private readonly IServiceBus _Bus;
 
-		public DocumentIndexingHandler(IRepository repo)
+		public DocumentIndexingHandler(Func<IRepository> repo)
 		{
 			if (repo == null) throw new ArgumentNullException("repo");
 			_Repo = repo;
@@ -21,10 +21,11 @@ namespace Documently.Domain.CommandHandlers
 
 		public void Consume(InitializeDocumentIndexing command)
 		{
-			var doc = _Repo.GetById<Document>(command.Id, command.Version);
+			var repo = _Repo();
+			var doc = repo.GetById<Document>(command.Id, command.Version);
 			doc.AssociateWithDocumentBlob(command.BlobId);
 			//_Bus.Context().Respond();
-			_Repo.Save(doc, CombGuid.Generate(), null);
+			repo.Save(doc, CombGuid.Generate(), null);
 		}
 	}
 }

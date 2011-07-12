@@ -12,6 +12,10 @@ namespace Documently.Domain.Events
 		public readonly string City;
 		public readonly string PhoneNumber;
 
+		public CustomerCreatedEvent()
+		{
+		}
+
 		public CustomerCreatedEvent(Guid id, string customerName, string street, string streetNumber, string postalCode,
 		                            string city, string phoneNumber)
 		{

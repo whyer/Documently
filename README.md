@@ -1,6 +1,14 @@
-#Documently
+# Documently
 
-Documently is a document indexer written with CQRS as a sample project to show system architecture with CQRS.
+This is a sample application that showcases an CQRS architecture with Event Sourcing and Domain Driven Design with a number of excellent open source software technologies. I (Henrik) want to make it easy for people to get started with this architecture - why not try to maximize developer happiness and make the world a better place?
+
+In its current iteration, documently is not complete, but it is runnable and you can learn the basic concepts of CQRS from it. These concepts include the domain-side of things (with aggregate roots, entities and value objects), a service bus that takes care of message handling, two different client implementations (Console + WPF) and a F# indexer service that uses *Support Vector Machines* to parse and index the documents.
+
+## Getting started
+
+The *getting started* section assumes you are standing in the root of the solution, where you can see the 'src' directory.
+
+ 1. Start the event-store and view-store - Raven.
 
 RavenDB is used as the eventstore and for the read side and must 
 be started by going starting `External Libs\Raven\Server\Raven.Server.exe`.

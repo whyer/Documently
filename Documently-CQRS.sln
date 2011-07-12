@@ -21,6 +21,12 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Documently.Indexer", "Docum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Indexer.Tests", "Documently.Indexer.Tests\Documently.Indexer.Tests.csproj", "{16D63804-64C8-4B36-A10B-E894C320B793}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{8F360B84-9B2F-4986-953B-CCAEBB8A384F}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\license.txt = Docs\license.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

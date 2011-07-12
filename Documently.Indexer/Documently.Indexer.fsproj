@@ -33,7 +33,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonDomain">
-      <HintPath>..\External Libs\CommonDomain\bin\CommonDomain.dll</HintPath>
+      <HintPath>..\packages\CommonDomain.1.2.1\lib\net40\CommonDomain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EventStore">
+      <HintPath>..\packages\EventStore.2.0.11157\lib\net40\EventStore.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
@@ -44,29 +49,30 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit">
-      <HintPath>..\packages\MassTransit.2.0.0.1\lib\NET40\MassTransit.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.0.0.2\lib\NET40-Full\MassTransit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.1\lib\NET40\MassTransit.Transports.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.2\lib\NET40-Full\MassTransit.Transports.RabbitMq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="RabbitMQ.Client">
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.1\lib\NET40\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script.fsx" />
     <Compile Include="IndexerServices.fs" />
     <Compile Include="Helpers.fs" />
-    <None Include="packages.config" />
     <Compile Include="Program.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">

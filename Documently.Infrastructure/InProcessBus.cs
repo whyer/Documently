@@ -70,11 +70,6 @@ namespace Documently.Infrastructure
 			}
 		}
 
-		TService IServiceBus.GetService<TService>()
-		{
-			throw new NotSupportedException();
-		}
-
 		IEndpoint IServiceBus.GetEndpoint(Uri address)
 		{
 			throw new NotImplementedException();

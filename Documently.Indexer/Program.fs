@@ -6,7 +6,7 @@ open System
   [<EntryPoint>]
   let main(args : string[]) =
     let bus = ServiceBusFactory.New (fun c -> 
-      c.UseRabbitMq() |> ignore
+      RabbitMqServiceBusExtensions.UseRabbitMq c |> ignore
       c.UseRabbitMqRouting() |> ignore
       c.ReceiveFrom("rabbitmq://localhost/Documently.Indexer") |> ignore
       )

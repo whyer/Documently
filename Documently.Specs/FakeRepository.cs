@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CommonDomain;
 using CommonDomain.Persistence;
-using System.Linq;
 
 namespace CQRSSample.Specs
 {

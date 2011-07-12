@@ -1,5 +1,4 @@
 using System;
-using CommonDomain;
 using CommonDomain.Core;
 using Documently.Domain.Events;
 using Magnum;
@@ -8,11 +7,9 @@ namespace Documently.Domain.Domain
 {
 	public class Document : AggregateBase<DomainEvent>
 	{
-		public Document()
-		{
-		}
+		private Guid _DocumentBlobId;
 
-		public Document(IRouteEvents<DomainEvent> handler) : base(handler)
+		public Document()
 		{
 		}
 
@@ -33,6 +30,11 @@ namespace Documently.Domain.Domain
 		{
 			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId, Id, (uint)Version + 1);
 			RaiseEvent(evt);
+		}
+
+		public void Apply(AssociatedIndexingPending evt)
+		{
+			_DocumentBlobId = evt.BlobId;
 		}
 	}
 }

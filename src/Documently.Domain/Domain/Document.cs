@@ -21,8 +21,6 @@ namespace Documently.Domain.Domain
 			var @event = new DocumentMetaDataCreated(
 				 CombGuid.Generate(), title, DocumentState.Created, utcCreated);
 
-			Apply(@event);
-
 			RaiseEvent(@event);
 		}
 

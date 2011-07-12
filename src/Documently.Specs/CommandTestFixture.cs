@@ -48,7 +48,7 @@ namespace CQRSSample.Specs
 			SetupDependencies();
 			try
 			{
-				CommandHandler.Handle(When());
+				CommandHandler.Consume(When());
 				if (Repository.SavedAggregate == null)
 					PublishedEvents = AggregateRoot.GetUncommittedEvents();
 				else

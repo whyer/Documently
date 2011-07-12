@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainInfrastructure\AggregateFactory.cs" />
-    <Compile Include="BootStrapper.cs" />
+    <Compile Include="Installers\RavenDbEmbeddedInstaller.cs" />
+    <Compile Include="Installers\RavenDbServerInstaller.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="Misc\DelegateAdjuster.cs" />
     <Compile Include="Misc\EventDescriptor.cs" />
     <Compile Include="IBus.cs" />

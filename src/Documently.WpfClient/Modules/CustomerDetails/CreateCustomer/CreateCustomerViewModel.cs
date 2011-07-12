@@ -14,10 +14,10 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 		{
 			_Bus = bus;
 			_EventAggregator = eventAggregator;
-			Command = new CreateCustomerCommand(Guid.NewGuid());
+			Command = new CreateNewCustomer(Guid.NewGuid());
 		}
 
-		public CreateCustomerCommand Command { get; private set; }
+		public CreateNewCustomer Command { get; private set; }
 
 		public void Save()
 		{

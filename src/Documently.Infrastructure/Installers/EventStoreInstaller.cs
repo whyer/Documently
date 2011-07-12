@@ -1,4 +1,3 @@
-using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -8,10 +7,12 @@ using CommonDomain.Persistence.EventStore;
 using EventStore;
 using EventStore.Dispatcher;
 using EventStore.Serialization;
-using MassTransit;
 
 namespace Documently.Infrastructure.Installers
 {
+	/// <summary>
+	/// Installs Jonathan Oliver's Event Store with a JsonSerializer and synchronous dispatcher.
+	/// </summary>
 	public class EventStoreInstaller : IWindsorInstaller
 	{
 		private readonly byte[] _EncryptionKey = new byte[]
@@ -35,7 +36,7 @@ namespace Documently.Infrastructure.Installers
 		{
 			return Wireup.Init()
 				//.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, new ByteStreamDocumentSerializer(BuildSerializer()))
-				.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, 
+				.UsingRavenPersistence(Keys.RavenDbConnectionStringName, 
 					new ByteStreamDocumentSerializer(new JsonSerializer()))
 				.UsingSynchronousDispatcher(bus)
 				.Build();

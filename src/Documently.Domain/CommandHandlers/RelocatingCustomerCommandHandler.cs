@@ -5,7 +5,7 @@ using Documently.Domain.Domain;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public class RelocatingCustomerCommandHandler : Handles<RelocateCustomerCommand>
+	public class RelocatingCustomerCommandHandler : Handles<RelocateTheCustomer>
 	{
 		private readonly IRepository _repository;
 
@@ -14,7 +14,7 @@ namespace Documently.Domain.CommandHandlers
 			_repository = repository;
 		}
 
-		public void Handle(RelocateCustomerCommand command)
+		public void Consume(RelocateTheCustomer command)
 		{
 			const int version = 0;
 			var customer = _repository.GetById<Customer>(command.Id, version);

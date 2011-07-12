@@ -32,7 +32,7 @@ namespace Documently.Infrastructure
 		{
 			if (command == null) throw new ArgumentNullException("command");
 			GetCommandHandlerForCommand<T>()
-				.Handle(command);
+				.Consume(command);
 		}
 
 		private Handles<T> GetCommandHandlerForCommand<T>() where T : Command

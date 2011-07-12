@@ -19,7 +19,7 @@ namespace Documently.Domain.CommandHandlers
 			//_Bus = bus;
 		}
 
-		public void Handle(InitializeDocumentIndexing command)
+		public void Consume(InitializeDocumentIndexing command)
 		{
 			var doc = _Repo.GetById<Document>(command.Id, command.Version);
 			doc.AssociateWithDocumentBlob(command.BlobId);

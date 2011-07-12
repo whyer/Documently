@@ -6,7 +6,7 @@ using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Documently.Infrastructure;
-using Documently.WpfClient.Modules.Shell;
+using Documently.Infrastructure.Installers;
 using Raven.Client.Document;
 
 namespace Documently.WpfClient
@@ -17,17 +17,21 @@ namespace Documently.WpfClient
 
 		protected override void Configure()
 		{
-			var viewStore = new DocumentStore { ConnectionStringName = BootStrapper.RavenDbConnectionStringName };
+			var viewStore = new DocumentStore { ConnectionStringName = Keys.RavenDbConnectionStringName };
 			viewStore.Initialize();
 
-			_Container = BootStrapper.BootStrap(viewStore);
-			// adds and configures all components using WindsorInstallers from executing assembly  
+			_Container = Keys.BootStrap(viewStore, "rabbitmq://localhost/Documently.WpfClient");
+			// adds and configures all components using WindsorInstallers from executing assembly
+			
 			_Container.Install(FromAssembly.This());
+			_Container.Install(new ReadRepositoryInstaller());
 		}
 
 		protected override object GetInstance(Type service, string key)
 		{
-			return string.IsNullOrWhiteSpace(key) ? _Container.Resolve(service) : _Container.Resolve(key, service);
+			return string.IsNullOrWhiteSpace(key) 
+				? _Container.Resolve(service) 
+				: _Container.Resolve(key, service);
 		}
 
 		protected override IEnumerable<object> GetAllInstances(Type service)
@@ -46,10 +50,8 @@ namespace Documently.WpfClient
 		}
 	}
 
-
 	public static class WindsorExtensions
 	{
-
 		public static void BuildUp(this IWindsorContainer container, object instance)
 		{
 			instance.GetType().GetProperties()

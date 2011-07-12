@@ -1,45 +1,52 @@
 ﻿using System;
 using System.Net;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Documently.Commands;
 using Documently.Infrastructure;
+using Documently.Infrastructure.Installers;
 using Documently.ReadModel;
 using Magnum;
 using MassTransit;
 using Raven.Client;
-using Raven.Client.Document;
 
 namespace Documently.App
 {
 	internal class Program
 	{
+		private IWindsorContainer _Container;
+
 		private static void Main()
 		{
 			Description();
+			var p = new Program();
+			try { p.Start(); }
+			finally { p.Stop(); }
+		}
 
-			//use RavenDB Server as an event store and persists the read side (views) also to RavenDB Server
-			var viewStore = new DocumentStore {ConnectionStringName = BootStrapper.RavenDbConnectionStringName};
-			viewStore.Initialize();
-
-			//run RavenDB InMemory
-			//var store = new EmbeddableDocumentStore {RunInMemory = true};
-
-			IWindsorContainer container = null;
+		private void Start()
+		{
 			try
 			{
-				container = BootStrapper.BootStrap(viewStore);
+				_Container = new WindsorContainer()
+					.Install(
+						new RavenDbServerInstaller(),
+						new ReadRepositoryInstaller(),
+						new BusInstaller("rabbitmq://localhost/Documently.App"),
+						new EventStoreInstaller());
 
-				var bus = container.Resolve<IServiceBus>();
-				var aggregateId = CombGuid.Generate();
+				_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
+
+				var customerId = CombGuid.Generate();
 
 				//create customer (Write/Command)
-				CreateCustomer(bus, aggregateId);
+				CreateCustomer(customerId);
 
 				//Customer relocating (Write/Command)
-				RelocateCustomer(bus, aggregateId);
+				RelocateCustomer(customerId);
 
 				//show all customers [in RMQ] (Read/Query)
-				ShowCustomerListView(viewStore);
+				ShowCustomerListView();
 			}
 			catch (WebException ex)
 			{
@@ -49,11 +56,7 @@ namespace Documently.App
 			{
 				Console.WriteLine("Fehler: " + ex.Message);
 			}
-			finally
-			{
-				Bus.Shutdown();
-				if (container != null) container.Dispose();
-			}
+
 			Console.WriteLine("Press any key to finish.");
 			Console.ReadKey(true);
 		}
@@ -66,8 +69,9 @@ namespace Documently.App
 * Shows all customers.");
 		}
 
-		private static void ShowCustomerListView(IDocumentStore store)
+		private void ShowCustomerListView()
 		{
+			var store = _Container.Resolve<IDocumentStore>();
 			using (var session = store.OpenSession())
 			{
 				foreach (var dto in session.Query<CustomerListDto>())
@@ -78,19 +82,34 @@ namespace Documently.App
 			}
 		}
 
-		private static void RelocateCustomer(IServiceBus bus, Guid aggregateId)
+		private void CreateCustomer(Guid aggregateId)
 		{
-			bus.Publish(new RelocateCustomerCommand(aggregateId, "Messestraße", "2", "4444", "Linz"));
+			GetDomainService()
+				.Send(new CreateNewCustomer(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
+
+			Console.WriteLine("Customer created. Press any key to relocate customer.");
+			Console.ReadLine();
+		}
+
+		private void RelocateCustomer(Guid customerId)
+		{
+			GetDomainService()
+				.Send(new RelocateTheCustomer(customerId, "Messestraße", "2", "4444", "Linz"));
 
 			Console.WriteLine("Customer relocated. Press any key to show list of customers.");
 			Console.ReadLine();
 		}
 
-		private static void CreateCustomer(IServiceBus bus, Guid aggregateId)
+		private IEndpoint GetDomainService()
 		{
-			bus.Publish(new CreateCustomerCommand(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
-			Console.WriteLine("Customer created. Press any key to relocate customer.");
-			Console.ReadLine();
+			var bus = _Container.Resolve<IServiceBus>();
+			var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
+			return domainService;
+		}
+
+		private void Stop()
+		{
+			_Container.Dispose();
 		}
 	}
 }

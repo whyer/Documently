@@ -10,15 +10,24 @@ namespace Documently.Infrastructure.Installers
 	/// </summary>
 	public class BusInstaller : IWindsorInstaller
 	{
+		private readonly string _EndpointUri;
+
+		public BusInstaller(string endpointUri)
+		{
+			_EndpointUri = endpointUri;
+		}
+
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
 			// in proc bus
 			//var bus = new InProcessBus(container);
 			//container.Register(Component.For<IBus>().Instance(bus));
+
+			// masstransit bus
 			var bus = ServiceBusFactory.New(sbc =>
 			{
 				sbc.UseRabbitMq();
-				sbc.ReceiveFrom("rabbitmq://localhost/Documently.Domain");
+				sbc.ReceiveFrom(_EndpointUri);
 				sbc.UseRabbitMqRouting();
 				sbc.Subscribe(s => s.LoadFrom(container));
 			});

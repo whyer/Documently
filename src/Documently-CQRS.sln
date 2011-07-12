@@ -22,10 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Indexer.Tests", "Documently.Indexer.Tests\Documently.Indexer.Tests.csproj", "{16D63804-64C8-4B36-A10B-E894C320B793}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{8F360B84-9B2F-4986-953B-CCAEBB8A384F}"
-	ProjectSection(SolutionItems) = preProject
-		Docs\license.txt = Docs\license.txt
-		README.md = README.md
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Domain.Service", "Documently.Domain.Service\Documently.Domain.Service.csproj", "{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +131,16 @@ Global
 		{16D63804-64C8-4B36-A10B-E894C320B793}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{16D63804-64C8-4B36-A10B-E894C320B793}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{16D63804-64C8-4B36-A10B-E894C320B793}.Release|x86.ActiveCfg = Release|Any CPU
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Debug|x86.ActiveCfg = Debug|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Debug|x86.Build.0 = Debug|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Release|Any CPU.ActiveCfg = Release|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Release|Mixed Platforms.Build.0 = Release|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Release|x86.ActiveCfg = Release|x86
+		{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

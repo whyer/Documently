@@ -7,7 +7,7 @@ using Documently.WpfClient.ApplicationFramework;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
-	public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocateCustomerCommand>
+	public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocateTheCustomer>
 	{
 		private readonly IBus _bus;
 		private readonly IEventAggregator _eventAggregator;
@@ -26,7 +26,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 		public void WithCustomer(Guid customerId)
 		{
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
-			Command = new ValidatingCommand<RelocateCustomerCommand>(new RelocateCustomerCommand(ViewModel.AggregateRootId),
+			Command = new ValidatingCommand<RelocateTheCustomer>(new RelocateTheCustomer(ViewModel.AggregateRootId),
 			                                                         Validator);
 		}
 

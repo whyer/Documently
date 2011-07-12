@@ -120,7 +120,7 @@
     <Compile Include="FakeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Customers\when_creating_a_new_customer.cs" />
-    <Compile Include="windsor_reg_specs.cs" />
+    <Compile Include="view_registration_specs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">

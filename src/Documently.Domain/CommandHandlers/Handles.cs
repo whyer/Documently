@@ -1,12 +1,12 @@
 // ReSharper disable InconsistentNaming
 
 using Documently.Commands;
+using MassTransit;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public interface Handles<in T> : Handles where T : Command
+	public interface Handles<T> : Consumes<T>.All, Handles where T : Command
 	{
-		void Handle(T command);
 	}
 
 	public interface Handles

@@ -9,11 +9,11 @@ using SharpTestsEx;
 namespace CQRSSample.Specs.Customers
 {
 	public class when_creating_a_new_customer :
-		CommandTestFixture<CreateCustomerCommand, CreateCustomerCommandHandler, Customer>
+		CommandTestFixture<CreateNewCustomer, CreateCustomerCommandHandler, Customer>
 	{
-		protected override CreateCustomerCommand When()
+		protected override CreateNewCustomer When()
 		{
-			return new CreateCustomerCommand(Guid.NewGuid(), "Jörg Egretzberger", "Ringstraße", "1", "1010", "Wien", "01/123456");
+			return new CreateNewCustomer(Guid.NewGuid(), "Jörg Egretzberger", "Ringstraße", "1", "1010", "Wien", "01/123456");
 		}
 
 		[Test]

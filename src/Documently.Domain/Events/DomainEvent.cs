@@ -24,13 +24,13 @@ namespace Documently.Domain.Events
 			Version = aggregateVersion;
 		}
 
-		public Guid AggregateId { get; set; }
+		public Guid AggregateId { get; protected set; }
 
 		/// <summary>
 		/// Gets the version of the aggregate which this event corresponds to.
 		/// E.g. CreateNewCustomerCommand would map to (:NewCustomerCreated).Version = 1,
 		/// as that event corresponds to the creation of the customer.
 		/// </summary>
-		public uint Version { get; private set; }
+		public uint Version { get; protected set; }
 	}
 }

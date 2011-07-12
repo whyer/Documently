@@ -5,10 +5,10 @@ namespace Documently.Domain.Events
 	[Serializable]
 	public class CustomerRelocatedEvent : DomainEvent
 	{
-		public readonly string Street;
-		public readonly string StreetNumber;
-		public readonly string PostalCode;
-		public readonly string City;
+		public string Street { get; protected set; }
+		public string StreetNumber { get; protected set; }
+		public string PostalCode { get; protected set; }
+		public string City { get; protected set; }
 
 		public CustomerRelocatedEvent()
 		{

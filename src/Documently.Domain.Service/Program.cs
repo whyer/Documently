@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Documently.Infrastructure;
@@ -18,6 +19,8 @@ namespace Documently.Domain.Service
 
 		public static void Main(string[] args)
 		{
+			Thread.CurrentThread.Name = "Domain Service Main Thread";
+
 			var p = new Program();
 			try { 
 				p.Start();
@@ -47,6 +50,7 @@ namespace Documently.Domain.Service
 
 		private void Stop()
 		{
+			_Logger.Info("shutting down Domain Service");
 			_Container.Release(_Bus);
 			_Container.Dispose();
 		}

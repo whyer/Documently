@@ -4,6 +4,7 @@ using Castle.Windsor;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Events;
+using Documently.Infrastructure.Misc;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;

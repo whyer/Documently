@@ -4,6 +4,7 @@ using Castle.Windsor;
 using CommonDomain.Core;
 using CommonDomain.Persistence;
 using CommonDomain.Persistence.EventStore;
+using Documently.Infrastructure.DomainInfrastructure;
 using EventStore;
 using EventStore.Dispatcher;
 using EventStore.Serialization;

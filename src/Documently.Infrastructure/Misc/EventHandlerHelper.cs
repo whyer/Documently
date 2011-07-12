@@ -4,7 +4,7 @@ using System.Linq;
 using Documently.Domain.Events;
 using Documently.ReadModel;
 
-namespace Documently.Infrastructure.Installers
+namespace Documently.Infrastructure.Misc
 {
 	public static class EventHandlerHelper
 	{

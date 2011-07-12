@@ -2,7 +2,7 @@ using System;
 using CommonDomain;
 using CommonDomain.Persistence;
 
-namespace Documently.Infrastructure
+namespace Documently.Infrastructure.DomainInfrastructure
 {
 	public class AggregateFactory : IConstructAggregates
 	{

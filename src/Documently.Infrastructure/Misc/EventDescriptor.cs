@@ -1,7 +1,7 @@
 using System;
 using Documently.Domain.Events;
 
-namespace Documently.Infrastructure
+namespace Documently.Infrastructure.Misc
 {
 	public class EventDescriptor
 	{

@@ -81,11 +81,20 @@
       <HintPath>..\packages\Microsoft.Windows.Shell.3.5.41019\lib\net35\Microsoft.Windows.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MissingBitsFromClientProfile">
+      <HintPath>..\packages\Raven.MissingBitsFromClientProfile.1.0.1\lib\net40\MissingBitsFromClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\packages\Raven.Client.Lightweight.1.0.0\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\Raven.Client.Lightweight.1.0.3\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\packages\Raven.Json.1.0.0\lib\net40\Raven.Json.dll</HintPath>
     </Reference>
     <Reference Include="RibbonControlsLibrary">
       <HintPath>..\packages\RibbonControlsLibrary.4.0.0.11019\lib\net40\RibbonControlsLibrary.dll</HintPath>

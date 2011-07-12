@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{00697C09-EF1D-4F73-8AFD-D58B8A550111}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Documently.WpfClient</RootNamespace>
+    <AssemblyName>Documently.WpfClient</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.1.0\lib\Net40\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonDomain">
+      <HintPath>..\packages\CommonDomain.1.2.1\lib\net40\CommonDomain.dll</HintPath>
+    </Reference>
+    <Reference Include="EventStore">
+      <HintPath>..\packages\EventStore.2.0.11157\lib\net40\EventStore.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.3.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\packages\Magnum.1.1.1.0\lib\NET40\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit">
+      <HintPath>..\packages\MassTransit.2.0.0.2\lib\NET40-Full\MassTransit.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.Transports.RabbitMq">
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.2\lib\NET40-Full\MassTransit.Transports.RabbitMq.dll</HintPath>
+    </Reference>
+    <Reference Include="MassTransit.WindsorIntegration">
+      <HintPath>..\packages\MassTransit.CastleWindsor.2.0.0.2\lib\NET40-Full\MassTransit.WindsorIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.5.41019\lib\net35\Microsoft.Windows.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MissingBitsFromClientProfile">
+      <HintPath>..\packages\Raven.MissingBitsFromClientProfile.1.0.1\lib\net40\MissingBitsFromClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\Raven.Abstractions.1.0\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <HintPath>..\packages\Raven.Client.Lightweight.1.0.3\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\packages\Raven.Json.1.0.0\lib\net40\Raven.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RibbonControlsLibrary">
+      <HintPath>..\packages\RibbonControlsLibrary.4.0.0.11019\lib\net40\RibbonControlsLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.1.0\lib\Net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="ApplicationFramework\Converters\CollapsedWhenNullConverter.cs" />
+    <Compile Include="ApplicationFramework\ScreenWithValidatingCommand.cs" />
+    <Compile Include="ApplicationFramework\ValidatingCommand.cs" />
+    <Compile Include="Infrastructure\Installers\ViewModelInstaller.cs" />
+    <Compile Include="IShell.cs" />
+    <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerView.xaml.cs">
+      <DependentUpon>CreateCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerViewModel.cs" />
+    <Compile Include="Modules\CustomerDetails\CustomerDetailsOverview\CustomerDetailsOverviewView.xaml.cs">
+      <DependentUpon>CustomerDetailsOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomerDetails\CustomerDetailsOverview\CustomerDetailsOverviewViewModel.cs" />
+    <Compile Include="Modules\CustomerDetails\CustomerRelocating\CustomerRelocatingView.xaml.cs">
+      <DependentUpon>CustomerRelocatingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomerDetails\CustomerRelocating\CustomerRelocatingViewModel.cs" />
+    <Compile Include="Modules\CustomerDetails\IShowCustomerDetails.cs" />
+    <Compile Include="Modules\CustomerDetails\WhatsNext\WhatsNextView.xaml.cs">
+      <DependentUpon>WhatsNextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomerDetails\WhatsNext\WhatsNextViewModel.cs" />
+    <Compile Include="Modules\CustomerList\CustomerListViewModel.cs" />
+    <Compile Include="Modules\CustomerList\CustomerListView.xaml.cs">
+      <DependentUpon>CustomerListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DocumentDetails\CreateMeta\CreateDocumentMetaDataViewModel.cs" />
+    <Compile Include="Modules\DocumentSearch\DocumentSearchViewModel.cs" />
+    <Compile Include="Modules\Shell\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Shell\ShellViewModel.cs" />
+    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="WpfClientBootstrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ApplicationFramework\Resources\ConverterResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomerDetails\CustomerDetailsOverview\CustomerDetailsOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomerDetails\CustomerRelocating\CustomerRelocatingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomerDetails\WhatsNext\WhatsNextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomerList\CustomerListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Shell\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\BureauBlack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\BureauBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ExpressionDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ExpressionLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ShinyBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ShinyRed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\WhistlerBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ApplicationFramework\Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
+      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
+      <Name>Documently.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
+      <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
+      <Name>Documently.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Documently.Infrastructure\Documently.Infrastructure.csproj">
+      <Project>{F2DE41A9-C7A9-433C-9217-EEA6EE859159}</Project>
+      <Name>Documently.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Documently.ReadModel\Documently.ReadModel.csproj">
+      <Project>{6E654F57-BF65-463C-82C6-DB360D0F844D}</Project>
+      <Name>Documently.ReadModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ApplicationFramework\Icons\customers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ApplicationFramework\Icons\customer.png" />
+    <Resource Include="ApplicationFramework\Icons\no.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ApplicationFramework\Icons\relocate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ApplicationFramework\Icons\box.png" />
+    <Resource Include="ApplicationFramework\Icons\brush.png" />
+    <Resource Include="ApplicationFramework\Icons\clipboard.png" />
+    <Resource Include="ApplicationFramework\Icons\filing-cabinet.png" />
+    <Resource Include="ApplicationFramework\Icons\hammer.png" />
+    <Resource Include="ApplicationFramework\Icons\lamp.png" />
+    <Resource Include="ApplicationFramework\Icons\pig.png" />
+    <Resource Include="ApplicationFramework\Icons\scale-pan.png" />
+    <Resource Include="ApplicationFramework\Icons\taxi.png" />
+    <Resource Include="ApplicationFramework\Icons\time-glass.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

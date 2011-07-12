@@ -1,0 +1,16 @@
+﻿<Application x:Class="Documently.WpfClient.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Documently.WpfClient">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <!-- don't forget to start RavenDB\Server\Raven.Server.exe -->
+                    <local:WpfClientBootstrapper x:Key="bootstrapper" />
+                </ResourceDictionary>
+                <ResourceDictionary Source="Themes\ExpressionDark.xaml" />
+                <ResourceDictionary Source="ApplicationFramework\Resources\ConverterResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Converters="clr-namespace:Documently.WpfClient.ApplicationFramework.Converters"
+                    x:Class="Documently.WpfClient.ApplicationFramework.Resources.f__code_oss_documently_cqrs_src_documently_wpfclient_applicationframework_resources_converterresource_xaml">
+
+    <Converters:CollapsedWhenNullConverter x:Key="collapsedWhenNullConverter" />
+    <BooleanToVisibilityConverter x:Key="booleanToVisibility" />
+    
+</ResourceDictionary>

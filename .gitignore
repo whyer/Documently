@@ -4,5 +4,5 @@
 bin/
 obj/
 *.csproj.user
-/External Libs/RavenDB/Server/Data
-/External Libs/RavenDB/Server/Raven.Server.log*
+/Vendor/RavenDB/Server/Data
+/Vendor/RavenDB/Server/Raven.Server.log*

@@ -28,6 +28,8 @@ Currently incomplete but upcoming features:
  * Running a WPF, a iOS phone and console application side-by-side and having the system work as a whole.
  * Implement the indexing logic for the Document-part of the domain using SVMs.
 
+The above tasks are rather easy to accomplish, they just take a few hours worth of time - so if you feel up for learning the concepts of CQRS and Event Sourcing, feel free to have a go and send a pull-request!
+
 ## Getting started
 
 First, start the event-store and view-store - RavenDB.Server, in this case. It can be found in `src\vendor\RavenDB`. Once this is done, install [RabbitMQ](http://www.rabbitmq.com/download.html)
@@ -37,6 +39,7 @@ There are two sample clients: one WPF Client with a nice UI and one console appl
 ## Credits
 
 The sample is based on code by:
+
  * **Mark Nijhof**: <https://github.com/MarkNijhof/Fohjin>
  * **Greg Young**: <http://github.com/gregoryyoung/m-r>
  * <http://dddsamplenet.codeplex.com/>

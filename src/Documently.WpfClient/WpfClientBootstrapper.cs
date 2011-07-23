@@ -15,6 +15,10 @@ namespace Documently.WpfClient
 	{
 		private IWindsorContainer _Container;
 
+		public WpfClientBootstrapper()
+		{
+		}
+
 		protected override void Configure()
 		{
 			_Container = new WindsorContainer();

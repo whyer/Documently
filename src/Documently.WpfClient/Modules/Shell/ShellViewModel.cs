@@ -20,7 +20,7 @@ namespace Documently.WpfClient.Modules.Shell
 								  IHandle<ShowSearchCustomerEvent>,
 	                              IHandle<CustomerRelocatingSavedEvent>,
 	                              IHandle<ShowCustomerDetailsEvent>,
-		IHandle<DocumentMetaDataSaved>
+								  IHandle<DocumentMetaDataSaved>
 	{
 		private readonly IReadRepository _repository;
 		private readonly IServiceBus _bus;

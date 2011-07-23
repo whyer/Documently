@@ -45,11 +45,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Magnum">
-      <HintPath>..\packages\Magnum.1.1.1.0\lib\NET40\Magnum.dll</HintPath>
+      <HintPath>..\packages\Magnum.2.0.0.0\lib\NET40\Magnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit">
-      <HintPath>..\packages\MassTransit.2.0.0.2\lib\NET40-Full\MassTransit.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.0.0.3\lib\NET40-Full\MassTransit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MassTransit.Transports.Msmq">
+      <HintPath>..\packages\MassTransit.2.0.0.3\lib\NET40-Full\MassTransit.Transports.MSMQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">

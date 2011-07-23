@@ -123,7 +123,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ApplicationFramework\Converters\CollapsedWhenNullConverter.cs" />
     <Compile Include="ApplicationFramework\ScreenWithValidatingCommand.cs" />
     <Compile Include="ApplicationFramework\ValidatingCommand.cs" />
@@ -156,7 +155,6 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Shell\ShellViewModel.cs" />
-    <Compile Include="ShellViewModel.cs" />
     <Compile Include="WpfClientBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,10 +211,6 @@
     <Page Include="Modules\Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShellView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\BureauBlack.xaml">
       <Generator>MSBuild:Compile</Generator>

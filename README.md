@@ -36,6 +36,8 @@ First, start the event-store and view-store - RavenDB.Server, in this case. It c
 
 There are two sample clients: one WPF Client with a nice UI and one console application for a quick start. Before using them, you need to compile the solution and start the `Documently.Domain.Service` console application. This is the domain service that handles the domain logic and broadcasts the (domain) events.
 
+Once both RavenDB and the Domain Service are started without error messages, start one of the clients, or both and try it out!
+
 ## Credits
 
 The sample is based on code by:

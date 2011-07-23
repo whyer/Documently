@@ -10,6 +10,7 @@ using Documently.WpfClient.Modules.CustomerDetails.WhatsNext;
 using Documently.WpfClient.Modules.CustomerList;
 using Documently.WpfClient.Modules.DocumentDetails.CreateMeta;
 using Documently.WpfClient.Modules.DocumentSearch;
+using MassTransit;
 
 namespace Documently.WpfClient.Modules.Shell
 {
@@ -19,14 +20,14 @@ namespace Documently.WpfClient.Modules.Shell
 								  IHandle<ShowSearchCustomerEvent>,
 	                              IHandle<CustomerRelocatingSavedEvent>,
 	                              IHandle<ShowCustomerDetailsEvent>,
-		IHandle<DocumentMetaDataSaved>
+								  IHandle<DocumentMetaDataSaved>
 	{
 		private readonly IReadRepository _repository;
-		private readonly IBus _bus;
+		private readonly IServiceBus _bus;
 		private readonly IEventAggregator _eventAggregator;
 		private Guid? _aggregateRootId;
 
-		public ShellViewModel(IReadRepository repository, IBus bus, IEventAggregator eventAggregator)
+		public ShellViewModel(IReadRepository repository, IServiceBus bus, IEventAggregator eventAggregator)
 		{
 			_repository = repository;
 			_bus = bus;

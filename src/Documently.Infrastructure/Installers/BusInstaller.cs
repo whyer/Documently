@@ -1,4 +1,7 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System;
+using System.Linq;
+using Castle.Facilities.TypedFactory;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EventStore.Dispatcher;
@@ -12,7 +15,7 @@ namespace Documently.Infrastructure.Installers
 	public class BusInstaller : IWindsorInstaller
 	{
 		private readonly string _EndpointUri;
-
+		
 		public BusInstaller(string endpointUri)
 		{
 			_EndpointUri = endpointUri;
@@ -24,20 +27,28 @@ namespace Documently.Infrastructure.Installers
 			//var bus = new InProcessBus(container);
 			//container.Register(Component.For<IBus>().Instance(bus));
 
+			// for factory
+			if (!container.Kernel.GetFacilities()
+				.Any(x => x.GetType().Equals(typeof(TypedFactoryFacility))))
+				container.AddFacility<TypedFactoryFacility>();
+
 			// masstransit bus
-			var bus = ServiceBusFactory.New(sbc =>
-			{
-				sbc.UseRabbitMq();
-				sbc.ReceiveFrom(_EndpointUri);
-				sbc.UseRabbitMqRouting();
-				sbc.Subscribe(c => c.LoadFrom(container));
-			});
-			
-			var busAdapter = new MassTransitPublisher(bus);
+			//var busAdapter = new MassTransitPublisher(bus);
 			
 			container.Register(
-				Component.For<IServiceBus>().Instance(bus),
-				Component.For<IBus>().Instance(busAdapter).Forward<IPublishMessages>());
+				Component.For<IServiceBus>()
+					.UsingFactoryMethod(() => ServiceBusFactory.New(sbc =>
+					{
+						sbc.UseRabbitMq();
+						sbc.ReceiveFrom(_EndpointUri);
+						sbc.UseRabbitMqRouting();
+						sbc.Subscribe(c => c.LoadFrom(container));
+					})).LifeStyle.Singleton,
+				Component.For<IBus>()
+					.UsingFactoryMethod((k, c) => 
+						new MassTransitPublisher(k.Resolve<IServiceBus>()))
+					.Forward<IPublishMessages>()
+					.LifeStyle.Singleton);
 		}
 	}
 }

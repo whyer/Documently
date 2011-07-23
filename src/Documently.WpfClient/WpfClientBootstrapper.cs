@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Castle.Core;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
-using Raven.Client.Document;
+using Documently.WpfClient.Modules.Shell;
 
 namespace Documently.WpfClient
 {
@@ -15,16 +15,18 @@ namespace Documently.WpfClient
 	{
 		private IWindsorContainer _Container;
 
+		public WpfClientBootstrapper()
+		{
+		}
+
 		protected override void Configure()
 		{
-			var viewStore = new DocumentStore { ConnectionStringName = Keys.RavenDbConnectionStringName };
-			viewStore.Initialize();
-
-			_Container = Keys.BootStrap(viewStore, "rabbitmq://localhost/Documently.WpfClient");
-			// adds and configures all components using WindsorInstallers from executing assembly
-			
+			_Container = new WindsorContainer();
 			_Container.Install(FromAssembly.This());
-			_Container.Install(new ReadRepositoryInstaller());
+			_Container.Install(new RavenDbServerInstaller(),
+				new ReadRepositoryInstaller(),
+				new BusInstaller("rabbitmq://localhost/Documently.WpfClient"),
+				new EventStoreInstaller());
 		}
 
 		protected override object GetInstance(Type service, string key)

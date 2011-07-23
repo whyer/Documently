@@ -45,6 +45,7 @@ namespace Documently.Domain.Service
 			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
 			_Bus = _Container.Resolve<IServiceBus>();
 
+
 			_Logger.Info("application configured, started running");
 		}
 

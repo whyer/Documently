@@ -5,6 +5,7 @@ using Castle.Windsor;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using MassTransit;
+using Topshelf;
 using log4net;
 using log4net.Config;
 
@@ -20,9 +21,37 @@ namespace Documently.Domain.Service
 		public static void Main(string[] args)
 		{
 			Thread.CurrentThread.Name = "Domain Service Main Thread";
+#if RELEASE
+			RunService();
+#else
+			RunProgram();
+#endif
+		}
 
+		private static void RunService()
+		{
+
+			HostFactory.Run(x =>
+			{
+				x.Service<Program>(s =>
+				{
+					s.ConstructUsing(name => new Program());
+					s.WhenStarted(p => p.Start());
+					s.WhenStopped(p => p.Stop());
+				});
+				x.RunAsLocalSystem();
+
+				x.SetDescription("Handles the domain logic for the Documently Application.");
+				x.SetDisplayName("Documently Domain Service");
+				x.SetServiceName("Documently.Domain.Service");
+			});
+		}
+
+		private static void RunProgram()
+		{
 			var p = new Program();
-			try { 
+			try
+			{
 				p.Start();
 				Console.WriteLine("Started... Press a key to exit.");
 				Console.ReadKey(true);
@@ -44,7 +73,6 @@ namespace Documently.Domain.Service
 
 			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
 			_Bus = _Container.Resolve<IServiceBus>();
-
 
 			_Logger.Info("application configured, started running");
 		}

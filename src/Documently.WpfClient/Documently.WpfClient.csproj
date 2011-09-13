@@ -132,7 +132,6 @@
     <Compile Include="ApplicationFramework\ScreenWithValidatingCommand.cs" />
     <Compile Include="ApplicationFramework\ValidatingCommand.cs" />
     <Compile Include="Infrastructure\Installers\ViewModelInstaller.cs" />
-    <Compile Include="IShell.cs" />
     <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerView.xaml.cs">
       <DependentUpon>CreateCustomerView.xaml</DependentUpon>
     </Compile>

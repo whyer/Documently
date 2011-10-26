@@ -12,7 +12,7 @@ using MassTransit.Pipeline;
 
 namespace Documently.Infrastructure
 {
-	public class InProcessBus : IBus, IPublishMessages, IServiceBus
+	public class InProcessBus : IBus, IDispatchCommits, IServiceBus
 	{
 		private readonly IWindsorContainer _Container;
 
@@ -52,7 +52,7 @@ namespace Documently.Infrastructure
 			handlers.Add(DelegateAdjuster.CastArgument<DomainEvent, T>(x => handler(x)));
 		}
 
-		void IPublishMessages.Publish(Commit commit)
+		void IDispatchCommits.Dispatch(Commit commit)
 		{
 			foreach (var @event in commit.Events)
 			{

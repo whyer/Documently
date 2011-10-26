@@ -59,6 +59,7 @@ namespace Documently.WpfClient
 			instance.GetType().GetProperties()
 				 .Where(property => property.CanWrite && property.PropertyType.IsPublic)
 				 .Where(property => container.Kernel.HasComponent(property.PropertyType))
+                 .ToList()
 				 .ForEach(property => property.SetValue(instance, container.Resolve(property.PropertyType), null));
 		}
 	}

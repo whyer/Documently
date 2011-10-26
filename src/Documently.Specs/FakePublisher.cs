@@ -9,7 +9,7 @@ using EventStore.Dispatcher;
 
 namespace CQRSSample.Specs
 {
-	public class FakePublisher : IPublishMessages
+	public class FakePublisher : IDispatchCommits
 	{
 		private readonly ICollection<DomainEvent> _domainEvents;
 		private List<Command> _sent = new List<Command>();
@@ -23,7 +23,7 @@ namespace CQRSSample.Specs
 		{
 		}
 
-		public void Publish(Commit commit)
+		public void Dispatch(Commit commit)
 		{
 			commit.Events.ToList().ForEach(e => _domainEvents.Add(e.Body as DomainEvent));
 		}

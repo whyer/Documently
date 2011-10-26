@@ -1,6 +1,5 @@
 using System;
 using Caliburn.Micro;
-using Documently.Infrastructure;
 using Documently.ReadModel;
 using Documently.WpfClient.Modules.CustomerDetails;
 using Documently.WpfClient.Modules.CustomerDetails.CreateCustomer;
@@ -22,17 +21,17 @@ namespace Documently.WpfClient.Modules.Shell
 	                              IHandle<ShowCustomerDetailsEvent>,
 								  IHandle<DocumentMetaDataSaved>
 	{
-		private readonly IReadRepository _repository;
-		private readonly IServiceBus _bus;
-		private readonly IEventAggregator _eventAggregator;
-		private Guid? _aggregateRootId;
+		private readonly IReadRepository _Repository;
+		private readonly IServiceBus _Bus;
+		private readonly IEventAggregator _EventAggregator;
+		private Guid? _AggregateRootId;
 
 		public ShellViewModel(IReadRepository repository, IServiceBus bus, IEventAggregator eventAggregator)
 		{
-			_repository = repository;
-			_bus = bus;
-			_eventAggregator = eventAggregator;
-			_eventAggregator.Subscribe(this);
+			_Repository = repository;
+			_Bus = bus;
+			_EventAggregator = eventAggregator;
+			_EventAggregator.Subscribe(this);
 
 			SearchCustomer();
 		}
@@ -41,11 +40,11 @@ namespace Documently.WpfClient.Modules.Shell
 		{
 			base.ActivateItem(item);
 
-			_aggregateRootId = null;
+			_AggregateRootId = null;
 			var screen = item as IShowCustomerDetails;
 			ShowCustomerDetailButtons = screen != null;
 			if (screen != null)
-				_aggregateRootId = screen.GetCustomerId();
+				_AggregateRootId = screen.GetCustomerId();
 		}
 
 		// customers
@@ -63,18 +62,18 @@ namespace Documently.WpfClient.Modules.Shell
 
 		public void AddNewCustomer()
 		{
-			ActivateItem(new CreateCustomerViewModel(_bus, _eventAggregator));
+			ActivateItem(new CreateCustomerViewModel(_Bus, _EventAggregator));
 		}
 
 		public void SearchCustomer()
 		{
-			ActivateItem(new CustomerListViewModel(_repository, _eventAggregator));
+			ActivateItem(new CustomerListViewModel(_Repository, _EventAggregator));
 		}
 
 		public void RelocateCustomer()
 		{
-			var screen = new CustomerRelocatingViewModel(_bus, _eventAggregator, _repository);
-			screen.WithCustomer(_aggregateRootId.Value);
+			var screen = new CustomerRelocatingViewModel(_Bus, _EventAggregator, _Repository);
+			screen.WithCustomer(_AggregateRootId.Value);
 			ActivateItem(screen);
 		}
 
@@ -82,13 +81,13 @@ namespace Documently.WpfClient.Modules.Shell
 		// docs
 		private void SearchDocument()
 		{
-			ActivateItem(new DocumentSearchViewModel(_bus, _eventAggregator));
+			ActivateItem(new DocumentSearchViewModel(_Bus, _EventAggregator));
 		}
 
 		//Handles 
 		public void Handle(CreateCustomerSavedEvent message)
 		{
-			ActivateItem(new WhatsNextViewModel(_eventAggregator));
+			ActivateItem(new WhatsNextViewModel(_EventAggregator));
 		}
 
 		public void Handle(ShowAddNewCustomerEvent message)
@@ -103,12 +102,12 @@ namespace Documently.WpfClient.Modules.Shell
 
 		public void Handle(CustomerRelocatingSavedEvent message)
 		{
-			ActivateItem(new WhatsNextViewModel(_eventAggregator));
+			ActivateItem(new WhatsNextViewModel(_EventAggregator));
 		}
 
 		public void Handle(ShowCustomerDetailsEvent message)
 		{
-			var screen = new CustomerDetailsOverviewViewModel(_repository);
+			var screen = new CustomerDetailsOverviewViewModel(_Repository);
 			screen.WithCustomer(message.DtoId);
 			ActivateItem(screen);
 		}

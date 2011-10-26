@@ -17,4 +17,4 @@
        printfn "%A" txt
        let ret = DocumentIndexed(msg.AggregateId, msg.Version + 1u)
        Thread.Sleep 200 // todo: parse the file!
-       bus.Publish ret
+       bus.Publish<DocumentIndexed> ret

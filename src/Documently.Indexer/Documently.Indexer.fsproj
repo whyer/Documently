@@ -31,13 +31,23 @@
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\Documently.Indexer.XML</DocumentationFile>
   </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\FSharp\1.0\Microsoft.FSharp.Targets" Condition="!Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
+  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
+  <ItemGroup>
+    <None Include="Script.fsx" />
+    <Compile Include="IndexerServices.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Program.fs" />
+    <None Include="packages.config" />
+    <None Include="app.config" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonDomain">
-      <HintPath>..\packages\CommonDomain.1.2.1\lib\net40\CommonDomain.dll</HintPath>
+      <HintPath>..\packages\CommonDomain.1.2.2\lib\net40\CommonDomain.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EventStore">
-      <HintPath>..\packages\EventStore.2.0.11157\lib\net40\EventStore.dll</HintPath>
+      <HintPath>..\packages\EventStore.3.0.11293.43\lib\net40\EventStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
@@ -45,48 +55,33 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Magnum">
-      <HintPath>..\packages\Magnum.2.0.0.0\lib\NET40\Magnum.dll</HintPath>
+      <HintPath>..\packages\Magnum.2.0.0.2\lib\NET40\Magnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit">
-      <HintPath>..\packages\MassTransit.2.0.0.3\lib\NET40-Full\MassTransit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MassTransit.Transports.Msmq">
-      <HintPath>..\packages\MassTransit.2.0.0.3\lib\NET40-Full\MassTransit.Transports.MSMQ.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.0.1.0\lib\net40\MassTransit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.2\lib\NET40-Full\MassTransit.Transports.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.1.0\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="RabbitMQ.Client">
-      <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\packages\RabbitMQ.Client.2.6.1\lib\net30\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Transactions" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Script.fsx" />
-    <Compile Include="IndexerServices.fs" />
-    <Compile Include="Helpers.fs" />
-    <Compile Include="Program.fs" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Name>Documently.Domain</Name>
       <Project>{a9ee33ab-b226-491c-8f14-a78069618f21}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\FSharp\1.0\Microsoft.FSharp.Targets" Condition="!Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
-  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">

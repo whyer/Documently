@@ -4,5 +4,5 @@ src/_ReSharper.*
 bin/
 obj/
 *.csproj.user
-/Vendor/RavenDB/Server/Data
-/Vendor/RavenDB/Server/Raven.Server.log*
+src/packages/RavenDB.1.0.499/server/Data/
+src/packages/RavenDB.1.0.499/server/Logs

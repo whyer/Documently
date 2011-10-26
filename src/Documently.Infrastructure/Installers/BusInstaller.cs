@@ -47,7 +47,7 @@ namespace Documently.Infrastructure.Installers
 				Component.For<IBus>()
 					.UsingFactoryMethod((k, c) => 
 						new MassTransitPublisher(k.Resolve<IServiceBus>()))
-					.Forward<IPublishMessages>()
+					.Forward<IDispatchCommits>()
 					.LifeStyle.Singleton);
 		}
 	}

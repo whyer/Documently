@@ -6,7 +6,7 @@ using Magnum.Reflection;
 
 namespace Documently.Infrastructure
 {
-	public class MassTransitPublisher : IBus, IPublishMessages
+	public class MassTransitPublisher : IBus, IDispatchCommits
 	{
 		private readonly IServiceBus _Bus;
 
@@ -25,7 +25,7 @@ namespace Documently.Infrastructure
 			_Bus.SubscribeHandler(handler);
 		}
 
-		void IPublishMessages.Publish(Commit commit)
+		void IDispatchCommits.Dispatch(Commit commit)
 		{
 			commit.Events.ForEach(@event =>
 				{

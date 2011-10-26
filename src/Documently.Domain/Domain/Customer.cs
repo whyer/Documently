@@ -4,8 +4,8 @@ using Documently.Domain.Events;
 
 namespace Documently.Domain.Domain
 {
-	public class Customer : AggregateBase<DomainEvent>
-	{
+	public class Customer : AggregateBase
+    {
 		private bool _deactivated;
 		private CustomerName _customerName;
 		private Address _address;

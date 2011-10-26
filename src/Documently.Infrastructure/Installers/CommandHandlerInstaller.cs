@@ -1,4 +1,3 @@
-using Castle.Facilities.FactorySupport;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -12,9 +11,6 @@ namespace Documently.Infrastructure.Installers
 	{
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			container.AddFacility<TypedFactoryFacility>();
-			container.AddFacility<FactorySupportFacility>();
-
 			container.Register(
 				AllTypes.FromAssemblyContaining(typeof (CreateCustomerCommandHandler))
 				.Where(x => x.GetInterface(typeof (Consumes<>.All).Name) != null));

@@ -24,7 +24,7 @@ namespace Documently.Infrastructure.Installers
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			var eventStore = GetInitializedEventStore(container.Resolve<IPublishMessages>());
+			var eventStore = GetInitializedEventStore(container.Resolve<IDispatchCommits>());
 			var repository = new EventStoreRepository(eventStore,
 				new AggregateFactory(),
 				new ConflictDetector());
@@ -33,13 +33,13 @@ namespace Documently.Infrastructure.Installers
 			container.Register(Component.For<IRepository>().Instance(repository));
 		}
 
-		private IStoreEvents GetInitializedEventStore(IPublishMessages bus)
+		private IStoreEvents GetInitializedEventStore(IDispatchCommits bus)
 		{
 			return Wireup.Init()
 				//.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, new ByteStreamDocumentSerializer(BuildSerializer()))
 				.UsingRavenPersistence(Keys.RavenDbConnectionStringName, 
 					new ByteStreamDocumentSerializer(new JsonSerializer()))
-				.UsingSynchronousDispatcher(bus)
+				.UsingSynchronousDispatchScheduler(bus)
 				.Build();
 		}
 

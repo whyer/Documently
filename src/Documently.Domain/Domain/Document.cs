@@ -5,7 +5,7 @@ using Magnum;
 
 namespace Documently.Domain.Domain
 {
-	public class Document : AggregateBase<DomainEvent>
+	public class Document : AggregateBase
 	{
 		private Guid _DocumentBlobId;
 

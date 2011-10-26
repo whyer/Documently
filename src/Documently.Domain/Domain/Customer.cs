@@ -6,11 +6,6 @@ namespace Documently.Domain.Domain
 {
 	public class Customer : AggregateBase
     {
-		private bool _deactivated;
-		private CustomerName _customerName;
-		private Address _address;
-		private PhoneNumber _phoneNumber;
-
 		private Customer(Guid id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 		{
 			RaiseEvent(new CustomerCreatedEvent(id, customerName.Name, address.Street, address.StreetNumber, address.PostalCode,
@@ -38,14 +33,13 @@ namespace Documently.Domain.Domain
 		private void Apply(CustomerCreatedEvent @event)
 		{
 			Id = @event.AggregateId;
-			_customerName = new CustomerName(@event.CustomerName);
-			_address = new Address(@event.Street, @event.StreetNumber, @event.PostalCode, @event.City);
-			_phoneNumber = new PhoneNumber(@event.PhoneNumber);
+			// we don't need to keep any other state here.
 		}
 
 		private void Apply(CustomerRelocatedEvent @event)
 		{
-			_address = new Address(@event.Street, @event.StreetNumber, @event.PostalCode, @event.City);
+			// neither do we here, at this point in time since we've already sent the event.
+			//new Address(@event.Street, @event.StreetNumber, @event.PostalCode, @event.City);
 		}
 	}
 }

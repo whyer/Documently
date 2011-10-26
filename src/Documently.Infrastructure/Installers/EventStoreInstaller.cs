@@ -36,10 +36,12 @@ namespace Documently.Infrastructure.Installers
 		private IStoreEvents GetInitializedEventStore(IDispatchCommits bus)
 		{
 			return Wireup.Init()
-				//.UsingRavenPersistence(BootStrapper.RavenDbConnectionStringName, new ByteStreamDocumentSerializer(BuildSerializer()))
-				.UsingRavenPersistence(Keys.RavenDbConnectionStringName, 
-					new ByteStreamDocumentSerializer(new JsonSerializer()))
 				.UsingSynchronousDispatchScheduler(bus)
+				.UsingRavenPersistence(Keys.RavenDbConnectionStringName)
+					.UsingRavenPersistence("RavenDB")
+					.ConsistentQueries()
+					.PageEvery(int.MaxValue)
+					.MaxServerPageSizeConfiguration(1024)
 				.Build();
 		}
 

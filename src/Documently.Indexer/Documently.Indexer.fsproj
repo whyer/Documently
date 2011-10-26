@@ -62,12 +62,8 @@
       <HintPath>..\packages\MassTransit.2.0.1.0\lib\net40\MassTransit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MassTransit.Transports.Msmq">
-      <HintPath>..\packages\MassTransit.2.0.0.3\lib\NET40-Full\MassTransit.Transports.MSMQ.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.0.2\lib\NET40-Full\MassTransit.Transports.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.1.0\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />

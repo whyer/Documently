@@ -21,16 +21,6 @@ namespace Documently.Domain.Service
 		public static void Main(string[] args)
 		{
 			Thread.CurrentThread.Name = "Domain Service Main Thread";
-#if RELEASE
-			RunService();
-#else
-			RunProgram();
-#endif
-		}
-
-		private static void RunService()
-		{
-
 			HostFactory.Run(x =>
 			{
 				x.Service<Program>(s =>
@@ -45,18 +35,6 @@ namespace Documently.Domain.Service
 				x.SetDisplayName("Documently Domain Service");
 				x.SetServiceName("Documently.Domain.Service");
 			});
-		}
-
-		private static void RunProgram()
-		{
-			var p = new Program();
-			try
-			{
-				p.Start();
-				Console.WriteLine("Started... Press a key to exit.");
-				Console.ReadKey(true);
-			}
-			finally { p.Stop(); }
 		}
 
 		private void Start()

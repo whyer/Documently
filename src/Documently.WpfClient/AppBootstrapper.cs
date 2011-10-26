@@ -1,4 +1,5 @@
-﻿namespace Documently.WpfClient
+﻿
+namespace Documently.WpfClient
 {
 	using System;
 	using System.Collections.Generic;
@@ -6,6 +7,7 @@
 	using System.ComponentModel.Composition.Hosting;
 	using System.ComponentModel.Composition.Primitives;
 	using System.Linq;
+	using Documently.WpfClient.Modules.Shell;
 	using Caliburn.Micro;
 
 	public class AppBootstrapper : Bootstrapper<ShellViewModel>

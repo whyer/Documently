@@ -38,7 +38,7 @@ There are two sample clients: one WPF Client with a nice UI and one console appl
 
 Once both RavenDB and the *Domain Service* are started without error messages, start one of the clients, or both and try it out!
 
-**Note:** When starting *Domain Service* the first time you will need to run it as admin to avoid getting error messages from MassTransit's Performance Counters - or you can run it and just ignore those messages.
+**Note:** When starting *Domain Service* the first time you will need to run it as admin to avoid getting error messages from MassTransit's Performance Counters - or you can run it and just ignore those messages. 
 
 ## Credits
 

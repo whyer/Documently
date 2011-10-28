@@ -32,11 +32,13 @@ The above tasks are rather easy to accomplish, they just take a few hours worth 
 
 ## Getting started
 
-First, start the event-store and view-store - RavenDB.Server, in this case. It can be found in `src\vendor\RavenDB`. Once this is done, install [RabbitMQ](http://www.rabbitmq.com/download.html)
+First, start the event-store and view-store - RavenDB.Server, in this case. It can be found in `src\packages\RavenDB.1.x.x\server`. Once this is done, install [RabbitMQ](http://www.rabbitmq.com/download.html)
 
 There are two sample clients: one WPF Client with a nice UI and one console application for a quick start. Before using them, you need to compile the solution and start the `Documently.Domain.Service` console application. This is the domain service that handles the domain logic and broadcasts the (domain) events.
 
-Once both RavenDB and the Domain Service are started without error messages, start one of the clients, or both and try it out!
+Once both RavenDB and the *Domain Service* are started without error messages, start one of the clients, or both and try it out!
+
+**Note:** When starting *Domain Service* the first time you will need to run it as admin to avoid getting error messages from MassTransit's Performance Counters - or you can run it and just ignore those messages.
 
 ## Credits
 

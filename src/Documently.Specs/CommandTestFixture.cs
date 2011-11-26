@@ -68,8 +68,8 @@ namespace CQRSSample.Specs
 
 		private Consumes<TCommand>.All BuildCommandHandler()
 		{
-		    Func<IRepository> createRepostFunc = () => Repository;
-			return Activator.CreateInstance(typeof(TCommandHandler), createRepostFunc) as TCommandHandler;
+		    Func<IRepository> createReposFunc = () => Repository;
+			return Activator.CreateInstance(typeof(TCommandHandler), createReposFunc) as TCommandHandler;
 		}
 	}
 

@@ -148,6 +148,7 @@
     <Compile Include="CommandTestFixture.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Documents\when_creating_new_documentCollection.cs" />
+    <Compile Include="Documents\when_creating_new_documentCollection_no_name_given.cs" />
     <Compile Include="Documents\when_creating_new_document_meta_data.cs" />
     <Compile Include="Documents\when_document_is_associated_with_a_collection.cs" />
     <Compile Include="Documents\when_uploaded_document_itself.cs" />

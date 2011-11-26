@@ -41,13 +41,10 @@ namespace Documently.Domain.Domain
             RaiseEvent(@event);
         }
 
-        public void Apply(AssociatedWithCollection evt)
-        {
-            _collectionId = evt.CollectionId;
-        }
+        public void Apply(AssociatedWithCollection @event)
+        {}
 
         private Guid _documentBlobId;
-        private Guid _collectionId;
 
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
@@ -16,9 +17,12 @@ namespace CQRSSample.Specs.Documents
         private Guid docId = CombGuid.Generate();
         private Guid collectionId = CombGuid.Generate();
 
-        protected override System.Collections.Generic.IEnumerable<DomainEvent> Given()
+        protected override IEnumerable<DomainEvent> Given()
         {
-            return new[] {new DocumentMetaDataCreated(docId, "title", DocumentState.Created, DateTime.UtcNow)};
+            return new List<DomainEvent>
+                       {
+                           new DocumentMetaDataCreated(docId, "title", DocumentState.Created, DateTime.UtcNow)
+                       };
         }
 
         protected override AssociateDocumentWithCollection When()
@@ -27,11 +31,12 @@ namespace CQRSSample.Specs.Documents
         }
 
         [Test]
-        public void then_the_document_records_the_collection_it_belongs_to()
+        public void then_an_event_of_the_association_is_sent()
         {
             var evt = (AssociatedWithCollection)PublishedEventsT.First();
             evt.AggregateId.Should().Be(docId);
             evt.CollectionId.Should().Be(collectionId);
         }
     }
+
 }

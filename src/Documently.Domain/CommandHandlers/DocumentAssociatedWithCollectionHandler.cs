@@ -1,4 +1,5 @@
 using System;
+using System.Management.Instrumentation;
 using CommonDomain.Persistence;
 using Documently.Commands;
 using Documently.Domain.Domain;
@@ -20,6 +21,7 @@ namespace Documently.Domain.CommandHandlers
         {
             var repository = _repository();
             var document = repository.GetById<Document>(message.Id);
+
             document.AssociateWithCollection(message.CollectionId);
             repository.Save(document, Guid.NewGuid(), null);
         }

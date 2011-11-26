@@ -39,6 +39,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssociateDocumentWithCollection.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CreateNewCustomer.cs" />
     <Compile Include="DynamicCommand.cs" />

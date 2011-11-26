@@ -4,7 +4,7 @@ using Documently.Commands;
 using Documently.Domain.Domain;
 using MassTransit;
 
-namespace CQRSSample.Specs.Documents
+namespace Documently.Domain.CommandHandlers
 {
     public class DocumentAssociatedWithCollectionHandler : Consumes<AssociateDocumentWithCollection>.All
     {

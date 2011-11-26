@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandlers\CreateCustomerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\CreateNewDocumentCollectionHandler.cs" />
     <Compile Include="CommandHandlers\DocumentAssociatedWithCollectionHandler.cs" />
     <Compile Include="CommandHandlers\DocumentIndexingHandler.cs" />
     <Compile Include="CommandHandlers\DocumentMetaDataHandler.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\CustomerName.cs" />
     <Compile Include="Domain\Document.cs" />
+    <Compile Include="Domain\DocumentCollection.cs" />
+    <Compile Include="Events\DocumentCollectionCreated.cs" />
     <Compile Include="Domain\DocumentState.cs" />
     <Compile Include="Domain\NonExistingCustomerException.cs" />
     <Compile Include="Domain\PhoneNumber.cs" />

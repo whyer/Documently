@@ -26,8 +26,14 @@ namespace Documently.App
 			XmlConfigurator.Configure();
 
 			var p = new Program();
-			try { p.Start(); }
-			finally { p.Stop(); }
+			try
+			{
+			    p.Start();
+			}
+			finally
+			{
+			    p.Stop();
+			}
 		}
 
 		private void Start()
@@ -44,25 +50,32 @@ namespace Documently.App
 
 				_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
 
-				var customerId = CombGuid.Generate();
+				var documentId = CombGuid.Generate();
 
-				Console.WriteLine("create new customer by pressing a key");
+				Console.WriteLine("Create new Document metadata by pressing a key");
 				Console.ReadKey(true);
 
 				//create customer (Write/Command)
-				CreateCustomer(customerId);
+				CreateDocument(documentId);
 
-				Console.WriteLine("Customer created. Press any key to relocate customer.");
-				Console.ReadKey(true);
+				Console.WriteLine("Document created. Press any key to create document collection");
+                Console.ReadKey(true);
 
-				//Customer relocating (Write/Command)
-				RelocateCustomer(customerId);
+                // Create collection
+			    Guid collectionId = CombGuid.Generate();
+			    CreateDocumentCollection(collectionId, "My new collection");
 
-				Console.WriteLine("Customer relocated. Press any key to show list of customers.");
-				Console.ReadKey(true);
+                Console.WriteLine("Collection created. Press any key to associate document with collection");
+			    Console.ReadKey(true);
 
-				//show all customers [in RMQ] (Read/Query)
-				ShowCustomerListView();
+                // Associate
+                AssociateDocumentToCollection(documentId, collectionId);
+                
+                //Console.WriteLine("Customer relocated. Press any key to show list of customers.");
+                //Console.ReadKey(true);
+
+                ////show all customers [in RMQ] (Read/Query)
+                //ShowCustomerListView();
 			}
 			catch (WebException ex)
 			{
@@ -74,15 +87,15 @@ namespace Documently.App
 			}
 
 			Console.WriteLine("Press any key to finish.");
-			Console.ReadKey(true);
+			Console.ReadKey();
 		}
 
 		private static void Description()
 		{
 			Console.WriteLine(@"This application:
-* Creates a customer
-* Relocates the customer
-* Shows all customers.");
+* Creates a document
+* Creates a document collection
+* Shows all documents and collections.");
 		}
 
 		private void ShowCustomerListView()
@@ -99,11 +112,21 @@ namespace Documently.App
 			}
 		}
 
-		private void CreateCustomer(Guid aggregateId)
+		private void CreateDocument(Guid documentId)
 		{
-			GetDomainService()
-				.Send(new CreateNewCustomer(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
+		    GetDomainService()
+		        .Send(new SaveDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
 		}
+
+        private void CreateDocumentCollection(Guid documentCollectionId, string name)
+        {
+            GetDomainService().Send(new CreateNewDocumentCollection(documentCollectionId, name));
+        }
+
+        private void AssociateDocumentToCollection(Guid documentId, Guid collectionId)
+        {
+            GetDomainService().Send(new AssociateDocumentWithCollection(documentId, collectionId));
+        }
 
 		private void RelocateCustomer(Guid customerId)
 		{

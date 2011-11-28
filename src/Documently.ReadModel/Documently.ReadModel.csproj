@@ -82,6 +82,8 @@
     <Compile Include="CustomerHasLivedInDto.cs" />
     <Compile Include="CustomerListDto.cs" />
     <Compile Include="CustomerListView.cs" />
+    <Compile Include="DocumentCollectionDto.cs" />
+    <Compile Include="DocumentListView.cs" />
     <Compile Include="Dto.cs" />
     <Compile Include="HandlesEvent.cs" />
     <Compile Include="IReadRepository.cs" />

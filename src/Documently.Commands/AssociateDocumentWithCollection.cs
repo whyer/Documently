@@ -5,7 +5,7 @@ namespace Documently.Commands
     [Serializable]
     public class AssociateDocumentWithCollection : Command
     {
-        public Guid CollectionId { get; private set; }
+        public Guid CollectionId { get; protected set; }
 
         public AssociateDocumentWithCollection()
         {}

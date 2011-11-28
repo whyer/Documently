@@ -14,6 +14,6 @@ namespace Documently.Domain.Events
             CollectionId = collectionId;
         }
 
-        public Guid CollectionId { get; private set; }
+        public Guid CollectionId { get; protected set; }
     }
 }

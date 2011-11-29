@@ -39,8 +39,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssociateDocumentWithCollection.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CreateNewCustomer.cs" />
+    <Compile Include="CreateNewDocumentCollection.cs" />
     <Compile Include="DynamicCommand.cs" />
     <Compile Include="InitializeDocumentIndexing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,9 +7,7 @@ namespace Documently.Domain.Domain
 {
 	public class Document : AggregateBase
 	{
-		private Guid _DocumentBlobId;
-
-		public Document()
+	    public Document()
 		{
 		}
 
@@ -34,7 +32,19 @@ namespace Documently.Domain.Domain
 
 		public void Apply(AssociatedIndexingPending evt)
 		{
-			_DocumentBlobId = evt.BlobId;
+			_documentBlobId = evt.BlobId;
 		}
+
+        public void AssociateWithCollection(Guid collectionId)
+        {
+            var @event = new AssociatedWithCollection(Id, collectionId);
+            RaiseEvent(@event);
+        }
+
+        public void Apply(AssociatedWithCollection @event)
+        {}
+
+        private Guid _documentBlobId;
+
 	}
 }

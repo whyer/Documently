@@ -18,7 +18,8 @@ namespace Documently.Domain.CommandHandlers
 
 		public void Consume(SaveDocumentMetaData command)
 		{
-			_Repo().Save(new Document(command.Title, command.UtcTime), command.Id, null);
+		    var document = new Document(command.Title, command.UtcTime);
+			_Repo().Save(document, Guid.NewGuid(), null);
 		}
 	}
 }

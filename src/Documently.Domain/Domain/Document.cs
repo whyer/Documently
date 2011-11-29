@@ -37,7 +37,7 @@ namespace Documently.Domain.Domain
 
         public void AssociateWithCollection(Guid collectionId)
         {
-            var @event = new AssociatedWithCollection(Id, collectionId);
+            var @event = new AssociatedWithCollection(Id, collectionId, (uint) (Version + 1));
             RaiseEvent(@event);
         }
 

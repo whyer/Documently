@@ -8,9 +8,8 @@ namespace Documently.Domain.Events
         public AssociatedWithCollection()
         {}
 
-        public AssociatedWithCollection(Guid documentId, Guid collectionId)
+        public AssociatedWithCollection(Guid documentId, Guid collectionId, uint version) : base(documentId, version)
         {
-            AggregateId = documentId;
             CollectionId = collectionId;
         }
 

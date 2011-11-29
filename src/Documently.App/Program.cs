@@ -71,11 +71,11 @@ namespace Documently.App
                 // Associate
                 AssociateDocumentToCollection(documentId, collectionId);
                 
-                //Console.WriteLine("Customer relocated. Press any key to show list of customers.");
-                //Console.ReadKey(true);
+                Console.WriteLine("Assocoation done. Press any key to show list of documents.");
+                Console.ReadKey(true);
 
                 ////show all customers [in RMQ] (Read/Query)
-                //ShowCustomerListView();
+			    ShowDocumentList();
 			}
 			catch (WebException ex)
 			{
@@ -90,7 +90,21 @@ namespace Documently.App
 			Console.ReadKey();
 		}
 
-		private static void Description()
+	    private void ShowDocumentList()
+	    {
+            var store = _Container.Resolve<IDocumentStore>();
+
+            using (var session = store.OpenSession())
+            {
+                foreach (var documentDto in session.Query<DocumentDto>())
+                {
+                    Console.WriteLine(documentDto.Title + " created at " + documentDto.CreatedUtc + " (" + documentDto.AggregateRootId + ")");
+                    Console.WriteLine("---");
+                }
+            }
+	    }
+
+	    private static void Description()
 		{
 			Console.WriteLine(@"This application:
 * Creates a document

@@ -9,7 +9,7 @@ namespace Documently.Domain.Domain
         public DocumentCollection()
         {}
 
-        protected DocumentCollection(string collectionName)
+        public DocumentCollection(string collectionName)
         {
             var @event = new DocumentCollectionCreated(CombGuid.Generate(), collectionName);
             RaiseEvent(@event);

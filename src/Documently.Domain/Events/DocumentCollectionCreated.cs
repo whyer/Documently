@@ -10,10 +10,10 @@ namespace Documently.Domain.Events
         public DocumentCollectionCreated()
         {}
 
-        public DocumentCollectionCreated(Guid id, string name)
+        public DocumentCollectionCreated(Guid documentCollectionId, string name)
         {
             Name = name;
-            AggregateId = id;
+            AggregateId = documentCollectionId;
         }
     }
 }

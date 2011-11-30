@@ -129,7 +129,7 @@ namespace Documently.App
 		private void CreateDocument(Guid documentId)
 		{
 		    GetDomainService()
-		        .Send(new SaveDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
+		        .Send(new CreateNewDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
 		}
 
         private void CreateDocumentCollection(Guid documentCollectionId, string name)

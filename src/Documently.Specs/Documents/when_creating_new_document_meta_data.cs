@@ -11,13 +11,13 @@ using SharpTestsEx;
 namespace CQRSSample.Specs.Documents
 {
 	public class when_creating_new_document_meta_data
-		: CommandTestFixture<SaveDocumentMetaData, DocumentMetaDataHandler, Document>
+		: CommandTestFixture<CreateNewDocumentMetaData, CreateDocumentMetaDataHandler, Document>
 	{
 		private readonly DateTime _Created = DateTime.UtcNow;
 
-		protected override SaveDocumentMetaData When()
+		protected override CreateNewDocumentMetaData When()
 		{
-			return new SaveDocumentMetaData(CombGuid.Generate(), "My document", _Created);
+			return new CreateNewDocumentMetaData(CombGuid.Generate(), "My document", _Created);
 		}
 
 		[Test]

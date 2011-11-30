@@ -5,7 +5,7 @@ namespace Documently.Commands
 	[Serializable]
 	public class InitializeDocumentIndexing : Command
 	{
-		private readonly Guid _BlobId;
+		private Guid _BlobId;
 
 		public InitializeDocumentIndexing()
 		{
@@ -19,6 +19,7 @@ namespace Documently.Commands
 		public Guid BlobId
 		{
 			get { return _BlobId; }
+            set { _BlobId = value; }
 		}
 	}
 }

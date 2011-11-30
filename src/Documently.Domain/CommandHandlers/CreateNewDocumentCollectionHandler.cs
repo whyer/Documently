@@ -21,6 +21,7 @@ namespace Documently.Domain.CommandHandlers
         {
             var collection = DocumentCollection.CreateNew(message.Name);
             var repository = _reposistory();
+
             repository.Save(collection, Guid.NewGuid());
         }
     }

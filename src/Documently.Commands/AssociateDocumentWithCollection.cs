@@ -2,17 +2,20 @@ using System;
 
 namespace Documently.Commands
 {
-    [Serializable]
-    public class AssociateDocumentWithCollection : Command
-    {
-        public Guid CollectionId { get; protected set; }
+	[Serializable]
+	public class AssociateDocumentWithCollection : Command
+	{
+		public Guid CollectionId { get; protected set; }
 
-        public AssociateDocumentWithCollection()
-        {}
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected AssociateDocumentWithCollection()
+		{
+		}
 
-        public AssociateDocumentWithCollection(Guid docId, Guid collectionId) : base(docId)
-        {
-            CollectionId = collectionId;
-        }
-    }
+		public AssociateDocumentWithCollection(Guid docId, Guid collectionId) : base(docId)
+		{
+			CollectionId = collectionId;
+		}
+	}
 }

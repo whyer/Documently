@@ -6,7 +6,9 @@ namespace Documently.Domain.Events
 	[Serializable]
 	public class AssociatedIndexingPending : DomainEvent
 	{
-		public AssociatedIndexingPending()
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected AssociatedIndexingPending()
 		{
 		}
 

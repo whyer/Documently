@@ -1,6 +1,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using CommonDomain;
 using CommonDomain.Core;
 using CommonDomain.Persistence;
 using CommonDomain.Persistence.EventStore;
@@ -24,13 +25,17 @@ namespace Documently.Infrastructure.Installers
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			var eventStore = GetInitializedEventStore(container.Resolve<IDispatchCommits>());
-			var repository = new EventStoreRepository(eventStore,
-				new AggregateFactory(),
-				new ConflictDetector());
+			container.Register(
+				Component.For<IStoreEvents>()
+					.UsingFactoryMethod(k => GetInitializedEventStore(k.Resolve<IDispatchCommits>())),
+				C<IRepository, EventStoreRepository>(),
+				C<IConstructAggregates, AggregateFactory>(),
+				C<IDetectConflicts, ConflictDetector>());
+		}
 
-			container.Register(Component.For<IStoreEvents>().Instance(eventStore));
-			container.Register(Component.For<IRepository>().Instance(repository));
+		private static ComponentRegistration<TS> C<TS, TC>() where TC : TS
+		{
+			return Component.For<TS>().ImplementedBy<TC>().LifeStyle.Transient;
 		}
 
 		private IStoreEvents GetInitializedEventStore(IDispatchCommits bus)

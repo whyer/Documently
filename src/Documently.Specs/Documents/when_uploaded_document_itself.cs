@@ -5,7 +5,6 @@ using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
 using Documently.Domain.Events;
 using Magnum;
-using Magnum.Collections;
 using NUnit.Framework;
 using SharpTestsEx;
 

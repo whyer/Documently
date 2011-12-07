@@ -2,18 +2,21 @@ using System;
 
 namespace Documently.Commands
 {
-    [Serializable]
-    public class CreateNewDocumentCollection : Command
-    {
-        public CreateNewDocumentCollection()
-        {}
+	[Serializable]
+	public class CreateNewDocumentCollection : Command
+	{
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected CreateNewDocumentCollection()
+		{
+		}
 
-        public CreateNewDocumentCollection(Guid id, string name)
-        {
-            this.Id = id;
-            this.Name = name;
-        }
+		public CreateNewDocumentCollection(Guid id, string name)
+		{
+			Id = id;
+			Name = name;
+		}
 
-        public string Name { get; protected set; }
-    }
+		public string Name { get; protected set; }
+	}
 }

@@ -2,18 +2,21 @@ using System;
 
 namespace Documently.Domain.Events
 {
-    [Serializable]
-    public class DocumentCollectionCreated : DomainEvent
-    {
-        public string Name { get; protected set; }
+	[Serializable]
+	public class DocumentCollectionCreated : DomainEvent
+	{
+		public string Name { get; protected set; }
 
-        public DocumentCollectionCreated()
-        {}
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected DocumentCollectionCreated()
+		{
+		}
 
-        public DocumentCollectionCreated(Guid id, string name)
-        {
-            Name = name;
-            AggregateId = id;
-        }
-    }
+		public DocumentCollectionCreated(Guid id, string name)
+		{
+			Name = name;
+			AggregateId = id;
+		}
+	}
 }

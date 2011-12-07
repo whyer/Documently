@@ -9,21 +9,21 @@ using SharpTestsEx;
 
 namespace CQRSSample.Specs.Documents
 {
-    public class when_creating_new_documentCollection
-        : CommandTestFixture<CreateNewDocumentCollection, CreateNewDocumentCollectionHandler, DocumentCollection>
-    {
-        private string _collectionName = "Name";
+	public class when_creating_new_documentCollection
+		: CommandTestFixture<CreateNewDocumentCollection, CreateNewDocumentCollectionHandler, DocumentCollection>
+	{
+		private string _collectionName = "Name";
 
-        protected override CreateNewDocumentCollection When()
-        {
-            return new CreateNewDocumentCollection(CombGuid.Generate(), _collectionName);
-        }
+		protected override CreateNewDocumentCollection When()
+		{
+			return new CreateNewDocumentCollection(CombGuid.Generate(), _collectionName);
+		}
 
-        [Test]
-        public void should_recieve_new_collection_created_event()
-        {
-            var evt = (DocumentCollectionCreated)PublishedEventsT.First();
-            evt.Name.Should().Be(_collectionName);
-        }
-    }
+		[Test]
+		public void should_recieve_new_collection_created_event()
+		{
+			var evt = (DocumentCollectionCreated) PublishedEventsT.First();
+			evt.Name.Should().Be(_collectionName);
+		}
+	}
 }

@@ -26,7 +26,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 		public void WithCustomer(Guid customerId)
 		{
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
-			Command = new ValidatingCommand<RelocateTheCustomer>(new RelocateTheCustomer(ViewModel.AggregateRootId),
+			Command = new ValidatingCommand<RelocateTheCustomer>(new RelocateTheCustomer(ViewModel.AggregateRootId, ViewModel.Street, ViewModel.StreetNumber, ViewModel.PostalCode, ViewModel.City),
 			                                                         Validator);
 		}
 

@@ -12,16 +12,16 @@ namespace Documently.Commands
 		public string City { get; set; }
 		public string PhoneNumber { get; set; }
 
-		public CreateNewCustomer()
-		{
-		}
-
-		public CreateNewCustomer(Guid id) : base(id)
+		/// <summary>
+		/// 	for serialization
+		/// </summary>
+		[Obsolete("for serialization")]
+		protected CreateNewCustomer()
 		{
 		}
 
 		public CreateNewCustomer(Guid id, string customerName, string street, string streetNumber, string postalCode,
-		                             string city, string phoneNumber)
+		                         string city, string phoneNumber)
 			: base(id)
 		{
 			CustomerName = customerName;

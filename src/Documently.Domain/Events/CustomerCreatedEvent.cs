@@ -12,7 +12,9 @@ namespace Documently.Domain.Events
 		public string City { get; protected set; }
 		public string PhoneNumber { get; protected set; }
 
-		public CustomerCreatedEvent()
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected CustomerCreatedEvent()
 		{
 		}
 

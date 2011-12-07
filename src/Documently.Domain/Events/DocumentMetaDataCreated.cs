@@ -6,7 +6,9 @@ namespace Documently.Domain.Events
 	[Serializable]
 	public class DocumentMetaDataCreated : DomainEvent
 	{
-		public DocumentMetaDataCreated()
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected DocumentMetaDataCreated()
 		{
 		}
 

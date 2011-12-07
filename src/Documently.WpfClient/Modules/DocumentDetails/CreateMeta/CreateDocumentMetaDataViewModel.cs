@@ -21,7 +21,7 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 
 		public void Save()
 		{
-			_Bus.Send(new CreateNewDocumentMetaData(Guid.NewGuid(), Command.Title, DateTime.UtcNow));
+			_Bus.Send(new CreateDocumentMetaData(Guid.NewGuid(), Command.Title, DateTime.UtcNow));
 			_EventAggregator.Publish(new DocumentMetaDataSaved());
 			//_Bus.RegisterHandler((DocumentMetaDataCreated evt) => _EventAggregator.Publish(evt)); // TODO: set this up better!
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Documently.Infrastructure;
@@ -46,8 +45,9 @@ namespace Documently.Domain.Service
 				.Install(
 					new RavenDbServerInstaller(),
 					new CommandHandlerInstaller(),
-					new BusInstaller(Keys.DomainServiceEndpoint),
-					new EventStoreInstaller());
+					new EventStoreInstaller(),
+					new BusInstaller(Keys.DomainServiceEndpoint)
+					);
 
 			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
 			_Bus = _Container.Resolve<IServiceBus>();

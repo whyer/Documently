@@ -5,7 +5,9 @@ namespace Documently.Domain.Events
 	[Serializable]
 	public class DocumentIndexed : DomainEvent
 	{
-		public DocumentIndexed()
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected DocumentIndexed()
 		{
 		}
 

@@ -2,6 +2,7 @@ using System;
 using Caliburn.Micro;
 using Documently.Commands;
 using Documently.Infrastructure;
+using Magnum;
 using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
@@ -15,7 +16,8 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 		{
 			_Bus = bus;
 			_EventAggregator = eventAggregator;
-			Command = new CreateNewCustomer(Guid.NewGuid());
+			Command = new CreateNewCustomer(CombGuid.Generate(),
+				"unknown", "unknown", "unknown", "unknown", "unknown", "305533333");
 		}
 
 		public CreateNewCustomer Command { get; private set; }

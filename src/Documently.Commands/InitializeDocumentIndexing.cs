@@ -5,20 +5,17 @@ namespace Documently.Commands
 	[Serializable]
 	public class InitializeDocumentIndexing : Command
 	{
-		private readonly Guid _BlobId;
-
-		public InitializeDocumentIndexing()
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected InitializeDocumentIndexing()
 		{
 		}
 
 		public InitializeDocumentIndexing(Guid aggregateId, Guid blobId) : base(aggregateId)
 		{
-			_BlobId = blobId;
+			BlobId = blobId;
 		}
 
-		public Guid BlobId
-		{
-			get { return _BlobId; }
-		}
+		public Guid BlobId { get; protected set; }
 	}
 }

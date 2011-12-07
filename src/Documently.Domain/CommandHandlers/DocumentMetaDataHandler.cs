@@ -6,7 +6,7 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers
 {
-	public class DocumentMetaDataHandler : Consumes<SaveDocumentMetaData>.All
+	public class DocumentMetaDataHandler : Consumes<CreateDocumentMetaData>.All
 	{
 		private readonly Func<IRepository> _Repo;
 
@@ -16,7 +16,7 @@ namespace Documently.Domain.CommandHandlers
 			_Repo = repo;
 		}
 
-		public void Consume(SaveDocumentMetaData command)
+		public void Consume(CreateDocumentMetaData command)
 		{
 			_Repo().Save(new Document(command.Title, command.UtcTime), command.Id, null);
 		}

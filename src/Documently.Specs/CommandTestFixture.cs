@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CommonDomain;
+using CommonDomain.Persistence;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Events;
@@ -67,7 +68,8 @@ namespace CQRSSample.Specs
 
 		private Consumes<TCommand>.All BuildCommandHandler()
 		{
-			return Activator.CreateInstance(typeof(TCommandHandler), Repository) as TCommandHandler;
+		    Func<IRepository> createReposFunc = () => Repository;
+			return Activator.CreateInstance(typeof(TCommandHandler), createReposFunc) as TCommandHandler;
 		}
 	}
 

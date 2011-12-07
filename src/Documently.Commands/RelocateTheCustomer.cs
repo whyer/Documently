@@ -11,11 +11,9 @@ namespace Documently.Commands
 		public string PostalCode { get; set; }
 		public string City { get; set; }
 
-		public RelocateTheCustomer()
-		{
-		}
-
-		public RelocateTheCustomer(Guid id) : base(id)
+		/// <summary> for serialization </summary>
+		[Obsolete("for serialization")]
+		protected RelocateTheCustomer()
 		{
 		}
 
@@ -29,6 +27,9 @@ namespace Documently.Commands
 		}
 	}
 
+	/// <summary>
+	/// This validator validates that the command is correct from an application-validation perspective.
+	/// </summary>
 	public class RelocatingCustomerValidator : AbstractValidator<RelocateTheCustomer>
 	{
 		public RelocatingCustomerValidator()

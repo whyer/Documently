@@ -17,7 +17,7 @@ namespace Documently.App
 	internal class Program
 	{
 		private static readonly ILog _Logger = LogManager.GetLogger(typeof (Program));
-		
+
 		private IWindsorContainer _Container;
 
 		private static void Main()
@@ -28,11 +28,11 @@ namespace Documently.App
 			var p = new Program();
 			try
 			{
-			    p.Start();
+				p.Start();
 			}
 			finally
 			{
-			    p.Stop();
+				p.Stop();
 			}
 		}
 
@@ -59,23 +59,23 @@ namespace Documently.App
 				CreateDocument(documentId);
 
 				Console.WriteLine("Document created. Press any key to create document collection");
-                Console.ReadKey(true);
+				Console.ReadKey(true);
 
-                // Create collection
-			    Guid collectionId = CombGuid.Generate();
-			    CreateDocumentCollection(collectionId, "My new collection");
+				// Create collection
+				var collectionId = CombGuid.Generate();
+				CreateDocumentCollection(collectionId, "My new collection");
 
-                Console.WriteLine("Collection created. Press any key to associate document with collection");
-			    Console.ReadKey(true);
+				Console.WriteLine("Collection created. Press any key to associate document with collection");
+				Console.ReadKey(true);
 
-                // Associate
-                AssociateDocumentToCollection(documentId, collectionId);
-                
-                Console.WriteLine("Assocoation done. Press any key to show list of documents.");
-                Console.ReadKey(true);
+				// Associate
+				AssociateDocumentToCollection(documentId, collectionId);
 
-                ////show all customers [in RMQ] (Read/Query)
-			    ShowDocumentList();
+				Console.WriteLine("Assocoation done. Press any key to show list of documents.");
+				Console.ReadKey(true);
+
+				////show all customers [in RMQ] (Read/Query)
+				ShowDocumentList();
 			}
 			catch (WebException ex)
 			{
@@ -90,23 +90,25 @@ namespace Documently.App
 			Console.ReadKey();
 		}
 
-	    private void ShowDocumentList()
-	    {
-            var store = _Container.Resolve<IDocumentStore>();
-
-            using (var session = store.OpenSession())
-            {
-                foreach (var documentDto in session.Query<DocumentDto>())
-                {
-                    Console.WriteLine(documentDto.Title + " created at " + documentDto.CreatedUtc + " (" + documentDto.AggregateRootId + ")");
-                    Console.WriteLine("---");
-                }
-            }
-	    }
-
-	    private static void Description()
+		private void ShowDocumentList()
 		{
-			Console.WriteLine(@"This application:
+			var store = _Container.Resolve<IDocumentStore>();
+
+			using (var session = store.OpenSession())
+			{
+				foreach (var documentDto in session.Query<DocumentDto>())
+				{
+					Console.WriteLine(documentDto.Title + " created at " + documentDto.CreatedUtc + " (" + documentDto.AggregateRootId +
+					                  ")");
+					Console.WriteLine("---");
+				}
+			}
+		}
+
+		private static void Description()
+		{
+			Console.WriteLine(
+				@"This application:
 * Creates a document
 * Creates a document collection
 * Shows all documents and collections.");
@@ -128,19 +130,19 @@ namespace Documently.App
 
 		private void CreateDocument(Guid documentId)
 		{
-		    GetDomainService()
-		        .Send(new CreateNewDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
+			GetDomainService()
+				.Send(new CreateDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
 		}
 
-        private void CreateDocumentCollection(Guid documentCollectionId, string name)
-        {
-            GetDomainService().Send(new CreateNewDocumentCollection(documentCollectionId, name));
-        }
+		private void CreateDocumentCollection(Guid documentCollectionId, string name)
+		{
+			GetDomainService().Send(new CreateNewDocumentCollection(documentCollectionId, name));
+		}
 
-        private void AssociateDocumentToCollection(Guid documentId, Guid collectionId)
-        {
-            GetDomainService().Send(new AssociateDocumentWithCollection(documentId, collectionId));
-        }
+		private void AssociateDocumentToCollection(Guid documentId, Guid collectionId)
+		{
+			GetDomainService().Send(new AssociateDocumentWithCollection(documentId, collectionId));
+		}
 
 		private void RelocateCustomer(Guid customerId)
 		{
@@ -152,6 +154,7 @@ namespace Documently.App
 		{
 			var bus = _Container.Resolve<IServiceBus>();
 			var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
+			_Container.Release(bus);
 			return domainService;
 		}
 

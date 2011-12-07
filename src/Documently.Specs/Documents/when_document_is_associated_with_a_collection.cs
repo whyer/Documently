@@ -36,16 +36,7 @@ namespace CQRSSample.Specs.Documents
 			var evt = (AssociatedWithCollection) PublishedEventsT.First();
 			evt.AggregateId.Should().Be(docId);
 			evt.CollectionId.Should().Be(collectionId);
+			evt.Version.Should().Be(1);
 		}
 	}
-        [Test]
-        public void then_an_event_of_the_association_is_sent()
-        {
-            var evt = (AssociatedWithCollection)PublishedEventsT.First();
-            evt.AggregateId.Should().Be(docId);
-            evt.CollectionId.Should().Be(collectionId);
-            evt.Version.Should().Be(1);
-        }
-    }
-
 }

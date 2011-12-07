@@ -11,7 +11,7 @@ using SharpTestsEx;
 namespace CQRSSample.Specs.Documents
 {
 	public class when_creating_new_document_meta_data
-		: CommandTestFixture<CreateDocumentMetaData, DocumentMetaDataHandler, Document>
+		: CommandTestFixture<CreateDocumentMetaData, CreateDocumentMetaDataHandler, Document>
 	{
 		private readonly DateTime _Created = DateTime.UtcNow;
 

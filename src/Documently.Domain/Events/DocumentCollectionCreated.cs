@@ -7,7 +7,9 @@ namespace Documently.Domain.Events
 	{
 		public string Name { get; protected set; }
 
-		/// <summary> for serialization </summary>
+		/// <summary>
+		/// 	for serialization
+		/// </summary>
 		[Obsolete("for serialization")]
 		protected DocumentCollectionCreated()
 		{
@@ -19,10 +21,4 @@ namespace Documently.Domain.Events
 			AggregateId = id;
 		}
 	}
-        public DocumentCollectionCreated(Guid documentCollectionId, string name)
-        {
-            Name = name;
-            AggregateId = documentCollectionId;
-        }
-    }
 }

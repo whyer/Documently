@@ -31,6 +31,6 @@ namespace Documently.Domain.Events
 		/// E.g. CreateNewCustomerCommand would map to (:NewCustomerCreated).Version = 1,
 		/// as that event corresponds to the creation of the customer.
 		/// </summary>
-		public uint Version { get; protected set; }
+		public uint Version { get; set; }
 	}
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Documently.Commands;
+using Documently.Domain.Events;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using Documently.ReadModel;
@@ -38,17 +40,20 @@ namespace Documently.App
 
 		private void Start()
 		{
+			_Logger.Info("installing and setting up components");
+			_Container = new WindsorContainer()
+				.Install(
+					new RavenDbServerInstaller(),
+					new ReadRepositoryInstaller(),
+					new BusInstaller("rabbitmq://localhost/Documently.App"),
+					new EventStoreInstaller());
+
+			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
+
+			var bus = _Container.Resolve<IServiceBus>();
 			try
 			{
-				_Logger.Info("installing and setting up components");
-				_Container = new WindsorContainer()
-					.Install(
-						new RavenDbServerInstaller(),
-						new ReadRepositoryInstaller(),
-						new BusInstaller("rabbitmq://localhost/Documently.App"),
-						new EventStoreInstaller());
-
-				_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
+				var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
 
 				var documentId = CombGuid.Generate();
 
@@ -56,26 +61,31 @@ namespace Documently.App
 				Console.ReadKey(true);
 
 				//create customer (Write/Command)
-				CreateDocument(documentId);
-
+				var created = Request<CreateDocumentMetaData, DocumentMetaDataCreated>(
+					domainService, bus, new CreateDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
+				
 				Console.WriteLine("Document created. Press any key to create document collection");
 				Console.ReadKey(true);
-
-				// Create collection
+				
 				var collectionId = CombGuid.Generate();
-				CreateDocumentCollection(collectionId, "My new collection");
-
+				// Create collection
+				Request<CreateNewDocumentCollection, DocumentCollectionCreated>(
+					domainService, bus, new CreateNewDocumentCollection(collectionId, "My new collection", created.Version));
+					
 				Console.WriteLine("Collection created. Press any key to associate document with collection");
 				Console.ReadKey(true);
 
 				// Associate
-				AssociateDocumentToCollection(documentId, collectionId);
+				var associated = Request<AssociateDocumentWithCollection, AssociatedWithCollection>(
+					domainService, bus, new AssociateDocumentWithCollection(documentId, collectionId));
 
-				Console.WriteLine("Assocoation done. Press any key to show list of documents.");
+				Console.WriteLine(string.Format("Assocoation done, ar at version#{0}. Press any key to show list of documents.", associated.Version));
 				Console.ReadKey(true);
 
 				////show all customers [in RMQ] (Read/Query)
 				ShowDocumentList();
+
+
 			}
 			catch (WebException ex)
 			{
@@ -85,9 +95,29 @@ namespace Documently.App
 			{
 				_Logger.Error("exception thrown", ex);
 			}
+			finally
+			{
+				_Container.Release(bus);
+			}
 
 			Console.WriteLine("Press any key to finish.");
 			Console.ReadKey();
+		}
+
+		private TEvent Request<T, TEvent>(IEndpoint domainService, IServiceBus bus, T msg)
+			where TEvent : class
+			where T : class
+		{
+			TEvent myEvent = null;
+			var eventGotten = new ManualResetEvent(false);
+			domainService.SendRequest(msg, bus, req => req.Handle<TEvent>(evt =>
+				{
+					eventGotten.Set();
+					myEvent = evt;
+				}));
+
+			eventGotten.WaitOne();
+			return myEvent;
 		}
 
 		private void ShowDocumentList()
@@ -126,36 +156,6 @@ namespace Documently.App
 					Console.WriteLine("---");
 				}
 			}
-		}
-
-		private void CreateDocument(Guid documentId)
-		{
-			GetDomainService()
-				.Send(new CreateDocumentMetaData(documentId, "DocumentTitle", DateTime.UtcNow));
-		}
-
-		private void CreateDocumentCollection(Guid documentCollectionId, string name)
-		{
-			GetDomainService().Send(new CreateNewDocumentCollection(documentCollectionId, name));
-		}
-
-		private void AssociateDocumentToCollection(Guid documentId, Guid collectionId)
-		{
-			GetDomainService().Send(new AssociateDocumentWithCollection(documentId, collectionId));
-		}
-
-		private void RelocateCustomer(Guid customerId)
-		{
-			GetDomainService()
-				.Send(new RelocateTheCustomer(customerId, "Messestraße", "2", "4444", "Linz"));
-		}
-
-		private IEndpoint GetDomainService()
-		{
-			var bus = _Container.Resolve<IServiceBus>();
-			var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
-			_Container.Release(bus);
-			return domainService;
 		}
 
 		private void Stop()

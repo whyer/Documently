@@ -14,7 +14,7 @@ namespace CQRSSample.Specs.Documents
 	{
 		protected override CreateNewDocumentCollection When()
 		{
-			return new CreateNewDocumentCollection(CombGuid.Generate(), string.Empty);
+			return new CreateNewDocumentCollection(CombGuid.Generate(), string.Empty, 0);
 		}
 
 		[Test]

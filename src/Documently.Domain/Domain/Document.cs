@@ -14,7 +14,10 @@ namespace Documently.Domain.Domain
 		public Document(string title, DateTime utcCreated)
 		{
 			var @event = new DocumentMetaDataCreated(
-				CombGuid.Generate(), title, DocumentState.Created, utcCreated);
+				CombGuid.Generate(), title, DocumentState.Created, utcCreated)
+				{
+					Version = (uint) Version+1
+				};
 
 			RaiseEvent(@event);
 		}

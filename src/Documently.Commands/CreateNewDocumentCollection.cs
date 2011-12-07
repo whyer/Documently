@@ -11,7 +11,7 @@ namespace Documently.Commands
 		{
 		}
 
-		public CreateNewDocumentCollection(Guid id, string name)
+		public CreateNewDocumentCollection(Guid id, string name, uint version)
 		{
 			Id = id;
 			Name = name;

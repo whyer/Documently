@@ -18,7 +18,7 @@ namespace Documently.Domain.Events
 		{
 		}
 
-		protected DomainEvent(Guid aggregateId, uint aggregateVersion)
+		protected DomainEvent(Guid aggregateId, int aggregateVersion)
 		{
 			AggregateId = aggregateId;
 			Version = aggregateVersion;
@@ -31,6 +31,6 @@ namespace Documently.Domain.Events
 		/// E.g. CreateNewCustomerCommand would map to (:NewCustomerCreated).Version = 1,
 		/// as that event corresponds to the creation of the customer.
 		/// </summary>
-		public uint Version { get; protected set; }
+		public int Version { get; protected set; }
 	}
 }

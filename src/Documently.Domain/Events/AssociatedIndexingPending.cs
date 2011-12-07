@@ -12,7 +12,7 @@ namespace Documently.Domain.Events
 		{
 		}
 
-		public AssociatedIndexingPending(DocumentState processingState, Guid blobId, Guid arId, uint version) : base(arId, version)
+		public AssociatedIndexingPending(DocumentState processingState, Guid blobId, Guid arId, int version) : base(arId, version)
 		{
 			ProcessingState = processingState;
 			BlobId = blobId;

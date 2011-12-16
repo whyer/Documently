@@ -19,7 +19,7 @@ namespace Documently.Domain.CommandHandlers
 		{
 			var repo = _repository();
 			const int version = 0;
-			var customer = repo.GetById<Customer>(command.Id, version);
+			var customer = repo.GetById<Customer>(command.ArId, version);
 			customer.RelocateCustomer(command.Street, command.Streetnumber, command.PostalCode, command.City);
 			repo.Save(customer, Guid.NewGuid(), null);
 		}

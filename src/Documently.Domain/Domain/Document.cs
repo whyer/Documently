@@ -10,14 +10,14 @@ namespace Documently.Domain.Domain
 {
 	public class Document : AggregateBase
 	{
-	    public Document()
+		public Document()
 		{
 		}
 
-		public Document(string title, DateTime utcCreated)
+		public Document(Guid documentId, string title, DateTime utcCreated)
 		{
 			var @event = new DocumentMetaDataCreated(
-				 CombGuid.Generate(), title, DocumentState.Created, utcCreated);
+				documentId, title, DocumentState.Created, utcCreated);
 
 			RaiseEvent(@event);
 		}
@@ -38,11 +38,11 @@ namespace Documently.Domain.Domain
 			_documentBlobId = evt.BlobId;
 		}
 
-        public void AssociateWithCollection(Guid collectionId)
-        {
-            var @event = new AssociatedWithCollection(Id, collectionId);
-            RaiseEvent(@event);
-        }
+		public void AssociateWithCollection(Guid collectionId)
+		{
+			var @event = new AssociatedWithCollection(Id, collectionId);
+			RaiseEvent(@event);
+		}
 
         public void Apply(AssociatedWithCollection @event)
         { }
@@ -54,17 +54,14 @@ namespace Documently.Domain.Domain
         }
 
         private Guid _documentBlobId;
-	    private IEnumerable<int> _sharedWithUsers = new List<int>();
 
 	    public void ShareWith(IEnumerable<int> userIDs)
 	    {
             Contract.Requires(userIDs != null);
             Contract.Requires(userIDs.Count() > 0);
             Contract.Ensures(Contract.OldValue(userIDs) == userIDs);
-	        _sharedWithUsers = userIDs;
             var @event = new DocumentSharedEvent(Id, Version, userIDs);
             RaiseEvent(@event);
-
 	    }
 	}
 }

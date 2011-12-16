@@ -13,11 +13,12 @@ namespace CQRSSample.Specs.Documents
 	public class when_creating_new_document_meta_data
 		: CommandTestFixture<CreateDocumentMetaData, DocumentMetaDataHandler, Document>
 	{
-		private readonly DateTime _Created = DateTime.UtcNow;
+		private readonly DateTime _created = DateTime.UtcNow;
+	    private Guid _documentId = CombGuid.Generate();
 
-		protected override CreateDocumentMetaData When()
+	    protected override CreateDocumentMetaData When()
 		{
-			return new CreateDocumentMetaData(CombGuid.Generate(), "My document", _Created);
+			return new CreateDocumentMetaData(_documentId, "My document", _created);
 		}
 
 		[Test]
@@ -26,7 +27,10 @@ namespace CQRSSample.Specs.Documents
 			var evt = (DocumentMetaDataCreated)PublishedEventsT.First();
 			evt.Title.Should().Be("My document");
 			evt.ProcessingState.Should().Be(DocumentState.Created);
-			evt.UtcDate.Should().Be(_Created);
+			evt.UtcDate.Should().Be(_created);
+		    evt.AggregateId.Should().Be(_documentId);
 		}
+
+	    
 	}
 }

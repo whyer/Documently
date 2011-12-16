@@ -11,7 +11,7 @@ namespace Documently.Commands
 		{
 		}
 
-		public CreateDocumentMetaData(Guid id, string title, DateTime utcTime) : base(id)
+		public CreateDocumentMetaData(Guid arId, string title, DateTime utcTime) : base(arId)
 		{
 			Title = title;
 			UtcTime = utcTime;

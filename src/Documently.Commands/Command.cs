@@ -4,21 +4,21 @@ namespace Documently.Commands
 {
 	public abstract class Command
 	{
-		public Guid Id { get; protected set; }
+		public Guid ArId { get; protected set; }
 		public int Version { get; protected set; }
 
 		protected Command()
 		{
 		}
 
-		protected Command(Guid id)
+		protected Command(Guid arId)
 		{
-			Id = id;
+			ArId = arId;
 		}
 
-		protected Command(Guid id, int version)
+		protected Command(Guid arId, int version)
 		{
-			Id = id;
+			ArId = arId;
 			Version = version;
 		}
 	}

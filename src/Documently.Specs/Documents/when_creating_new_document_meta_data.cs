@@ -14,7 +14,7 @@ namespace CQRSSample.Specs.Documents
 		: CommandTestFixture<CreateDocumentMetaData, DocumentMetaDataHandler, Document>
 	{
 		private readonly DateTime _created = DateTime.UtcNow;
-	    private Guid _documentId = CombGuid.Generate();
+	    private readonly Guid _documentId = CombGuid.Generate();
 
 	    protected override CreateDocumentMetaData When()
 		{

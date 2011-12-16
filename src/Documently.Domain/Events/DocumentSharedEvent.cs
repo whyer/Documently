@@ -7,14 +7,17 @@ namespace Documently.Domain.Events
     [Serializable]
     public class DocumentSharedEvent : DomainEvent
     {
-        public DocumentSharedEvent()
+    	[Obsolete("for serialization")]
+        protected DocumentSharedEvent()
         {
-        
         }
-		public DocumentSharedEvent(Guid arId, int arVersion, IEnumerable<int> userIDs) 
+
+		public DocumentSharedEvent(Guid arId, int arVersion, IEnumerable<int> userIds) 
             : base(arId, arVersion)
 		{
+			UserIds = userIds;
+		}
 
-        }
+    	public IEnumerable<int> UserIds { get; protected set; }
     }
 }

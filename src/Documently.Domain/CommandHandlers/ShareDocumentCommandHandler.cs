@@ -20,7 +20,7 @@ namespace Documently.Domain.CommandHandlers
             var repo = _repository();
             const int version = 0;
             var document = repo.GetById<Document>(command.ArId, version);
-            document.ShareWith(command.UserIDs);
+            document.ShareWith(command.UserIds);
             repo.Save(document, Guid.NewGuid(), null);
             
         }

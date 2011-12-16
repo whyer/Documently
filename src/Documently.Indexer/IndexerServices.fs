@@ -15,6 +15,6 @@
        let txt = File.ReadAllText(p, Encoding.UTF8)
        printfn "file contents:"
        printfn "%A" txt
-       let ret = DocumentIndexed(msg.AggregateId, msg.Version + 1u)
+       let ret = DocumentIndexed(msg.AggregateId, msg.Version + 1)
        Thread.Sleep 200 // todo: parse the file!
        bus.Publish<DocumentIndexed> ret

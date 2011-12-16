@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 using CommonDomain.Core;
 using Documently.Domain.Events;
 using Magnum;
@@ -11,10 +14,10 @@ namespace Documently.Domain.Domain
 		{
 		}
 
-		public Document(string title, DateTime utcCreated)
+		public Document(Guid documentId, string title, DateTime utcCreated)
 		{
 			var @event = new DocumentMetaDataCreated(
-				CombGuid.Generate(), title, DocumentState.Created, utcCreated);
+				documentId, title, DocumentState.Created, utcCreated);
 
 			RaiseEvent(@event);
 		}
@@ -26,7 +29,7 @@ namespace Documently.Domain.Domain
 
 		public void AssociateWithDocumentBlob(Guid blobId)
 		{
-			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId, Id, (uint) Version + 1);
+			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId, Id, Version + 1);
 			RaiseEvent(evt);
 		}
 
@@ -41,10 +44,24 @@ namespace Documently.Domain.Domain
 			RaiseEvent(@event);
 		}
 
-		public void Apply(AssociatedWithCollection @event)
-		{
-		}
+        public void Apply(AssociatedWithCollection @event)
+        { }
 
-		private Guid _documentBlobId;
+        public void Apply(DocumentSharedEvent @event)
+        {
+            Id = @event.AggregateId;
+            Version = @event.Version;
+        }
+
+        private Guid _documentBlobId;
+
+	    public void ShareWith(IEnumerable<int> userIDs)
+	    {
+            Contract.Requires(userIDs != null);
+            Contract.Requires(userIDs.Count() > 0);
+            Contract.Ensures(Contract.OldValue(userIDs) == userIDs);
+            var @event = new DocumentSharedEvent(Id, Version, userIDs);
+            RaiseEvent(@event);
+	    }
 	}
 }

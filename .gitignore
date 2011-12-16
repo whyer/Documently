@@ -6,3 +6,4 @@ obj/
 *.csproj.user
 src/packages/RavenDB.1.0.499/server/Data/
 src/packages/RavenDB.1.0.499/server/Logs
+*.tmp_proj

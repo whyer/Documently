@@ -17,8 +17,8 @@ namespace Documently.Commands
 		{
 		}
 
-		public RelocateTheCustomer(Guid id, string street, string streetNumber, string postalCode, string city)
-			: base(id)
+		public RelocateTheCustomer(Guid arId, string street, string streetNumber, string postalCode, string city)
+			: base(arId)
 		{
 			Street = street;
 			Streetnumber = streetNumber;

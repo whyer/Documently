@@ -20,9 +20,9 @@ namespace Documently.Commands
 		{
 		}
 
-		public CreateNewCustomer(Guid id, string customerName, string street, string streetNumber, string postalCode,
+		public CreateNewCustomer(Guid arId, string customerName, string street, string streetNumber, string postalCode,
 		                         string city, string phoneNumber)
-			: base(id)
+			: base(arId)
 		{
 			CustomerName = customerName;
 			Street = street;

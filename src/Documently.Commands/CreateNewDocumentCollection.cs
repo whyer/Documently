@@ -13,7 +13,7 @@ namespace Documently.Commands
 
 		public CreateNewDocumentCollection(Guid id, string name)
 		{
-			Id = id;
+			ArId = id;
 			Name = name;
 		}
 

@@ -11,7 +11,7 @@ namespace Documently.Domain.Events
 		{
 		}
 
-		public DocumentIndexed(Guid arId, uint arVersion) : base(arId, arVersion)
+		public DocumentIndexed(Guid arId, int arVersion) : base(arId, arVersion)
 		{
 		}
 	}

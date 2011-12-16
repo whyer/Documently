@@ -64,11 +64,13 @@
     <Compile Include="CommandHandlers\DocumentIndexingHandler.cs" />
     <Compile Include="CommandHandlers\DocumentMetaDataHandler.cs" />
     <Compile Include="CommandHandlers\RelocatingCustomerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ShareDocumentCommandHandler.cs" />
     <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\CustomerName.cs" />
     <Compile Include="Domain\Document.cs" />
     <Compile Include="Domain\DocumentCollection.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Events\DocumentCollectionCreated.cs" />
     <Compile Include="Domain\DocumentState.cs" />
     <Compile Include="Domain\NonExistingCustomerException.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Events\DocumentIndexed.cs" />
     <Compile Include="Events\DocumentMetaDataCreated.cs" />
     <Compile Include="Events\AssociatedIndexingPending.cs" />
+    <Compile Include="Events\DocumentSharedEvent.cs" />
     <Compile Include="Events\DomainEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

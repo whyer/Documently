@@ -20,7 +20,7 @@ namespace Documently.Domain.CommandHandlers
         public void Consume(AssociateDocumentWithCollection message)
         {
             var repository = _repository();
-            var document = repository.GetById<Document>(message.Id);
+            var document = repository.GetById<Document>(message.ArId);
 
             document.AssociateWithCollection(message.CollectionId);
             repository.Save(document, Guid.NewGuid(), null);

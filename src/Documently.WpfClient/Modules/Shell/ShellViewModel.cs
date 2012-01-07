@@ -1,5 +1,6 @@
 using System;
 using Caliburn.Micro;
+using Documently.Infrastructure;
 using Documently.ReadModel;
 using Documently.WpfClient.Modules.CustomerDetails;
 using Documently.WpfClient.Modules.CustomerDetails.CreateCustomer;
@@ -22,11 +23,11 @@ namespace Documently.WpfClient.Modules.Shell
 								  IHandle<DocumentMetaDataSaved>
 	{
 		private readonly IReadRepository _Repository;
-		private readonly IServiceBus _Bus;
+		private readonly IBus _Bus;
 		private readonly IEventAggregator _EventAggregator;
 		private Guid? _AggregateRootId;
 
-		public ShellViewModel(IReadRepository repository, IServiceBus bus, IEventAggregator eventAggregator)
+		public ShellViewModel(IReadRepository repository, IBus bus, IEventAggregator eventAggregator)
 		{
 			_Repository = repository;
 			_Bus = bus;
@@ -98,6 +99,10 @@ namespace Documently.WpfClient.Modules.Shell
 		public void Handle(ShowSearchCustomerEvent message)
 		{
 			SearchCustomer();
+		}
+
+		public void CreateDocumentMetaData() {
+			ActivateItem(new CreateDocumentMetaDataViewModel(_Bus, _EventAggregator));
 		}
 
 		public void Handle(CustomerRelocatingSavedEvent message)

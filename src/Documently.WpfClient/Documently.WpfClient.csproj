@@ -150,6 +150,9 @@
     <Compile Include="Modules\CustomerList\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\DocumentDetails\CreateMeta\CreateDocumentMetaDataView.xaml.cs">
+      <DependentUpon>CreateDocumentMetaDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\DocumentDetails\CreateMeta\CreateDocumentMetaDataViewModel.cs" />
     <Compile Include="Modules\DocumentSearch\DocumentSearchViewModel.cs" />
     <Compile Include="Modules\Shell\ShellView.xaml.cs">
@@ -208,6 +211,10 @@
     <Page Include="Modules\CustomerList\CustomerListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\DocumentDetails\CreateMeta\CreateDocumentMetaDataView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Shell\ShellView.xaml">
       <SubType>Designer</SubType>

@@ -1,6 +1,7 @@
 using System;
 using Caliburn.Micro;
 using Documently.Commands;
+using Documently.Infrastructure;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
 using MassTransit;
@@ -9,11 +10,11 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
 	public class CustomerRelocatingViewModel : ScreenWithValidatingCommand<RelocateTheCustomer>
 	{
-		private readonly IServiceBus _bus;
+		private readonly IBus _bus;
 		private readonly IEventAggregator _eventAggregator;
 		private readonly IReadRepository _readRepository;
 
-		public CustomerRelocatingViewModel(IServiceBus bus, IEventAggregator eventAggregator, IReadRepository readRepository)
+		public CustomerRelocatingViewModel(IBus bus, IEventAggregator eventAggregator, IReadRepository readRepository)
 		{
 			_bus = bus;
 			_eventAggregator = eventAggregator;
@@ -47,7 +48,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 				return;
 
 			//important: send command over bus
-			_bus.Publish(Command.InnerCommand);
+			_bus.Send(Command.InnerCommand);
 
 			//signal for UI - change view
 			_eventAggregator.Publish(new CustomerRelocatingSavedEvent());

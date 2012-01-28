@@ -43,7 +43,6 @@ namespace Documently.Infrastructure.Installers
 			return Wireup.Init()
 				.UsingSynchronousDispatchScheduler(bus)
 				.UsingRavenPersistence(Keys.RavenDbConnectionStringName)
-					.UsingRavenPersistence("RavenDB")
 					.ConsistentQueries()
 					.PageEvery(int.MaxValue)
 					.MaxServerPageSizeConfiguration(1024)

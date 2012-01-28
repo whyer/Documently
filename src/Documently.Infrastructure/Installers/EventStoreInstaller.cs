@@ -13,7 +13,7 @@ using EventStore.Serialization;
 namespace Documently.Infrastructure.Installers
 {
 	/// <summary>
-	/// Installs Jonathan Oliver's Event Store with a JsonSerializer and synchronous dispatcher.
+	/// Installs Jonathan Oliver's Event Store with a JsonSerializer and an asynchronous dispatcher.
 	/// </summary>
 	public class EventStoreInstaller : IWindsorInstaller
 	{
@@ -41,7 +41,7 @@ namespace Documently.Infrastructure.Installers
 		private IStoreEvents GetInitializedEventStore(IDispatchCommits bus)
 		{
 			return Wireup.Init()
-				.UsingSynchronousDispatchScheduler(bus)
+				.UsingAsynchronousDispatchScheduler(bus)
 				.UsingRavenPersistence(Keys.RavenDbConnectionStringName)
 					.ConsistentQueries()
 					.PageEvery(int.MaxValue)

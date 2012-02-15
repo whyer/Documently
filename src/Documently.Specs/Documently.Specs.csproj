@@ -142,7 +142,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregateRootTestFixture.cs" />
     <Compile Include="Commands\All_commands_must_be_Serializable.cs" />
     <Compile Include="Commands\All_commands_and_events_must_have_default_ctor.cs" />
     <Compile Include="CommandTestFixture.cs" />

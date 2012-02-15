@@ -8,8 +8,8 @@
     <ProjectGuid>{98A4577F-5574-45CE-B463-DBEC137B7468}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CQRSSample.Specs</RootNamespace>
-    <AssemblyName>CQRSSample.Specs</AssemblyName>
+    <RootNamespace>Documently.Specs</RootNamespace>
+    <AssemblyName>Documently.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

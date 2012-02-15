@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.WpfClient", "Doc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Commands", "Documently.Commands\Documently.Commands.csproj", "{22374340-0C08-4F74-86B7-6C229BE1E550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Indexer.Tests", "Documently.Indexer.Tests\Documently.Indexer.Tests.csproj", "{16D63804-64C8-4B36-A10B-E894C320B793}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{8F360B84-9B2F-4986-953B-CCAEBB8A384F}"
 	ProjectSection(SolutionItems) = preProject
 		..\docs\license.txt = ..\docs\license.txt

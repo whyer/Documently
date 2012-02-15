@@ -96,7 +96,7 @@ FOLDERS = folders.merge({
 })
 
 FILES = {
-  :sln => "src/Documently-CQRS.sln",
+  :sln => "src/Documently.sln",
   
   :app => {
     :nuspec => File.join(FOLDERS[:app][:nuspec], "#{PROJECTS[:app][:nuget_key]}.nuspec")

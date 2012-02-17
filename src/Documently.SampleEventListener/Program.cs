@@ -1,6 +1,7 @@
 ﻿using System;
-using Documently.Domain.Events;
-using Magnum.Extensions;
+using Documently.Messages;
+using Documently.Messages.CustomerEvents;
+using Magnum.Extensions;		
 using MassTransit;
 
 namespace Documently.SampleEventListener
@@ -14,7 +15,7 @@ namespace Documently.SampleEventListener
 					cfg.ReceiveFrom("rabbitmq://localhost/Documently.SampleEventListener");
 					cfg.UseRabbitMqRouting();
 					cfg.Subscribe(s =>
-						s.Handler<CustomerCreatedEvent>(
+						s.Handler<Created>(
 							created => Console.WriteLine("Customer Created: {0}".FormatWith(created)))
 							.Transient());
 				});

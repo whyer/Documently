@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using CommonDomain;
 using CommonDomain.Persistence;
 using Documently.Commands;
-using Documently.Domain.CommandHandlers;
-using Documently.Domain.Events;
+using Documently.Messages;
 using MassTransit;
 using NUnit.Framework;
 using System.Linq;
 
-namespace CQRSSample.Specs
+namespace Documently.Specs
 {
 	[TestFixture]
 	public abstract class CommandTestFixture<TCommand, TCommandHandler, TAggregateRoot>
-		where TCommand : Command
+		where TCommand : class, Command
 		where TCommandHandler : class, Consumes<TCommand>.All
 		where TAggregateRoot : IAggregate, new()
 	{

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Documently.Domain.Events;
 using Documently.Infrastructure;
+using Documently.Messages.CustomerEvents;
 using Documently.ReadModel;
 using MassTransit;
 using Moq;
@@ -10,7 +10,7 @@ using NUnit.Framework;
 using Raven.Client;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs
+namespace Documently.Specs
 {
 	public class view_registration_specs
 	{
@@ -27,7 +27,7 @@ namespace CQRSSample.Specs
 					.BasedOn(typeof(Consumes<>.All))
 					.WithService.FromInterface(typeof(Consumes<>.All)));
 
-			c.ResolveAll<Consumes<CustomerCreatedEvent>.All>()
+			c.ResolveAll<Consumes<Created>.All>()
 				.Any(x => x.GetType().Equals(typeof(CustomerAddressView)))
 				.Should(" the address view should be in the enumerable of those handlers").Be.True();
 		} 

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Documently.Commands;
-using Documently.Domain.Events;
+using Documently.Messages;
 using NUnit.Framework;
 
-namespace CQRSSample.Specs.Commands
+namespace Documently.Specs.Commands
 {
 	[TestFixture]
 	public class all_cmds_and_events_spec

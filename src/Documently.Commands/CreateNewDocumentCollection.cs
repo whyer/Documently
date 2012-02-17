@@ -13,10 +13,12 @@ namespace Documently.Commands
 
 		public CreateNewDocumentCollection(Guid id, string name)
 		{
-			ArId = id;
+			AggregateId = id;
 			Name = name;
 		}
 
 		public string Name { get; protected set; }
+		public Guid AggregateId { get; set; }
+		public int Version { get; set; }
 	}
 }

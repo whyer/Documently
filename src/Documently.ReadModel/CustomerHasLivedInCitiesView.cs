@@ -1,9 +1,10 @@
-using Documently.Domain.Events;
+using Documently.Messages;
+using Documently.Messages.CustomerEvents;
 using Raven.Client;
 
 namespace Documently.ReadModel
 {
-	class CustomerHasLivedInCitiesView : HandlesEvent<CustomerCreatedEvent>, HandlesEvent<CustomerRelocatedEvent>
+	class CustomerHasLivedInCitiesView : HandlesEvent<Created>, HandlesEvent<Relocated>
 	{
 		private readonly IDocumentStore _documentStore;
 
@@ -12,7 +13,7 @@ namespace Documently.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Consume(CustomerCreatedEvent @event)
+		public void Consume(Created @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
@@ -22,7 +23,7 @@ namespace Documently.ReadModel
 			}
 		}
 
-		public void Consume(CustomerRelocatedEvent @event)
+		public void Consume(Relocated @event)
 		{
 			using (var session = _documentStore.OpenSession())
 			{

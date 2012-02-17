@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Castle.Windsor;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Events;
 using Documently.Infrastructure.Misc;
+using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
@@ -36,7 +36,7 @@ namespace Documently.Infrastructure
 				.Consume(command);
 		}
 
-		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : Command
+		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : class, Command
 		{
 			return _Container.Resolve<Consumes<T>.All>();
 		}

@@ -65,10 +65,6 @@ namespace Documently.Sagas
 		public State Indexing { get; private set; }
 		public State IndexingCancelled { get; private set; }
 
-		// creates a hierarchy of docs:
-		// [C] CreateNewDocumentCollection
-		// [E] DocumentCollectionCreated
-
 		// uploads actual doc:
 		// [C] CreateDocumentMetaData -> 
 		// [E] DocumentMetaDataCreated (2 listeners; Saga and Indexer)

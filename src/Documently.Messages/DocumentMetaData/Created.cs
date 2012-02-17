@@ -13,8 +13,10 @@ namespace Documently.Messages.DocumentMetaData
 		}
 
 		public Guid AggregateId { get; set; }
+
 		public int Version { get; set; }
 		public string Title { get; set; }
+		
 		public DateTime UtcDate { get; set; }
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using CommonDomain.Core;
 using Documently.Messages;
+using Documently.Messages.CustomerEvents;
 
 namespace Documently.Domain.Domain
 {
@@ -8,7 +9,7 @@ namespace Documently.Domain.Domain
     {
 		private Customer(Guid id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 		{
-			RaiseEvent(new CustomerCreatedEvent(id, customerName.Name, address.Street, address.StreetNumber, address.PostalCode,
+			RaiseEvent(new Created(id, customerName.Name, address.Street, address.StreetNumber, address.PostalCode,
 			                                    address.City, phoneNumber.Number));
 		}
 
@@ -21,7 +22,7 @@ namespace Documently.Domain.Domain
 			if (Id == Guid.Empty)
 				throw new NonExistingCustomerException("The customer is not created and no opperations can be executed on it");
 
-			RaiseEvent(new CustomerRelocatedEvent(Id, street, streetNumber, postalCode, city));
+			RaiseEvent(new Relocated(Id, street, streetNumber, postalCode, city));
 		}
 
 		public static Customer CreateNew(Guid id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
@@ -30,13 +31,13 @@ namespace Documently.Domain.Domain
 		}
 
 		//Domain-Eventhandlers
-		private void Apply(CustomerCreatedEvent @event)
+		private void Apply(Created @event)
 		{
 			Id = @event.AggregateId;
 			// we don't need to keep any other state here.
 		}
 
-		private void Apply(CustomerRelocatedEvent @event)
+		private void Apply(Relocated @event)
 		{
 			// neither do we here, at this point in time since we've already sent the event.
 			//new Address(@event.Street, @event.StreetNumber, @event.PostalCode, @event.City);

@@ -6,9 +6,6 @@ I (Henrik) want to make it easy for people to get started with this
 architecture - why not try to maximize developer happiness and make the 
 world a better place and learn it yourself while you're at it?
 
-In its current state, documently is not complete, but it is runnable and you can 
-learn the basic concepts of CQRS from the customer domain. 
-
 Some of the concepts you can learn include:
 
  * Creating a Caliburn Micro WPF client with a ribbon, which uses the *EventAggregator* pattern for its reactive UI and wires itself up with Castle Windsor.

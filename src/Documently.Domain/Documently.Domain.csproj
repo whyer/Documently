@@ -68,7 +68,7 @@
     <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\CustomerName.cs" />
-    <Compile Include="Domain\Document.cs" />
+    <Compile Include="Domain\DocumentMetaData.cs" />
     <Compile Include="Domain\DocumentCollection.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\DocumentState.cs" />
@@ -89,9 +89,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

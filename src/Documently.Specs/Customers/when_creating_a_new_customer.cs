@@ -2,11 +2,11 @@ using System;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Messages;
+using Documently.Messages.CustomerEvents;
 using NUnit.Framework;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs.Customers
+namespace Documently.Specs.Customers
 {
 	public class when_creating_a_new_customer :
 		CommandTestFixture<CreateNewCustomer, CreateCustomerCommandHandler, Customer>
@@ -19,28 +19,28 @@ namespace CQRSSample.Specs.Customers
 		[Test]
 		public void Then_a_client_created_event_will_be_published()
 		{
-			Assert.AreEqual(typeof (CustomerCreatedEvent), PublishedEvents.Last().GetType());
+			Assert.AreEqual(typeof (Created), PublishedEvents.Last().GetType());
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_name_of_the_client()
 		{
-			Assert.That(PublishedEvents.Last<CustomerCreatedEvent>().CustomerName == "Jörg Egretzberger");
+			Assert.That(PublishedEvents.Last<Created>().CustomerName == "Jörg Egretzberger");
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_address_of_the_client()
 		{
-			PublishedEvents.Last<CustomerCreatedEvent>().Street.Should().Be.EqualTo("Ringstraße");
-			PublishedEvents.Last<CustomerCreatedEvent>().StreetNumber.Should().Be.EqualTo("1");
-			PublishedEvents.Last<CustomerCreatedEvent>().PostalCode.Should().Be.EqualTo("1010");
-			PublishedEvents.Last<CustomerCreatedEvent>().City.Should().Be.EqualTo("Wien");
+			PublishedEvents.Last<Created>().Street.Should().Be.EqualTo("Ringstraße");
+			PublishedEvents.Last<Created>().StreetNumber.Should().Be.EqualTo("1");
+			PublishedEvents.Last<Created>().PostalCode.Should().Be.EqualTo("1010");
+			PublishedEvents.Last<Created>().City.Should().Be.EqualTo("Wien");
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_phone_number_of_the_client()
 		{
-			PublishedEvents.Last<CustomerCreatedEvent>().PhoneNumber.Should().Be.EqualTo("01/123456");
+			PublishedEvents.Last<Created>().PhoneNumber.Should().Be.EqualTo("01/123456");
 		}
 	}
 }

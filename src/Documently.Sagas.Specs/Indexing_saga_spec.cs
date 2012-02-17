@@ -12,7 +12,7 @@ namespace Documently.Sagas.Specs
 	// sample: https://github.com/joliver/EventStore/blob/master/src/tests/EventStore.Core.UnitTests/OptimisticEventStreamTests.cs
 
 	[Subject(typeof (IndexerOrchestrationSaga))]
-	public class Indexing_saga_spec_spec
+	public class Indexing_saga_initially_spec
 	{
 		private IndexerOrchestrationSaga subject;
 

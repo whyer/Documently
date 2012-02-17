@@ -1,9 +1,9 @@
 using System;
 
-namespace Documently.Messages
+namespace Documently.Messages.CustomerEvents
 {
 	[Serializable]
-	public class CustomerRelocatedEvent : DomainEvent
+	public class Relocated : DomainEvent
 	{
 		public string Street { get; protected set; }
 		public string StreetNumber { get; protected set; }
@@ -12,11 +12,11 @@ namespace Documently.Messages
 
 		/// <summary> for serialization </summary>
 		[Obsolete("for serialization")]
-		protected CustomerRelocatedEvent()
+		protected Relocated()
 		{
 		}
 
-		public CustomerRelocatedEvent(Guid id, string street, string streetNumber, string postalCode, string city)
+		public Relocated(Guid id, string street, string streetNumber, string postalCode, string city)
 		{
 			AggregateId = id;
 			Street = street;
@@ -24,5 +24,8 @@ namespace Documently.Messages
 			PostalCode = postalCode;
 			City = city;
 		}
+
+		public Guid AggregateId { get; private set; }
+		public int Version { get; set; }
 	}
 }

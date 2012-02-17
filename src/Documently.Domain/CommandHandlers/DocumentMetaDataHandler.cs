@@ -19,7 +19,7 @@ namespace Documently.Domain.CommandHandlers
 
 		public void Consume(CreateDocumentMetaData command)
 		{
-		    var document = new Document(command.ArId, command.Title, command.UtcTime);
+		    var document = new DocumentMetaData(command.AggregateId, command.Title, command.UtcTime);
 		    _repo().Save(document, CombGuid.Generate(), null);
 		}
 	}

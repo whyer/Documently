@@ -20,7 +20,7 @@ namespace Documently.Domain.CommandHandlers
 		{
 			var repo = _Repository();
 
-			var client = Customer.CreateNew(command.ArId, new CustomerName(command.CustomerName),
+			var client = Customer.CreateNew(command.AggregateId, new CustomerName(command.CustomerName),
 			                                new Address(command.Street, command.StreetNumber,
 			                                            command.PostalCode, command.City),
 			                                new PhoneNumber(command.PhoneNumber));

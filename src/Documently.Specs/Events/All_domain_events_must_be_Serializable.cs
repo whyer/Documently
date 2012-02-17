@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
 using Documently.Messages;
+using Documently.Messages.CustomerEvents;
 using NUnit.Framework;
 
-namespace CQRSSample.Specs.Events
+namespace Documently.Specs.Events
 {
 	[TestFixture]
 	public class All_domain_events_must_be_Serializable
@@ -11,7 +12,7 @@ namespace CQRSSample.Specs.Events
 		[Test]
 		public void All_domain_events_will_have_the_Serializable_attribute_assigned()
 		{
-			var domainEventTypes = typeof(CustomerCreatedEvent).Assembly.GetExportedTypes().Where(x => x.BaseType == typeof(DomainEvent)).ToList();
+			var domainEventTypes = typeof(Created).Assembly.GetExportedTypes().Where(x => x.BaseType == typeof(DomainEvent)).ToList();
 			foreach (var domainEventType in domainEventTypes)
 			{
 				if (domainEventType.IsSerializable)

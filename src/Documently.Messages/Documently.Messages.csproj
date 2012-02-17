@@ -52,22 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssociatedIndexingPending.cs" />
-    <Compile Include="DocumentEvents\AssociatedWithCollection.cs" />
-    <Compile Include="CustomerCreatedEvent.cs" />
-    <Compile Include="CustomerRelocatedEvent.cs" />
-    <Compile Include="DocumentEvents\DocumentCollectionCreated.cs" />
+    <Compile Include="DocumentMetaData\DocumentUploaded.cs" />
+    <Compile Include="DocumentMetaData\AssociatedWithCollection.cs" />
+    <Compile Include="CustomerEvents\Created.cs" />
+    <Compile Include="CustomerEvents\Relocated.cs" />
+    <Compile Include="DocumentCollection\CollectionCreated.cs" />
     <Compile Include="Indexer\IndexingCompleted.cs" />
-    <Compile Include="DocumentEvents\DocumentMetaDataCreated.cs" />
-    <Compile Include="DocumentEvents\DocumentSharedEvent.cs" />
+    <Compile Include="DocumentMetaData\Created.cs" />
+    <Compile Include="DocumentMetaData\Shared.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="Indexer\IndexingTakingTooLong.cs" />
     <Compile Include="Indexer\Started.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CustomerEvents\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

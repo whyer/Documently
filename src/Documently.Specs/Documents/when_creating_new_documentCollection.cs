@@ -2,12 +2,12 @@
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Messages;
+using Documently.Messages.DocumentCollection;
 using Magnum;
 using NUnit.Framework;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs.Documents
+namespace Documently.Specs.Documents
 {
 	public class when_creating_new_documentCollection
 		: CommandTestFixture<CreateNewDocumentCollection, CreateNewDocumentCollectionHandler, DocumentCollection>
@@ -22,7 +22,7 @@ namespace CQRSSample.Specs.Documents
 		[Test]
 		public void should_recieve_new_collection_created_event()
 		{
-			var evt = (DocumentCollectionCreated) PublishedEventsT.First();
+			var evt = (CollectionCreated) PublishedEventsT.First();
 			evt.Name.Should().Be(_collectionName);
 		}
 	}

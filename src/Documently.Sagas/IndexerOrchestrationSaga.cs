@@ -14,9 +14,11 @@
 using System;
 using Automatonymous;
 using Documently.Messages;
+using Documently.Messages.DocumentMetaData;
 using Documently.Messages.Indexer;
 using MassTransit;
 using MassTransit.Services.Timeout.Messages;
+using Created = Documently.Messages.DocumentMetaData.Created;
 
 namespace Documently.Sagas
 {
@@ -70,7 +72,7 @@ namespace Documently.Sagas
 		// uploads actual doc:
 		// [C] CreateDocumentMetaData -> 
 		// [E] DocumentMetaDataCreated (2 listeners; Saga and Indexer)
-		public Event<DocumentMetaDataCreated> MetaDataCreated { get; private set; }
+		public Event<Created> MetaDataCreated { get; private set; }
 
 		// [E] Indexer.Started
 		public Event<Started> IndexingStarted { get; private set; }

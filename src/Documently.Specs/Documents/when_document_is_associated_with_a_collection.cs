@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Documently.Commands;
+using Documently.Commands.DocumentMetaData;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
 using Documently.Messages;
+using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs.Documents
+namespace Documently.Specs.Documents
 {
 	public class when_document_is_associated_with_a_collection
-		: CommandTestFixture<AssociateDocumentWithCollection, DocumentAssociatedWithCollectionHandler, Document>
+		: CommandTestFixture<AssociateDocumentWithCollection, DocumentAssociatedWithCollectionHandler, DocumentMetaData>
 	{
 		private readonly Guid docId = CombGuid.Generate();
 		private readonly Guid collectionId = CombGuid.Generate();
@@ -21,7 +22,7 @@ namespace CQRSSample.Specs.Documents
 		{
 			return new List<DomainEvent>
 				{
-					new DocumentMetaDataCreated(docId, "title",  DateTime.UtcNow)
+					new Created(docId, "title",  DateTime.UtcNow)
 				};
 		}
 

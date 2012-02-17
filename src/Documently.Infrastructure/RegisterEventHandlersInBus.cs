@@ -50,7 +50,7 @@ namespace Documently.Infrastructure
 		}
 
 		public Action<TMessage> CreatePublishAction<TMessage, TMessageHandler>(TMessageHandler messageHandler)
-			where TMessage : DomainEvent
+			where TMessage : class, DomainEvent
 			where TMessageHandler : HandlesEvent<TMessage>
 		{
 			return messageHandler.Consume;

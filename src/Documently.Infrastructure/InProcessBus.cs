@@ -36,7 +36,7 @@ namespace Documently.Infrastructure
 				.Consume(command);
 		}
 
-		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : Command
+		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : class, Command
 		{
 			return _Container.Resolve<Consumes<T>.All>();
 		}

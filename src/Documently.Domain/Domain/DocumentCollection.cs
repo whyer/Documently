@@ -1,5 +1,5 @@
 ﻿using CommonDomain.Core;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 
 namespace Documently.Domain.Domain

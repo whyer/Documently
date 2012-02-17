@@ -1,6 +1,6 @@
 using System;
 
-namespace Documently.Domain.Events
+namespace Documently.Messages
 {
 	[Serializable]
 	public class AssociatedWithCollection : DomainEvent

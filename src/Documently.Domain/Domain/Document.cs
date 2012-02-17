@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using CommonDomain.Core;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 
 namespace Documently.Domain.Domain
@@ -17,7 +17,7 @@ namespace Documently.Domain.Domain
 		public Document(Guid documentId, string title, DateTime utcCreated)
 		{
 			var @event = new DocumentMetaDataCreated(
-				documentId, title, DocumentState.Created, utcCreated);
+				documentId, title,  utcCreated);
 
 			RaiseEvent(@event);
 		}
@@ -29,7 +29,7 @@ namespace Documently.Domain.Domain
 
 		public void AssociateWithDocumentBlob(Guid blobId)
 		{
-			var evt = new AssociatedIndexingPending(DocumentState.AssociatedIndexingPending, blobId, Id, Version + 1);
+			var evt = new AssociatedIndexingPending( blobId, Id, Version + 1);
 			RaiseEvent(evt);
 		}
 

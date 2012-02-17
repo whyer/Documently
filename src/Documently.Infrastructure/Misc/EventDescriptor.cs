@@ -1,5 +1,5 @@
 using System;
-using Documently.Domain.Events;
+using Documently.Messages;
 
 namespace Documently.Infrastructure.Misc
 {

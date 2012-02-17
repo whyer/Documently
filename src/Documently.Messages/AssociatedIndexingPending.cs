@@ -1,7 +1,6 @@
 using System;
-using Documently.Domain.Domain;
 
-namespace Documently.Domain.Events
+namespace Documently.Messages
 {
 	[Serializable]
 	public class AssociatedIndexingPending : DomainEvent
@@ -12,13 +11,11 @@ namespace Documently.Domain.Events
 		{
 		}
 
-		public AssociatedIndexingPending(DocumentState processingState, Guid blobId, Guid arId, int version) : base(arId, version)
+		public AssociatedIndexingPending(Guid blobId, Guid arId, int version) : base(arId, version)
 		{
-			ProcessingState = processingState;
 			BlobId = blobId;
 		}
 
-		public DocumentState ProcessingState { get; protected set; }
 		public Guid BlobId { get; protected set; }
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Documently.Commands;
-using Documently.Domain.Events;
+using Documently.Messages;
 using NUnit.Framework;
 
 namespace CQRSSample.Specs.Commands

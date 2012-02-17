@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Documently.Domain.Events;
 
-namespace Documently.Domain.Events
+namespace Documently.Messages
 {
     [Serializable]
     public class DocumentSharedEvent : DomainEvent

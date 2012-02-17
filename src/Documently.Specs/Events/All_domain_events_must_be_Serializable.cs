@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Documently.Domain.Events;
+using Documently.Messages;
 using NUnit.Framework;
 
 namespace CQRSSample.Specs.Events

@@ -1,6 +1,6 @@
 ﻿using System;
 using Documently.Commands;
-using Documently.Domain.Events;
+using Documently.Messages;
 
 namespace Documently.Infrastructure
 {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Documently.Domain.Events;
 using Documently.Infrastructure;
+using Documently.Messages;
 using Documently.ReadModel;
 using MassTransit;
 using Moq;

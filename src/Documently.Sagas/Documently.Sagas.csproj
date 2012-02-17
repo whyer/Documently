@@ -64,6 +64,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
+      <Name>Documently.Messages</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

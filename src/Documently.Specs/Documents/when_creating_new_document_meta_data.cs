@@ -2,7 +2,7 @@
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 using NUnit.Framework;
 using System.Linq;
@@ -26,7 +26,6 @@ namespace CQRSSample.Specs.Documents
 		{
 			var evt = (DocumentMetaDataCreated)PublishedEventsT.First();
 			evt.Title.Should().Be("My document");
-			evt.ProcessingState.Should().Be(DocumentState.Created);
 			evt.UtcDate.Should().Be(_created);
 		    evt.AggregateId.Should().Be(_documentId);
 		}

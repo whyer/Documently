@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Castle.Windsor;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Documently.ReadModel;
 
 namespace Documently.Infrastructure

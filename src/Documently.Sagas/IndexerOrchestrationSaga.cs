@@ -11,7 +11,12 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using Automatonymous;
+using Documently.Messages;
+using Documently.Messages.Indexer;
+using MassTransit;
+using MassTransit.Services.Timeout.Messages;
 
 namespace Documently.Sagas
 {
@@ -22,14 +27,62 @@ namespace Documently.Sagas
 	}
 
 	public class IndexerOrchestrationSaga
-		: AutomatonymousStateMachine<Instance>
+		: AutomatonymousStateMachine<Instance>, SagaStateMachineInstance
 	{
 		public IndexerOrchestrationSaga()
 		{
+			State(() => Indexing);
+			State(() => IndexingCancelled);
+			State(() => IndexingPending);
+
+			Event(() => MetaDataCreated);
+			Event(() => IndexingStarted);
+			Event(() => IndexingCompleted);
+
+			During(Initial,
+				When(MetaDataCreated)
+					.TransitionTo(IndexingPending));
+
+			During(IndexingPending,
+				When(IndexingStarted)
+					.Then(instance => Bus.Publish(new ScheduleTimeout(CorrelationId, DateTime.UtcNow.AddMinutes(2))))
+					.TransitionTo(Indexing));
+
+			During(Indexing,
+				When(IndexingCompleted)
+					.TransitionTo(Final),
+				When(TimeoutExpired)
+					.Then(_ => Bus.Publish<IndexingTakingTooLong>(new
+						{
+							CorrelationId
+						}))
+				);
 		}
 
-        public State Running { get; private set; }
+		public State IndexingPending { get; private set; }
+		public State Indexing { get; private set; }
+		public State IndexingCancelled { get; private set; }
 
-		//public Event<IndexingStarted> ;
+		// creates a hierarchy of docs:
+		// [C] CreateNewDocumentCollection
+		// [E] DocumentCollectionCreated
+
+		// uploads actual doc:
+		// [C] CreateDocumentMetaData -> 
+		// [E] DocumentMetaDataCreated (2 listeners; Saga and Indexer)
+		public Event<DocumentMetaDataCreated> MetaDataCreated { get; private set; }
+
+		// [E] Indexer.Started
+		public Event<Started> IndexingStarted { get; private set; }
+		
+		// [E] Indexer.IndexingComplete
+		public Event<IndexingCompleted> IndexingCompleted { get; private set; }
+
+		// meanwhile...
+		public Event<TimeoutExpired> TimeoutExpired { get; private set; }
+		
+		public State CurrentState { get; set; }
+		public Guid CorrelationId { get; private set; }
+		public IServiceBus Bus { get; set; }
 	}
 }

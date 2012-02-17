@@ -2,7 +2,7 @@
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 using NUnit.Framework;
 using SharpTestsEx;

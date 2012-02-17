@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 using NUnit.Framework;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace CQRSSample.Specs.Documents
     	{
     		return new List<DomainEvent>
     		       	{
-						new DocumentMetaDataCreated(_documentId, "", DocumentState.Created, DateTime.UtcNow)
+						new DocumentMetaDataCreated(_documentId, "",  DateTime.UtcNow)
 					};
     	}
 

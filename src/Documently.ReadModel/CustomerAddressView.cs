@@ -1,4 +1,4 @@
-using Documently.Domain.Events;
+using Documently.Messages;
 using Raven.Client;
 
 namespace Documently.ReadModel

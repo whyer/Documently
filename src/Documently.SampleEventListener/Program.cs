@@ -1,6 +1,6 @@
 ﻿using System;
-using Documently.Domain.Events;
-using Magnum.Extensions;
+using Documently.Messages;
+using Magnum.Extensions;		
 using MassTransit;
 
 namespace Documently.SampleEventListener

@@ -5,7 +5,7 @@ using CommonDomain;
 using CommonDomain.Persistence;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Events;
+using Documently.Messages;
 using MassTransit;
 using NUnit.Framework;
 using System.Linq;

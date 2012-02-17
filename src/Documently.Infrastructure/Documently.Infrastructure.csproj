@@ -136,6 +136,10 @@
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
+      <Name>Documently.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Documently.ReadModel\Documently.ReadModel.csproj">
       <Project>{6E654F57-BF65-463C-82C6-DB360D0F844D}</Project>
       <Name>Documently.ReadModel</Name>

@@ -74,6 +74,10 @@
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
+      <Name>Documently.Messages</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

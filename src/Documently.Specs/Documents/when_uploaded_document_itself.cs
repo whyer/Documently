@@ -3,7 +3,7 @@ using System.Linq;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Magnum;
 using NUnit.Framework;
 using SharpTestsEx;
@@ -17,7 +17,7 @@ namespace CQRSSample.Specs.Documents
 
 		protected override System.Collections.Generic.IEnumerable<DomainEvent> Given()
 		{
-			return new[] {new DocumentMetaDataCreated(_DocId, "My document", DocumentState.Created, DateTime.UtcNow)};
+			return new[] {new DocumentMetaDataCreated(_DocId, "My document",  DateTime.UtcNow)};
 		}
 
 		protected override InitializeDocumentIndexing When()
@@ -30,7 +30,6 @@ namespace CQRSSample.Specs.Documents
 		{
 			var evt = (AssociatedIndexingPending)PublishedEventsT.First();
 			evt.AggregateId.Should().Be(_DocId);
-			evt.ProcessingState.Should().Be(DocumentState.AssociatedIndexingPending);
 		}
 	}
 }

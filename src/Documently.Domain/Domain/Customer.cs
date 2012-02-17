@@ -1,6 +1,6 @@
 using System;
 using CommonDomain.Core;
-using Documently.Domain.Events;
+using Documently.Messages;
 
 namespace Documently.Domain.Domain
 {

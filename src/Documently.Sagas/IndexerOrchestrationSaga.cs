@@ -54,7 +54,7 @@ namespace Documently.Sagas
 				When(IndexingCompleted)
 					.TransitionTo(Final),
 				When(TimeoutExpired)
-					.Then(_ => Bus.Publish<IndexingTakingTooLong>(new
+					.Then((_) => Bus.Publish<IndexingTakingTooLong>(new
 						{
 							CorrelationId
 						}))

@@ -22,10 +22,12 @@ using Created = Documently.Messages.DocumentMetaData.Created;
 
 namespace Documently.Sagas
 {
-	public class Instance 
-		: StateMachineInstance
+	public class Instance
+		: SagaStateMachineInstance
 	{
 		public State CurrentState { get; set; }
+		public Guid CorrelationId { get; set; }
+		public IServiceBus Bus { get; set; }
 	}
 
 	public class IndexerOrchestrationSaga

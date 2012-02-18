@@ -1,4 +1,6 @@
-﻿#pragma warning disable 169
+﻿using MassTransit.Testing;
+
+#pragma warning disable 169
 // ReSharper disable InconsistentNaming
 
 namespace Documently.Sagas.Specs
@@ -14,15 +16,15 @@ namespace Documently.Sagas.Specs
 	[Subject(typeof (IndexerOrchestrationSaga))]
 	public class Indexing_saga_initially_spec
 	{
-		private IndexerOrchestrationSaga subject;
-
-		private Establish context = () =>
+		private Establish context_with_saga = () =>
 			{
 			};
 
 		private Because of = () =>
 			{
 			};
+
+		private static object _test;
 
 		// It should_have_5_in_its_name = () => subject. ...() assertions
 

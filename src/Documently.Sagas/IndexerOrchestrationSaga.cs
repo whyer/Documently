@@ -29,7 +29,7 @@ namespace Documently.Sagas
 	}
 
 	public class IndexerOrchestrationSaga
-		: AutomatonymousStateMachine<Instance>, SagaStateMachineInstance
+		: AutomatonymousStateMachine<Instance>
 	{
 		public IndexerOrchestrationSaga()
 		{
@@ -78,9 +78,5 @@ namespace Documently.Sagas
 
 		// meanwhile...
 		public Event<TimeoutExpired> TimeoutExpired { get; private set; }
-		
-		public State CurrentState { get; set; }
-		public Guid CorrelationId { get; private set; }
-		public IServiceBus Bus { get; set; }
 	}
 }

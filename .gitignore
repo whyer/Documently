@@ -4,8 +4,8 @@ src/_ReSharper.*
 bin/
 obj/
 *.csproj.user
-src/packages/RavenDB.1.0.499/server/Data/
-src/packages/RavenDB.1.0.499/server/Logs
+Data/
+Logs/
 *.tmp_proj
 src/SharedAssemblyInfo.cs
 build/

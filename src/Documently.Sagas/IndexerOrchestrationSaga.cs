@@ -25,6 +25,15 @@ namespace Documently.Sagas
 	public class Instance
 		: SagaStateMachineInstance
 	{
+		public Instance(Guid correlationId)
+		{
+			CorrelationId = correlationId;
+		}
+
+		protected Instance()
+		{
+		}
+
 		public State CurrentState { get; set; }
 		public Guid CorrelationId { get; set; }
 		public IServiceBus Bus { get; set; }
@@ -49,17 +58,18 @@ namespace Documently.Sagas
 
 			During(IndexingPending,
 				When(IndexingStarted)
-					.Then(instance => Bus.Publish(new ScheduleTimeout(CorrelationId, DateTime.UtcNow.AddMinutes(2))))
+					//.Publish((a,b) => )
+					//.Then(instance => Bus.Publish(new ScheduleTimeout(CorrelationId, DateTime.UtcNow.AddMinutes(2))))
 					.TransitionTo(Indexing));
 
 			During(Indexing,
 				When(IndexingCompleted)
 					.TransitionTo(Final),
 				When(TimeoutExpired)
-					.Then((_) => Bus.Publish<IndexingTakingTooLong>(new
-						{
-							CorrelationId
-						}))
+					//.Then((_) => Bus.Publish<IndexingTakingTooLong>(new
+					//    {
+					//        CorrelationId
+					//    }))
 				);
 		}
 

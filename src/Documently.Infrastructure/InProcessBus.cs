@@ -8,6 +8,7 @@ using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
+using MassTransit.Diagnostics.Introspection;
 using MassTransit.Pipeline;
 
 namespace Documently.Infrastructure
@@ -108,6 +109,11 @@ namespace Documently.Infrastructure
 
 		public void Dispose()
 		{
+		}
+
+		public void Inspect(DiagnosticsProbe probe)
+		{
+			probe.Add("mt.bus", "in-memory");
 		}
 	}
 }

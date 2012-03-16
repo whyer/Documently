@@ -8,22 +8,22 @@ using Documently.Infrastructure.Installers;
 using Documently.ReadModel;
 using Magnum;
 using MassTransit;
+using NLog;
+using NLog.Config;
 using Raven.Client;
-using log4net;
-using log4net.Config;
 
 namespace Documently.App
 {
 	internal class Program
 	{
-		private static readonly ILog _Logger = LogManager.GetLogger(typeof (Program));
+		private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		
-		private IWindsorContainer _Container;
+		private IWindsorContainer _container;
 
 		private static void Main()
 		{
 			Description();
-			XmlConfigurator.Configure();
+			SimpleConfigurator.ConfigureForConsoleLogging();
 
 			var p = new Program();
 			try { p.Start(); }
@@ -34,15 +34,15 @@ namespace Documently.App
 		{
 			try
 			{
-				_Logger.Info("installing and setting up components");
-				_Container = new WindsorContainer()
+				_logger.Info("installing and setting up components");
+				_container = new WindsorContainer()
 					.Install(
 						new RavenDbServerInstaller(),
 						new ReadRepositoryInstaller(),
 						new BusInstaller("rabbitmq://localhost/Documently.App"),
 						new EventStoreInstaller());
 
-				_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
+				_container.Register(Component.For<IWindsorContainer>().Instance(_container));
 
 				var customerId = CombGuid.Generate();
 
@@ -66,11 +66,11 @@ namespace Documently.App
 			}
 			catch (WebException ex)
 			{
-				_Logger.Error(@"Unable to connect to RavenDB Server. Have you started 'RavenDB\Server\Raven.Server.exe'?", ex);
+				_logger.Error(@"Unable to connect to RavenDB Server. Have you started 'RavenDB\Server\Raven.Server.exe'?", ex);
 			}
 			catch (Exception ex)
 			{
-				_Logger.Error("exception thrown", ex);
+				_logger.Error("exception thrown", ex);
 			}
 
 			Console.WriteLine("Press any key to finish.");
@@ -87,7 +87,7 @@ namespace Documently.App
 
 		private void ShowCustomerListView()
 		{
-			var store = _Container.Resolve<IDocumentStore>();
+			var store = _container.Resolve<IDocumentStore>();
 
 			using (var session = store.OpenSession())
 			{
@@ -113,14 +113,14 @@ namespace Documently.App
 
 		private IEndpoint GetDomainService()
 		{
-			var bus = _Container.Resolve<IServiceBus>();
+			var bus = _container.Resolve<IServiceBus>();
 			var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
 			return domainService;
 		}
 
 		private void Stop()
 		{
-			_Container.Dispose();
+			_container.Dispose();
 		}
 	}
 }

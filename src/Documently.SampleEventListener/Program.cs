@@ -1,5 +1,4 @@
 ﻿using System;
-using Documently.Messages;
 using Documently.Messages.CustomerEvents;
 using Magnum.Extensions;		
 using MassTransit;

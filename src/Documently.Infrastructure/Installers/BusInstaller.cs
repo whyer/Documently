@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EventStore.Dispatcher;
 using MassTransit;
+using MassTransit.NLogIntegration;
 
 namespace Documently.Infrastructure.Installers
 {
@@ -39,9 +39,9 @@ namespace Documently.Infrastructure.Installers
 				Component.For<IServiceBus>()
 					.UsingFactoryMethod(() => ServiceBusFactory.New(sbc =>
 					{
-						sbc.UseRabbitMq();
 						sbc.ReceiveFrom(_EndpointUri);
 						sbc.UseRabbitMqRouting();
+						sbc.UseNLog();
 						sbc.Subscribe(c => c.LoadFrom(container));
 					})).LifeStyle.Singleton,
 				Component.For<IBus>()

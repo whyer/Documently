@@ -13,6 +13,7 @@ namespace Documently.Commands
 
 		public RelocateTheCustomer(Guid arId, string street, string streetNumber, string postalCode, string city)
 		{
+			AggregateId = arId;
 			Street = street;
 			Streetnumber = streetNumber;
 			PostalCode = postalCode;

@@ -3,7 +3,7 @@ using System.Linq;
 using Documently.Commands;
 using NUnit.Framework;
 
-namespace CQRSSample.Specs.Commands
+namespace Documently.Specs.Commands
 {
 	[TestFixture]
 	public class All_commands_must_be_Serializable

@@ -6,16 +6,15 @@ namespace Documently.Commands
     [Serializable]
     public class ShareDocument : Command
     {
-		[Obsolete("for serialization")]
-    	protected ShareDocument()
-    	{
-    	}
-
-    	public ShareDocument(Guid arId, int version, IEnumerable<int> userIds) : base(arId, version)
+    	public ShareDocument(Guid arId, int version, IEnumerable<int> userIds)
     	{
     		UserIds = userIds;
+    		AggregateId = arId;
+    		Version = version;
     	}
 
     	public IEnumerable<int> UserIds { get; protected set; }
+    	public Guid AggregateId { get; set; }
+    	public int Version { get; set; }
     }
 }

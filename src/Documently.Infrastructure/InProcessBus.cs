@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Castle.Windsor;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Events;
 using Documently.Infrastructure.Misc;
+using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
+using MassTransit.Diagnostics.Introspection;
 using MassTransit.Pipeline;
 
 namespace Documently.Infrastructure
@@ -36,7 +37,7 @@ namespace Documently.Infrastructure
 				.Consume(command);
 		}
 
-		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : Command
+		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : class, Command
 		{
 			return _Container.Resolve<Consumes<T>.All>();
 		}
@@ -108,6 +109,11 @@ namespace Documently.Infrastructure
 
 		public void Dispose()
 		{
+		}
+
+		public void Inspect(DiagnosticsProbe probe)
+		{
+			probe.Add("mt.bus", "in-memory");
 		}
 	}
 }

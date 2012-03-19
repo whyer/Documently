@@ -34,6 +34,7 @@ namespace Documently.Infrastructure.Installers
 		}
 
 		private static ComponentRegistration<TS> C<TS, TC>() where TC : TS
+			where TS:class
 		{
 			return Component.For<TS>().ImplementedBy<TC>().LifeStyle.Transient;
 		}

@@ -31,15 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=3.1.0.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+    <Reference Include="FluentValidation, Version=3.2.0.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FluentValidation.3.1.0.0\lib\Net40\FluentValidation.dll</HintPath>
+      <HintPath>..\packages\FluentValidation.3.2.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssociateDocumentWithCollection.cs" />
+    <Compile Include="DocumentMetaData\AssociateDocumentWithCollection.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CreateNewCustomer.cs" />
     <Compile Include="CreateNewDocumentCollection.cs" />
@@ -49,6 +49,10 @@
     <Compile Include="RelocateTheCustomer.cs" />
     <Compile Include="CreateDocumentMetaData.cs" />
     <Compile Include="ShareDocument.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Customer\" />
+    <Folder Include="DocumentCollection\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

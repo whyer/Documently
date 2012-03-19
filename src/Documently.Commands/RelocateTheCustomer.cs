@@ -11,20 +11,17 @@ namespace Documently.Commands
 		public string PostalCode { get; set; }
 		public string City { get; set; }
 
-		/// <summary> for serialization </summary>
-		[Obsolete("for serialization")]
-		protected RelocateTheCustomer()
-		{
-		}
-
 		public RelocateTheCustomer(Guid arId, string street, string streetNumber, string postalCode, string city)
-			: base(arId)
 		{
+			AggregateId = arId;
 			Street = street;
 			Streetnumber = streetNumber;
 			PostalCode = postalCode;
 			City = city;
 		}
+
+		public Guid AggregateId { get; set; }
+		public int Version { get; set; }
 	}
 
 	/// <summary>

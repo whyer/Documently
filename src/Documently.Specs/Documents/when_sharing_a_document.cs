@@ -1,18 +1,18 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
+using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
 using System.Linq;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs.Documents
+namespace Documently.Specs.Documents
 {
-    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentCommandHandler, Document>
+    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentCommandHandler, DocumentMetaData>
     {
     	private readonly List<int> _userIDs = new List<int> {1, 2, 3};
     	private readonly Guid _documentId = CombGuid.Generate();
@@ -21,7 +21,7 @@ namespace CQRSSample.Specs.Documents
     	{
     		return new List<DomainEvent>
     		       	{
-						new DocumentMetaDataCreated(_documentId, "", DocumentState.Created, DateTime.UtcNow)
+						new Created(_documentId, "",  DateTime.UtcNow)
 					};
     	}
 
@@ -33,7 +33,7 @@ namespace CQRSSample.Specs.Documents
     	[Test]
         public void Then_a_document_shared_event_will_be_pulished()
         {
-            Assert.AreEqual(typeof(DocumentSharedEvent), PublishedEvents.Last().GetType());
+            Assert.AreEqual(typeof(Shared), PublishedEvents.Last().GetType());
         }
 
     	[Test]
@@ -42,9 +42,9 @@ namespace CQRSSample.Specs.Documents
     		Event().UserIds.SequenceEqual(_userIDs).Should().Be(true);
     	}
 
-		public DocumentSharedEvent Event()
+		public Shared Event()
 		{
-			return (DocumentSharedEvent) PublishedEvents.Last();
+			return (Shared) PublishedEvents.Last();
 		}
     }
 }

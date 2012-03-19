@@ -5,19 +5,17 @@ namespace Documently.Commands
 	[Serializable]
 	public class CreateDocumentMetaData : Command
 	{
-		/// <summary> for serialization </summary>
-		[Obsolete("for serialization")]
-		protected CreateDocumentMetaData()
-		{
-		}
-
-		public CreateDocumentMetaData(Guid arId, string title, DateTime utcTime) : base(arId)
+		public CreateDocumentMetaData(Guid arId, string title, DateTime utcTime)
 		{
 			Title = title;
 			UtcTime = utcTime;
+			AggregateId = arId;
 		}
 
 		public string Title { get; protected set; }
 		public DateTime UtcTime { get; protected set; }
+		
+		public Guid AggregateId { get; set; }
+		public int Version { get; set; }
 	}
 }

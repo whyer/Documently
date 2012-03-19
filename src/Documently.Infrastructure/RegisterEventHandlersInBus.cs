@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Castle.Windsor;
-using Documently.Domain.Events;
+using Documently.Messages;
 using Documently.ReadModel;
 
 namespace Documently.Infrastructure
@@ -50,7 +50,7 @@ namespace Documently.Infrastructure
 		}
 
 		public Action<TMessage> CreatePublishAction<TMessage, TMessageHandler>(TMessageHandler messageHandler)
-			where TMessage : DomainEvent
+			where TMessage : class, DomainEvent
 			where TMessageHandler : HandlesEvent<TMessage>
 		{
 			return messageHandler.Consume;

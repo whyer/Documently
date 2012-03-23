@@ -6,6 +6,7 @@ using Documently.Infrastructure.Installers;
 using MassTransit;
 using NLog;
 using Topshelf;
+using log4net.Config;
 
 namespace Documently.Domain.Service
 {
@@ -36,6 +37,7 @@ namespace Documently.Domain.Service
 
 		private void Start()
 		{
+			BasicConfigurator.Configure(); // for TopShelf until it upgrades
 			NLog.Config.SimpleConfigurator.ConfigureForConsoleLogging();
 
 			_logger.Info("setting up domain service, installing components");

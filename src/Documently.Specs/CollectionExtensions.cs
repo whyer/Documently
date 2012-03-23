@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CQRSSample.Specs
+namespace Documently.Specs
 {
 	public static class CollectionExtensions
 	{

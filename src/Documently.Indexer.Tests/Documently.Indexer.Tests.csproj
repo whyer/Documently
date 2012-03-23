@@ -79,10 +79,6 @@
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Documently.Indexer\Documently.Indexer.fsproj">
-      <Project>{8185076D-D671-428C-BA8B-7B630B21C199}</Project>
-      <Name>Documently.Indexer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

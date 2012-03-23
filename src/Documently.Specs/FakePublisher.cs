@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Documently.Commands;
-using Documently.Domain.Events;
-using Documently.Infrastructure;
+using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
 
-namespace CQRSSample.Specs
+namespace Documently.Specs
 {
 	public class FakePublisher : IDispatchCommits
 	{

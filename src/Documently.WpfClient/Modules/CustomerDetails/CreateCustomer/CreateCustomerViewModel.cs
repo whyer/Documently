@@ -9,10 +9,10 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 {
 	public class CreateCustomerViewModel : Screen
 	{
-		private readonly IServiceBus _Bus;
+		private readonly IBus _Bus;
 		private readonly IEventAggregator _EventAggregator;
 
-		public CreateCustomerViewModel(IServiceBus bus, IEventAggregator eventAggregator)
+		public CreateCustomerViewModel(IBus bus, IEventAggregator eventAggregator)
 		{
 			_Bus = bus;
 			_EventAggregator = eventAggregator;
@@ -25,7 +25,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 		public void Save()
 		{
 			//important: send command over bus
-			_Bus.Publish(Command);
+			_Bus.Send(Command);
 
 			//signal for UI - change view
 			_EventAggregator.Publish(new CreateCustomerSavedEvent());

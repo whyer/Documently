@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CommonDomain;
 using CommonDomain.Persistence;
 
-namespace CQRSSample.Specs
+namespace Documently.Specs
 {
     public class FakeRepository : IRepository
     {

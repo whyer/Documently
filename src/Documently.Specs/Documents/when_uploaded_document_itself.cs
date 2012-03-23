@@ -3,21 +3,22 @@ using System.Linq;
 using Documently.Commands;
 using Documently.Domain.CommandHandlers;
 using Documently.Domain.Domain;
-using Documently.Domain.Events;
+using Documently.Messages;
+using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
 using SharpTestsEx;
 
-namespace CQRSSample.Specs.Documents
+namespace Documently.Specs.Documents
 {
 	public class when_uploaded_document_itself
-		: CommandTestFixture<InitializeDocumentIndexing, DocumentIndexingHandler, Document>
+		: CommandTestFixture<InitializeDocumentIndexing, DocumentIndexingHandler, DocumentMetaData>
 	{
 		private Guid _DocId = CombGuid.Generate();
 
 		protected override System.Collections.Generic.IEnumerable<DomainEvent> Given()
 		{
-			return new[] {new DocumentMetaDataCreated(_DocId, "My document", DocumentState.Created, DateTime.UtcNow)};
+			return new[] {new Created(_DocId, "My document",  DateTime.UtcNow)};
 		}
 
 		protected override InitializeDocumentIndexing When()
@@ -28,9 +29,8 @@ namespace CQRSSample.Specs.Documents
 		[Test]
 		public void then_the_document_should_take_note_of_the_associated_indexing_that_is_pending()
 		{
-			var evt = (AssociatedIndexingPending)PublishedEventsT.First();
+			var evt = (DocumentUploaded)PublishedEventsT.First();
 			evt.AggregateId.Should().Be(_DocId);
-			evt.ProcessingState.Should().Be(DocumentState.AssociatedIndexingPending);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using CommonDomain.Core;
-using Documently.Domain.Events;
+using Documently.Messages.DocumentCollection;
+using Documently.Messages.DocumentMetaData;
 using Magnum;
 
 namespace Documently.Domain.Domain
@@ -12,11 +13,11 @@ namespace Documently.Domain.Domain
 
 		protected DocumentCollection(string collectionName)
 		{
-			var @event = new DocumentCollectionCreated(CombGuid.Generate(), collectionName);
+			var @event = new CollectionCreated(CombGuid.Generate(), collectionName);
 			RaiseEvent(@event);
 		}
 
-		public void Apply(DocumentCollectionCreated evt)
+		public void Apply(CollectionCreated evt)
 		{
 			Id = evt.AggregateId;
 		}

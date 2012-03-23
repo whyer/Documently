@@ -4,16 +4,15 @@ using Castle.Windsor;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using MassTransit;
+using NLog;
 using Topshelf;
-using log4net;
 using log4net.Config;
 
 namespace Documently.Domain.Service
 {
 	class Program
 	{
-		private static readonly ILog _Logger = LogManager.GetLogger(typeof (Program));
-		
+		private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		private IWindsorContainer _Container;
 		private IServiceBus _Bus;
 
@@ -38,8 +37,10 @@ namespace Documently.Domain.Service
 
 		private void Start()
 		{
-			XmlConfigurator.Configure();
-			_Logger.Info("setting up domain service, installing components");
+			BasicConfigurator.Configure(); // for TopShelf until it upgrades
+			NLog.Config.SimpleConfigurator.ConfigureForConsoleLogging();
+
+			_logger.Info("setting up domain service, installing components");
 
 			_Container = new WindsorContainer()
 				.Install(
@@ -52,12 +53,12 @@ namespace Documently.Domain.Service
 			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
 			_Bus = _Container.Resolve<IServiceBus>();
 
-			_Logger.Info("application configured, started running");
+			_logger.Info("application configured, started running");
 		}
 
 		private void Stop()
 		{
-			_Logger.Info("shutting down Domain Service");
+			_logger.Info("shutting down Domain Service");
 			_Container.Release(_Bus);
 			_Container.Dispose();
 		}

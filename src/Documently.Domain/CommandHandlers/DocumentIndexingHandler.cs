@@ -22,7 +22,7 @@ namespace Documently.Domain.CommandHandlers
 		public void Consume(InitializeDocumentIndexing command)
 		{
 			var repo = _Repo();
-			var doc = repo.GetById<Document>(command.Id, command.Version);
+			var doc = repo.GetById<DocumentMetaData>(command.AggregateId, command.Version);
 			doc.AssociateWithDocumentBlob(command.BlobId);
 			//_Bus.Context().Respond();
 			repo.Save(doc, CombGuid.Generate(), null);

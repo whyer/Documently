@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Documently.Commands.DocumentMetaData;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
+using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages;
 using Documently.Messages.DocumentMetaData;
 using Magnum;
@@ -13,7 +14,7 @@ using SharpTestsEx;
 namespace Documently.Specs.Documents
 {
 	public class when_document_is_associated_with_a_collection
-		: CommandTestFixture<AssociateDocumentWithCollection, DocumentAssociatedWithCollectionHandler, DocumentMetaData>
+		: CommandTestFixture<AssociateWithCollection, AssociateWithCollectionHandler, DocumentMetaData>
 	{
 		private readonly Guid docId = CombGuid.Generate();
 		private readonly Guid collectionId = CombGuid.Generate();
@@ -26,9 +27,9 @@ namespace Documently.Specs.Documents
 				};
 		}
 
-		protected override AssociateDocumentWithCollection When()
+		protected override AssociateWithCollection When()
 		{
-			return new AssociateDocumentWithCollection(docId, collectionId);
+			return new AssociateWithCollection(docId, collectionId);
 		}
 
 		[Test]

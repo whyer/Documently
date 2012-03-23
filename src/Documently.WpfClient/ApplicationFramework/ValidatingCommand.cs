@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Documently.Commands;
+using Documently.Infrastructure;
 using FluentValidation;
 using FluentValidation.Results;
 

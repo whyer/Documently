@@ -4,7 +4,7 @@ using Documently.Commands;
 using Documently.Infrastructure;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
-using MassTransit;
+using Documently.WpfClient.CommandValidation;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
@@ -20,15 +20,19 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 			_eventAggregator = eventAggregator;
 			_readRepository = readRepository;
 
-			//TODO: Resolve through IoC Container
-			Validator = new RelocatingCustomerValidator();
+			Validator = new RelocateTheCustomerValidator();
 		}
 
 		public void WithCustomer(Guid customerId)
 		{
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
-			Command = new ValidatingCommand<RelocateTheCustomer>(new RelocateTheCustomer(ViewModel.AggregateRootId, ViewModel.Street, ViewModel.StreetNumber, ViewModel.PostalCode, ViewModel.City),
-			                                                         Validator);
+
+			Command = new ValidatingCommand<RelocateTheCustomer>(
+				new RelocateImpl(ViewModel.AggregateRootId,
+					ViewModel.LatestVersionSeen, 
+					ViewModel.Street, 
+					ViewModel.StreetNumber, ViewModel.PostalCode, ViewModel.City),
+				Validator);
 		}
 
 		public CustomerAddressDto ViewModel { get; private set; }
@@ -55,6 +59,25 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 		}
 	}
 
+	class RelocateImpl : RelocateTheCustomer
+	{
+		public RelocateImpl(Guid aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
+		{
+			AggregateId = aggregateId;
+			Version = version;
+			Street = street;
+			Streetnumber = streetnumber;
+			PostalCode = postalCode;
+			City = city;
+		}
+
+		public Guid AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string Street { get; set; }
+		public string Streetnumber { get; set; }
+		public string PostalCode { get; set; }
+		public string City { get; set; }
+	}
 
 	public class CustomerRelocatingSavedEvent
 	{

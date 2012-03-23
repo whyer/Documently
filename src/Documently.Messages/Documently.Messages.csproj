@@ -38,27 +38,27 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.MSMQ, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentMetaData\DocumentUploaded.cs" />
-    <Compile Include="DocumentMetaData\AssociatedWithCollection.cs" />
-    <Compile Include="CustomerEvents\Created.cs" />
-    <Compile Include="CustomerEvents\Relocated.cs" />
-    <Compile Include="DocumentCollection\CollectionCreated.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="CustCommands\RegisterNew.cs" />
+    <Compile Include="CustCommands\RelocateTheCustomer.cs" />
+    <Compile Include="DocCollectionCmds\CreateNew.cs" />
+    <Compile Include="DocCollectionCmds\ShareDocument.cs" />
+    <Compile Include="DocMetaCommands\AssociateWithCollection.cs" />
+    <Compile Include="DocMetaCommands\Create.cs" />
+    <Compile Include="DocMetaCommands\InitializeDocumentIndexing.cs" />
+    <Compile Include="DocMetaEvents\DocumentUploaded.cs" />
+    <Compile Include="DocMetaEvents\AssociatedWithCollection.cs" />
+    <Compile Include="CustEvents\Created.cs" />
+    <Compile Include="CustEvents\Relocated.cs" />
+    <Compile Include="DocCollectionEvents\CollectionCreated.cs" />
     <Compile Include="Indexer\IndexingCompleted.cs" />
-    <Compile Include="DocumentMetaData\Created.cs" />
-    <Compile Include="DocumentMetaData\Shared.cs" />
+    <Compile Include="DocMetaEvents\Created.cs" />
+    <Compile Include="DocMetaEvents\WasShared.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="Indexer\IndexingTakingTooLong.cs" />
     <Compile Include="Indexer\Started.cs" />

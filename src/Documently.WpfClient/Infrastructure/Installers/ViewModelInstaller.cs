@@ -2,7 +2,6 @@ using Caliburn.Micro;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Documently.Infrastructure.Installers;
 
 namespace Documently.WpfClient.Infrastructure.Installers
 {

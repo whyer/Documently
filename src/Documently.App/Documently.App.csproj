@@ -189,10 +189,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
-      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>Documently.Commands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>
@@ -200,6 +196,10 @@
     <ProjectReference Include="..\Documently.Infrastructure\Documently.Infrastructure.csproj">
       <Project>{F2DE41A9-C7A9-433C-9217-EEA6EE859159}</Project>
       <Name>Documently.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
+      <Name>Documently.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\Documently.ReadModel\Documently.ReadModel.csproj">
       <Project>{6E654F57-BF65-463C-82C6-DB360D0F844D}</Project>

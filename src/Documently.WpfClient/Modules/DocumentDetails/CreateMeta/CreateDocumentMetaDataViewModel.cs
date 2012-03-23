@@ -1,7 +1,8 @@
 ﻿using System;
 using Caliburn.Micro;
-using Documently.Commands;
 using Documently.Infrastructure;
+using Documently.Messages.DocMetaCommands;
+using Magnum;
 
 namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 {
@@ -21,11 +22,27 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 
 		public void Save()
 		{
-			_Bus.Send(new CreateDocumentMetaData(Guid.NewGuid(), Command.Title, DateTime.UtcNow));
+			_Bus.Send(new CreateImpl(CombGuid.Generate(), Command.Title, DateTime.UtcNow));
 			_EventAggregator.Publish(new DocumentMetaDataSaved());
-			//_Bus.RegisterHandler((DocumentMetaDataCreated evt) => _EventAggregator.Publish(evt)); // TODO: set this up better!
 		}
 	}
+
+	class CreateImpl : Create
+	{
+		public CreateImpl(Guid aggregateId, uint version, string title, DateTime utcTime)
+		{
+			AggregateId = aggregateId;
+			Version = version;
+			Title = title;
+			UtcTime = utcTime;
+		}
+
+		public Guid AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string Title { get; set; }
+		public DateTime UtcTime { get; set; }
+	}
+
 
 	public class SaveDocumentMetaDataModel
 	{

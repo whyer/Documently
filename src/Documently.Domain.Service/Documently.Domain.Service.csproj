@@ -43,9 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.11\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -93,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Installers\CommandHandlerInstaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +101,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Documently.Domain.CommandHandlers\Documently.Domain.CommandHandlers.csproj">
+      <Project>{6A891453-BDB7-4FCA-B8CA-D866F477F490}</Project>
+      <Name>Documently.Domain.CommandHandlers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>

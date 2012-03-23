@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using Documently.Commands;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
 using Documently.Messages;
 using Documently.Messages.DocumentMetaData;
 using Magnum;

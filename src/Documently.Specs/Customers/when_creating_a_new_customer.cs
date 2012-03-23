@@ -1,7 +1,9 @@
 using System;
 using Documently.Commands;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
+using Documently.Domain.CommandHandlers.ForCustomer;
+using Documently.Messages.CustCommands;
 using Documently.Messages.CustomerEvents;
 using NUnit.Framework;
 using SharpTestsEx;
@@ -9,11 +11,11 @@ using SharpTestsEx;
 namespace Documently.Specs.Customers
 {
 	public class when_creating_a_new_customer :
-		CommandTestFixture<CreateNewCustomer, CreateCustomerCommandHandler, Customer>
+		CommandTestFixture<RegisterNew, CreateCustomerCommandHandler, Customer>
 	{
-		protected override CreateNewCustomer When()
+		protected override RegisterNew When()
 		{
-			return new CreateNewCustomer(Guid.NewGuid(), "Jörg Egretzberger", "Ringstraße", "1", "1010", "Wien", "01/123456");
+			return new RegisterNew(CombGuid.Generate(), "Jörg Egretzberger", "Ringstraße", "1", "1010", "Wien", "01/123456");
 		}
 
 		[Test]

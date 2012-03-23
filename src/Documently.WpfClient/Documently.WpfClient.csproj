@@ -123,6 +123,8 @@
     <Compile Include="ApplicationFramework\Converters\CollapsedWhenNullConverter.cs" />
     <Compile Include="ApplicationFramework\ScreenWithValidatingCommand.cs" />
     <Compile Include="ApplicationFramework\ValidatingCommand.cs" />
+    <Compile Include="CommandValidation\RelocateTheCustomerValidator.cs" />
+    <Compile Include="Infrastructure\Installers\ValidatorInstaller.cs" />
     <Compile Include="Infrastructure\Installers\ViewModelInstaller.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerView.xaml.cs">
@@ -249,10 +251,6 @@
     <Folder Include="ApplicationFramework\Controls\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
-      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>Documently.Commands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Documently.Commands;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
+using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocumentCollection;
 using Magnum;
 using NUnit.Framework;
@@ -10,13 +10,13 @@ using SharpTestsEx;
 namespace Documently.Specs.Documents
 {
 	public class when_creating_new_documentCollection
-		: CommandTestFixture<CreateNewDocumentCollection, CreateNewDocumentCollectionHandler, DocumentCollection>
+		: CommandTestFixture<Create, CreateNewDocumentCollectionHandler, DocumentCollection>
 	{
 		private string _collectionName = "Name";
 
-		protected override CreateNewDocumentCollection When()
+		protected override Create When()
 		{
-			return new CreateNewDocumentCollection(CombGuid.Generate(), _collectionName);
+			return new Create(CombGuid.Generate(), _collectionName);
 		}
 
 		[Test]

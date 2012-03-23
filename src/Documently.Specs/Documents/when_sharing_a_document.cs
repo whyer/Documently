@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Documently.Commands;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
 using Documently.Messages;
+using Documently.Messages.DocMetaEvents;
 using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
@@ -33,18 +34,18 @@ namespace Documently.Specs.Documents
     	[Test]
         public void Then_a_document_shared_event_will_be_pulished()
         {
-            Assert.AreEqual(typeof(Shared), PublishedEvents.Last().GetType());
+            Assert.AreEqual(typeof(WasShared), PublishedEvents.Last().GetType());
         }
 
     	[Test]
     	public void Then_user_ids_is_in_events()
     	{
-    		Event().UserIds.SequenceEqual(_userIDs).Should().Be(true);
+    		Event().SharedWithUserIds.SequenceEqual(_userIDs).Should().Be(true);
     	}
 
-		public Shared Event()
+		public WasShared Event()
 		{
-			return (Shared) PublishedEvents.Last();
+			return (WasShared) PublishedEvents.Last();
 		}
     }
 }

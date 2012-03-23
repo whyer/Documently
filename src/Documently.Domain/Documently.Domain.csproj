@@ -31,13 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonDomain, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ec37a15dc44010cd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CommonDomain.1.4.0\lib\net40\CommonDomain.dll</HintPath>
-    </Reference>
-    <Reference Include="EventStore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
-    </Reference>
     <Reference Include="Magnum, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Magnum.2.0.0.4\lib\NET40\Magnum.dll</HintPath>
@@ -54,29 +47,19 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandlers\CreateCustomerCommandHandler.cs" />
-    <Compile Include="CommandHandlers\CreateNewDocumentCollectionHandler.cs" />
-    <Compile Include="CommandHandlers\DocumentAssociatedWithCollectionHandler.cs" />
-    <Compile Include="CommandHandlers\DocumentIndexingHandler.cs" />
-    <Compile Include="CommandHandlers\DocumentMetaDataHandler.cs" />
-    <Compile Include="CommandHandlers\RelocatingCustomerCommandHandler.cs" />
-    <Compile Include="CommandHandlers\ShareDocumentCommandHandler.cs" />
-    <Compile Include="Domain\Address.cs" />
-    <Compile Include="Domain\Customer.cs" />
-    <Compile Include="Domain\CustomerName.cs" />
-    <Compile Include="Domain\DocumentMetaData.cs" />
-    <Compile Include="Domain\DocumentCollection.cs" />
-    <Compile Include="Domain\User.cs" />
-    <Compile Include="Domain\DocumentState.cs" />
-    <Compile Include="Domain\NonExistingCustomerException.cs" />
-    <Compile Include="Domain\PhoneNumber.cs" />
+    <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Customer\Address.cs" />
+    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Customer\CustomerName.cs" />
+    <Compile Include="DocMeta\DocumentMetaData.cs" />
+    <Compile Include="DocCollection\DocumentCollection.cs" />
+    <Compile Include="Customer\User.cs" />
+    <Compile Include="DocMeta\DocumentState.cs" />
+    <Compile Include="Customer\NonExistingCustomerException.cs" />
+    <Compile Include="Customer\PhoneNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
-      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>Documently.Commands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
       <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
       <Name>Documently.Messages</Name>

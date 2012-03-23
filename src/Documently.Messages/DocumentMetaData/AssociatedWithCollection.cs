@@ -9,6 +9,7 @@ namespace Documently.Messages.DocumentMetaData
 		{
 			AggregateId = documentId;
 			CollectionId = collectionId;
+			Version = version;
 		}
 
 		public Guid CollectionId { get; protected set; }

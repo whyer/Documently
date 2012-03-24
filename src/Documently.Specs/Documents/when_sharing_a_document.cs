@@ -13,10 +13,10 @@ using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
-    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentCommandHandler, DocumentMetaData>
+    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentCommandHandler, DocMeta>
     {
     	private readonly List<int> _userIDs = new List<int> {1, 2, 3};
-    	private readonly Guid _documentId = CombGuid.Generate();
+    	private readonly NewId _documentId = CombNewId.Generate();
 
     	protected override IEnumerable<DomainEvent> Given()
     	{
@@ -28,7 +28,7 @@ namespace Documently.Specs.Documents
 
     	protected override ShareDocument When()
         {
-            return new ShareDocument(CombGuid.Generate(), 1, _userIDs);
+            return new ShareDocument(CombNewId.Generate(), 1, _userIDs);
         }
 
     	[Test]
@@ -40,7 +40,7 @@ namespace Documently.Specs.Documents
     	[Test]
     	public void Then_user_ids_is_in_events()
     	{
-    		Event().SharedWithUserIds.SequenceEqual(_userIDs).Should().Be(true);
+    		Event().UserIds.SequenceEqual(_userIDs).Should().Be(true);
     	}
 
 		public WasShared Event()

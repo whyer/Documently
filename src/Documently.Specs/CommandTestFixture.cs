@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CommonDomain;
 using CommonDomain.Persistence;
-using Documently.Commands;
+using Documently.Domain;
 using Documently.Messages;
 using MassTransit;
 using NUnit.Framework;
@@ -15,7 +14,7 @@ namespace Documently.Specs
 	public abstract class CommandTestFixture<TCommand, TCommandHandler, TAggregateRoot>
 		where TCommand : class, Command
 		where TCommandHandler : class, Consumes<TCommand>.All
-		where TAggregateRoot : IAggregate, new()
+		where TAggregateRoot : AggregateRoot, new()
 	{
 		protected TAggregateRoot AggregateRoot;
 		protected Consumes<TCommand>.All CommandHandler;
@@ -40,9 +39,9 @@ namespace Documently.Specs
 			AggregateRoot = new TAggregateRoot();
 			Repository = new FakeRepository(AggregateRoot);
 			CaughtException = new ThereWasNoExceptionButOneWasExpectedException();
-			foreach (var @event in Given())
+			foreach (var evt in Given())
 			{
-				AggregateRoot.ApplyEvent(@event);
+				AggregateRoot.ApplyEvent(evt);
 			}
 
 			CommandHandler = BuildCommandHandler();

@@ -8,15 +8,15 @@ namespace Documently.Messages.DocumentMetaData
 	[Serializable]
 	public class DocumentUploaded : DomainEvent
 	{
-		public DocumentUploaded(Guid blobId, Guid arId, int version)
+		public DocumentUploaded(NewId blobId, NewId arId, int version)
 		{
 			BlobId = blobId;
 			AggregateId = arId;
 			Version = version;
 		}
 
-		public Guid BlobId { get; protected set; }
-		public Guid AggregateId { get; private set; }
+		public NewId BlobId { get; protected set; }
+		public NewId AggregateId { get; private set; }
 		public int Version { get; set; }
 	}
 }

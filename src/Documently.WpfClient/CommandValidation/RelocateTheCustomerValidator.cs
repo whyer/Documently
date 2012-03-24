@@ -12,6 +12,7 @@
 // specific language governing permissions and limitations under the License.
 
 using Documently.Commands;
+using Documently.Messages.CustCommands;
 using FluentValidation;
 
 namespace Documently.WpfClient.CommandValidation

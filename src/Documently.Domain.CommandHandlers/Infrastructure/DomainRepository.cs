@@ -15,16 +15,17 @@ using System;
 using System.Collections.Generic;
 using Documently.Messages;
 using EventStore;
+using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.Infrastructure
 {
 	public interface DomainRepository
 	{
-		T GetById<T>(Guid aggregateId, uint version)
-			where T : AggregateRoot;
+		T GetById<T>(NewId aggregateId, uint version)
+			where T : class, AggregateRoot, EventAccessor;
 
-		void Save<T>(T aggregate, string commitId, IDictionary<string, string> headers)
-			where T : AggregateRoot;
+		void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
+			where T : class, AggregateRoot;
 	}
 
 	class DomainRepositoryImpl : DomainRepository
@@ -41,27 +42,29 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			_factory = factory;
 		}
 
-
-		public T GetById<T>(Guid aggregateId, uint version)
-			where T : AggregateRoot
+		public T GetById<T>(NewId aggregateId, uint version)
+			where T : class, AggregateRoot, EventAccessor
 		{
 			try
 			{
-				var stream = _eventStore.OpenStream(aggregateId, checked((int) version), int.MaxValue);
-				var ar = _factory.Build(typeof (T), aggregateId, null);
+				var stream = _eventStore.OpenStream(aggregateId.ToGuid(), checked((int) version), int.MaxValue);
+				var ar = _factory.Build(typeof (T), aggregateId, null) as T;
+
 				foreach (var evt in stream.CommittedEvents)
-					ar.ApplyEvent(evt.Body as DomainEvent);
+					ar.Events.ApplyEvent(evt.Body as DomainEvent);
+
+				return ar;
 			}
 			catch (OverflowException e)
 			{
-				_logger.Error("Congratz, your domain object has over two billion events; " +
+				_logger.Error("Congratulations, your domain object has over two billion events; " +
 				              "you should consider customizing the EventStore library for your purposes.", e);
 				throw;
 			}
 		}
 
-		public void Save<T>(T aggregate, string commitId, IDictionary<string, object> headers)
-			where T : AggregateRoot
+		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers) 
+			where T : class, AggregateRoot
 		{
 		}
 	}

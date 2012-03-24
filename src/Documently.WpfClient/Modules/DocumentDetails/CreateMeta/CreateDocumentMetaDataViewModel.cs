@@ -22,14 +22,14 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 
 		public void Save()
 		{
-			_Bus.Send(new CreateImpl(CombGuid.Generate(), Command.Title, DateTime.UtcNow));
+			_Bus.Send(new CreateImpl(CombNewId.Generate(), 0, Command.Title, DateTime.UtcNow));
 			_EventAggregator.Publish(new DocumentMetaDataSaved());
 		}
 	}
 
 	class CreateImpl : Create
 	{
-		public CreateImpl(Guid aggregateId, uint version, string title, DateTime utcTime)
+		public CreateImpl(NewId aggregateId, uint version, string title, DateTime utcTime)
 		{
 			AggregateId = aggregateId;
 			Version = version;
@@ -37,12 +37,11 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 			UtcTime = utcTime;
 		}
 
-		public Guid AggregateId { get; set; }
+		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string Title { get; set; }
 		public DateTime UtcTime { get; set; }
 	}
-
 
 	public class SaveDocumentMetaDataModel
 	{

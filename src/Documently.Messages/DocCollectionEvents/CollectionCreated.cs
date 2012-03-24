@@ -1,18 +1,8 @@
-using System;
 
-namespace Documently.Messages.DocumentCollection
+namespace Documently.Messages.DocCollectionEvents
 {
-	[Serializable]
-	public class CollectionCreated : DomainEvent
+	public interface Created : DomainEvent
 	{
-		public CollectionCreated(Guid aggregateId, string name)
-		{
-			Name = name;
-			AggregateId = aggregateId;
-		}
-
-		public Guid AggregateId { get; set; }
-		public int Version { get; set; }
-		public string Name { get; set; }
+		string Name { get; }
 	}
 }

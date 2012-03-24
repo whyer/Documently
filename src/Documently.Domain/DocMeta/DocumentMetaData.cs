@@ -17,21 +17,25 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using Documently.Messages.DocMetaEvents;
 using Documently.Messages.DocumentMetaData;
+using MassTransit;
+using MassTransit.Util;
 
 namespace Documently.Domain
 {
-	public class DocumentMetaData : AggregateBase
+	public class DocMeta : AggregateRoot, EventAccessor
 	{
-		public DocumentMetaData()
+		private DocMeta()
 		{
+			_state = EventRouter.For(this);
 		}
 
-		public DocumentMetaData(Guid documentId, string title, DateTime utcCreated)
+		public DocMeta(NewId documentId, string title, DateTime utcCreated)
+			: this()
 		{
-			var @event = new Created(
+			var evt = new Created(
 				documentId, title, utcCreated);
 
-			RaiseEvent(@event);
+			this.Raise<DocMeta, Created>(evt);
 		}
 
 		public void Apply(Created evt)
@@ -39,10 +43,10 @@ namespace Documently.Domain
 			Id = evt.AggregateId;
 		}
 
-		public void AssociateWithDocumentBlob(Guid blobId)
+		public void AssociateWithDocumentBlob(NewId blobId)
 		{
 			var evt = new DocumentUploaded(blobId, Id, Version + 1);
-			RaiseEvent(evt);
+			this.RaiseEvent(evt);
 		}
 
 		public void Apply(DocumentUploaded evt)
@@ -50,31 +54,38 @@ namespace Documently.Domain
 			_documentBlobId = evt.BlobId;
 		}
 
-		public void AssociateWithCollection(Guid collectionId)
+		public void AssociateWithCollection(NewId collectionId)
 		{
-			var @event = new AssociatedWithCollection(Id, collectionId, Version + 1);
-			RaiseEvent(@event);
+			var evt = new AssociatedWithCollection(Id, collectionId, Version + 1);
+			RaiseEvent(evt);
 		}
 
-		public void Apply(AssociatedWithCollection @event)
+		public void Apply(AssociatedWithCollection evt)
 		{
 		}
 
-		public void Apply(WasShared @event)
+		public void Apply(WasShared evt)
 		{
-			Id = @event.AggregateId;
-			Version = @event.Version;
+			Id = evt.AggregateId;
+			Version = evt.Version;
 		}
 
-		private Guid _documentBlobId;
+		private NewId _documentBlobId;
+		private EventRouter _state;
 
-		public void ShareWith(IEnumerable<int> userIDs)
+		public void ShareWith([NotNull] IEnumerable<int> userIds)
 		{
-			Contract.Requires(userIDs != null);
-			Contract.Requires(userIDs.Count() > 0);
-			Contract.Ensures(Contract.OldValue(userIDs) == userIDs);
-			var @event = new WasShared(Id, Version, userIDs);
-			RaiseEvent(@event);
+			if (userIds == null) throw new ArgumentNullException("userIds");
+			this.Raise<DocMeta, WasShared>(new
+				{
+					Id,
+					Version,
+					UserIds = userIds
+				});
 		}
+
+		public NewId Id { get; private set; }
+		public uint Version { get; private set; }
+		public EventRouter Events { get; private set; }
 	}
 }

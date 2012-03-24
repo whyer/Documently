@@ -6,6 +6,6 @@ namespace Documently.WpfClient.Modules.CustomerDetails
     {
         void WithCustomer(string customerId);
 
-        Guid GetCustomerId();
+        NewId GetCustomerId();
     }
 }

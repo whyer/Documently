@@ -55,19 +55,19 @@ namespace Documently.Infrastructure
 
 		void IDispatchCommits.Dispatch(Commit commit)
 		{
-			foreach (var @event in commit.Events)
+			foreach (var evt in commit.Events)
 			{
 				List<Action<DomainEvent>> handlers;
 
-				if (!_Routes.TryGetValue(@event.Body.GetType(), out handlers)) 
+				if (!_Routes.TryGetValue(evt.Body.GetType(), out handlers)) 
 					return;
 
 				foreach (var handler in handlers)
 				{
 					//dispatch on thread pool for added awesomeness
 					//var handler1 = handler;
-					//ThreadPool.QueueUserWorkItem(x => handler1(@event));
-					handler((DomainEvent) @event.Body);
+					//ThreadPool.QueueUserWorkItem(x => handler1(evt));
+					handler((DomainEvent) evt.Body);
 				}
 			}
 		}

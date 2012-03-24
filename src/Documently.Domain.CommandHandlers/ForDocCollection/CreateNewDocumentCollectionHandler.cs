@@ -22,8 +22,8 @@ namespace Documently.Domain.CommandHandlers
         {
 			var collection = DocumentCollection.CreateNew(context.Message.Name);
             var repository = _reposistory();
-            repository.Save(collection, context.MessageId, 
-				context.Headers.ToDictionary(x => x.Key, x => x.Value));
+            repository.Save(collection, new NewId(context.MessageId),
+				context.GetHeaders());
         }
     }
 }

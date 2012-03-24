@@ -39,15 +39,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.MSMQ, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
+    <Compile Include="AggregateRootEx.cs" />
     <Compile Include="Customer\Address.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerName.cs" />

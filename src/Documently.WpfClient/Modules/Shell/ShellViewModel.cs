@@ -25,7 +25,7 @@ namespace Documently.WpfClient.Modules.Shell
 		private readonly IReadRepository _Repository;
 		private readonly IBus _Bus;
 		private readonly IEventAggregator _EventAggregator;
-		private Guid? _AggregateRootId;
+		private NewId? _AggregateRootId;
 
 		public ShellViewModel(IReadRepository repository, IBus bus, IEventAggregator eventAggregator)
 		{

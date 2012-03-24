@@ -2,6 +2,7 @@ using System;
 using Caliburn.Micro;
 using Documently.Commands;
 using Documently.Infrastructure;
+using Documently.Messages.CustCommands;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
 using Documently.WpfClient.CommandValidation;
@@ -23,7 +24,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 			Validator = new RelocateTheCustomerValidator();
 		}
 
-		public void WithCustomer(Guid customerId)
+		public void WithCustomer(NewId customerId)
 		{
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
 
@@ -61,7 +62,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 
 	class RelocateImpl : RelocateTheCustomer
 	{
-		public RelocateImpl(Guid aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
+		public RelocateImpl(NewId aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
 		{
 			AggregateId = aggregateId;
 			Version = version;
@@ -71,7 +72,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 			City = city;
 		}
 
-		public Guid AggregateId { get; set; }
+		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string Street { get; set; }
 		public string Streetnumber { get; set; }

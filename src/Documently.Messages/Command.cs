@@ -1,10 +1,10 @@
-using System;
+using MassTransit;
 
-namespace Documently.Commands
+namespace Documently.Messages
 {
 	public interface Command
 	{
-		Guid AggregateId { get; set; }
+		NewId AggregateId { get; set; }
 		uint Version { get; set; }
 	}
 }

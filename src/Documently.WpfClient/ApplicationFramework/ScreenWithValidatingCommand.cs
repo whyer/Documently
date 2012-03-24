@@ -1,5 +1,6 @@
 using Caliburn.Micro;
 using Documently.Commands;
+using Documently.Messages;
 using FluentValidation;
 using FluentValidation.Results;
 

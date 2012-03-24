@@ -27,9 +27,9 @@ namespace Documently.Infrastructure
 
 		void IDispatchCommits.Dispatch(Commit commit)
 		{
-			commit.Events.ForEach(@event =>
+			commit.Events.ForEach(evt =>
 				{
-					this.FastInvoke("PublishEvent", @event.Body);
+					this.FastInvoke("PublishEvent", evt.Body);
 				});
 		}
 

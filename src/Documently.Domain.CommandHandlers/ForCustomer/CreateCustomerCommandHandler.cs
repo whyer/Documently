@@ -25,7 +25,7 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 			                                            command.PostalCode, command.City),
 			                                new PhoneNumber(command.PhoneNumber));
 
-			repo.Save(client, context.MessageId, context.Headers.ToDictionary(x => x.Key, x => x.Value));
+			repo.Save(client, new Guid(context.MessageId).ToNewId(), context.Headers.ToDictionary(x => x.Key, x => x.Value));
 		}
 	}
 }

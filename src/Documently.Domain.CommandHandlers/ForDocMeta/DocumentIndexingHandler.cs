@@ -1,30 +1,29 @@
 using System;
-using CommonDomain.Persistence;
-using Documently.Commands;
-using Magnum;
+using Documently.Domain.CommandHandlers.Infrastructure;
+using Documently.Messages.DocMetaCommands;
 using MassTransit;
 
-namespace Documently.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers.ForDocMeta
 {
-	public class DocumentIndexingHandler : Consumes<InitializeDocumentIndexing>.All
+	public class DocumentIndexingHandler : Consumes<IConsumeContext<InitializeDocumentIndexing>>.All
 	{
-		private readonly Func<IRepository> _Repo;
-		//private readonly IServiceBus _Bus;
+		private readonly Func<DomainRepository> _repo;
 
-		public DocumentIndexingHandler(Func<IRepository> repo)
+		public DocumentIndexingHandler(Func<DomainRepository> repo)
 		{
 			if (repo == null) throw new ArgumentNullException("repo");
-			_Repo = repo;
-			//_Bus = bus;
+			_repo = repo;
 		}
 
-		public void Consume(InitializeDocumentIndexing command)
+		public void Consume(IConsumeContext<InitializeDocumentIndexing> context)
 		{
-			var repo = _Repo();
-			var doc = repo.GetById<DocumentMetaData>(command.AggregateId, command.Version);
+			var repo = _repo();
+			var command = context.Message;
+			var doc = repo.GetById<DocMeta>(command.AggregateId, command.Version);
+		
 			doc.AssociateWithDocumentBlob(command.BlobId);
-			//_Bus.Context().Respond();
-			repo.Save(doc, CombGuid.Generate(), null);
+
+			repo.Save(doc, context.GetMessageId(), context.GetHeaders());
 		}
 	}
 }

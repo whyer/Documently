@@ -1,23 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Documently.Commands.DocumentMetaData;
 using Documently.Domain;
-using Documently.Domain.CommandHandlers;
 using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages;
+using Documently.Messages.DocMetaCommands;
+using Documently.Messages.DocMetaEvents;
 using Documently.Messages.DocumentMetaData;
-using Magnum;
+using MassTransit;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
 	public class when_document_is_associated_with_a_collection
-		: CommandTestFixture<AssociateWithCollection, AssociateWithCollectionHandler, DocumentMetaData>
+		: CommandTestFixture<AssociateWithCollection, AssociateWithCollectionHandler, DocMeta>
 	{
-		private readonly Guid docId = CombGuid.Generate();
-		private readonly Guid collectionId = CombGuid.Generate();
+		private readonly NewId docId = NewId.Next();
+		private readonly NewId collectionId = NewId.Next();
 
 		protected override IEnumerable<DomainEvent> Given()
 		{

@@ -279,5 +279,35 @@
             <param name="key">The key references the value</param>
             <returns>The value from the cache</returns>
         </member>
+        <member name="M:Automatonymous.StateMachineExtensions.RaiseEvent``2(``0,``1,System.Func{``0,Automatonymous.Event})">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="stateMachine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+        </member>
+        <member name="M:Automatonymous.StateMachineExtensions.RaiseEvent``3(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The data type of the event</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="stateMachine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The data for the event</param>
+        </member>
+        <member name="M:Automatonymous.StateMachineExtensions.For``1(Automatonymous.StateMachine)">
+            <summary>
+            Returns an instance-specific version of the state machine (smart cast essentially)
+            </summary>
+            <typeparam name="TInstance">The instance type requested</typeparam>
+            <param name="stateMachine">The untyped state machine interface</param>
+            <returns>The typed static machine reference</returns>
+        </member>
     </members>
 </doc>

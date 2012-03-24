@@ -53,7 +53,7 @@ namespace Documently.App
 				var bus = _container.Resolve<IServiceBus>();
 				_domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
 
-				var customerId = CombGuid.Generate();
+				var customerId = NewId.Next();
 
 				Console.WriteLine("create new customer by pressing a key");
 				Console.ReadKey(true);
@@ -108,13 +108,13 @@ namespace Documently.App
 			}
 		}
 
-		private void RegisterNewCustomer(Guid aggregateId)
+		private void RegisterNewCustomer(NewId aggregateId)
 		{
 			_domainService.Send(new CreateCustImpl(aggregateId, "Jörg Egretzberger", 
 				"Meine Straße", "1", "1010", "Wien", "01/123456"));
 		}
 
-		private void RelocateCustomer(Guid customerId, uint prevVersion)
+		private void RelocateCustomer(NewId customerId, uint prevVersion)
 		{
 			_domainService.Send(new RelocateImpl(customerId, prevVersion,
 				"Messestraße", "2", "4444", "Linz"));
@@ -128,7 +128,7 @@ namespace Documently.App
 
 	class RelocateImpl : RelocateTheCustomer
 	{
-		public RelocateImpl(Guid aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
+		public RelocateImpl(NewId aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
 		{
 			AggregateId = aggregateId;
 			Version = version;
@@ -138,7 +138,7 @@ namespace Documently.App
 			City = city;
 		}
 
-		public Guid AggregateId { get; set; }
+		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 
 		public string Street { get; set; }
@@ -149,26 +149,24 @@ namespace Documently.App
 
 	class CreateCustImpl : RegisterNew
 	{
-		public CreateCustImpl(Guid aggregateId, string customerName, string street, string streetNumber,
+		public CreateCustImpl(NewId aggregateId, string customerName, string street, string streetNumber,
 			string postalCode, string city, string phoneNumber)
 		{
 			AggregateId = aggregateId;
 			CustomerName = customerName;
-			Street = street;
-			StreetNumber = streetNumber;
-			PostalCode = postalCode;
-			City = city;
 			PhoneNumber = phoneNumber;
 			Version = 0;
 		}
 
-		public Guid AggregateId { get; set; }
+		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
-		public string Street { get; set; }
-		public string StreetNumber { get; set; }
-		public string PostalCode { get; set; }
-		public string City { get; set; }
 		public string PhoneNumber { get; set; }
+		public Address Address { get; set; }
+	}
+
+	class AddressImpl : Address
+	{
+		 
 	}
 }

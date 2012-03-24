@@ -13,17 +13,15 @@
 
 using System;
 using Automatonymous;
-using Documently.Messages;
-using Documently.Messages.DocumentMetaData;
 using Documently.Messages.Indexer;
 using MassTransit;
 using MassTransit.Services.Timeout.Messages;
-using Created = Documently.Messages.DocumentMetaData.Created;
+using Created = Documently.Messages.DocMetaEvents.Created;
 
 namespace Documently.Sagas
 {
 	public class Instance
-		: SagaStateMachineInstance
+		: StateMachineInstance
 	{
 		public Instance(Guid correlationId)
 		{

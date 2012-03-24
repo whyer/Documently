@@ -12,14 +12,13 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
-using Documently.Commands.DocumentMetaData;
 using Documently.Domain.CommandHandlers.Infrastructure;
-using Magnum;
+using Documently.Messages.DocMetaCommands;
 using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.ForDocMeta
 {
-	public class AssociateWithCollectionHandler : Consumes<AssociateWithCollection>.All
+	public class AssociateWithCollectionHandler : Consumes<IConsumeContext<AssociateWithCollection>>.All
 	{
 		private readonly Func<DomainRepository> _repository;
 
@@ -29,13 +28,15 @@ namespace Documently.Domain.CommandHandlers.ForDocMeta
 			_repository = repository;
 		}
 
-		public void Consume(AssociateWithCollection message)
+		public void Consume(IConsumeContext<AssociateWithCollection> context)
 		{
 			var repository = _repository();
-			var document = repository.GetById<DocumentMetaData>(message.AggregateId);
+			var message = context.Message;
+			var document = repository.GetById<DocMeta>(message.AggregateId, message.Version);
 
 			document.AssociateWithCollection(message.CollectionId);
-			repository.Save(document, CombGuid.Generate(), null);
+
+			repository.Save(document, context.GetMessageId(), context.GetHeaders());
 		}
 	}
 }

@@ -1,13 +1,7 @@
-﻿using System;
-using FluentValidation;
-
-namespace Documently.Commands
+﻿namespace Documently.Messages.CustCommands
 {
 	public interface RelocateTheCustomer : Command
 	{
-		string Street { get; set; }
-		string Streetnumber { get; set; }
-		string PostalCode { get; set; }
-		string City { get; set; }
+		Address NewAddress { get; }
 	}
 }

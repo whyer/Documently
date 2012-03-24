@@ -3,7 +3,10 @@ using System.Linq;
 using Documently.Commands;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers;
+using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages;
+using Documently.Messages.DocMetaCommands;
+using Documently.Messages.DocMetaEvents;
 using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
@@ -12,9 +15,9 @@ using SharpTestsEx;
 namespace Documently.Specs.Documents
 {
 	public class when_uploaded_document_itself
-		: CommandTestFixture<InitializeDocumentIndexing, DocumentIndexingHandler, DocumentMetaData>
+		: CommandTestFixture<InitializeDocumentIndexing, DocumentIndexingHandler, DocMeta>
 	{
-		private Guid _DocId = CombGuid.Generate();
+		private NewId _DocId = CombNewId.Generate();
 
 		protected override System.Collections.Generic.IEnumerable<DomainEvent> Given()
 		{
@@ -23,7 +26,7 @@ namespace Documently.Specs.Documents
 
 		protected override InitializeDocumentIndexing When()
 		{
-			return new InitializeDocumentIndexing(_DocId, CombGuid.Generate());
+			return new InitializeDocumentIndexing(_DocId, CombNewId.Generate());
 		}
 
 		[Test]

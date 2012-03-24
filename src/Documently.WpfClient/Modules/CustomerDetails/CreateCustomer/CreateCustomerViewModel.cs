@@ -15,7 +15,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 		{
 			_bus = bus;
 			_eventAggregator = eventAggregator;
-			Command = new RegisterNewImpl(CombGuid.Generate());
+			Command = new RegisterNewImpl(CombNewId.Generate());
 		}
 
 		public RegisterNew Command { get; private set; }
@@ -32,13 +32,13 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 
 	public class RegisterNewImpl : RegisterNew
 	{
-		public RegisterNewImpl(Guid arId)
+		public RegisterNewImpl(NewId arId)
 		{
 			AggregateId = arId;
 			Version = 0;
 		}
 
-		public Guid AggregateId { get; set; }
+		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
 		public string Street { get; set; }

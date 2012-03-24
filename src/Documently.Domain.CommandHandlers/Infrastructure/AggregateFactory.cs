@@ -1,10 +1,11 @@
 using System;
+using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.Infrastructure
 {
 	public class AggregateFactory : AggregateRootFactory
 	{
-		public AggregateRoot Build(Type type, Guid id, Memento snapshot)
+		public AggregateRoot Build(Type type, NewId id, Memento snapshot)
 		{
 			return Activator.CreateInstance(type) as AggregateRoot;
 		}
@@ -12,7 +13,7 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 
 	public interface AggregateRootFactory
 	{
-		AggregateRoot Build(Type type, Guid id, Memento snapshot);
+		AggregateRoot Build(Type type, NewId id, Memento snapshot);
 	}
 
 	public interface Memento

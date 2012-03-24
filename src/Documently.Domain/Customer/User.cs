@@ -1,28 +1,23 @@
-﻿namespace Documently.Domain
+﻿// Copyright 2012 Henrik Feldt
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+
+using MassTransit;
+
+namespace Documently.Domain
 {
-    public class User : AggregateBase
-    {
-        //private User(Guid id, UserName UserName, Address address, PhoneNumber phoneNumber)
-        //{
-        //    RaiseEvent(new UserCreatedEvent(id, UserName.Name, address.Street, address.StreetNumber, address.PostalCode,
-        //                                        address.City, phoneNumber.Number));
-        //}
-
-        public User()
-        {
-        }
-
-
-        //public static User CreateNew(Guid id, UserName UserName, Address address, PhoneNumber phoneNumber)
-        //{
-        //    return new User(id, UserName, address, phoneNumber);
-        //}
-
-        //Domain-Eventhandlers
-        //private void Apply(UserCreatedEvent @event)
-        //{
-        //    Id = @event.AggregateId;
-        //    // we don't need to keep any other state here.
-        //}
-    }
+	public class User : AggregateRoot
+	{
+		public NewId Id { get; private set; }
+		public uint Version { get; private set; }
+	}
 }

@@ -1,6 +1,7 @@
 using System;
 using CommonDomain.Persistence;
 using Documently.Commands;
+using Documently.Domain.CommandHandlers.Infrastructure;
 using Magnum;
 using MassTransit;
 
@@ -8,9 +9,9 @@ namespace Documently.Domain.CommandHandlers
 {
     public class ShareDocumentCommandHandler : Consumes<ShareDocument>.All
     {
-        private Func<IRepository> _repository;
+        private Func<DomainRepository> _repository;
 
-        public ShareDocumentCommandHandler(Func<IRepository> repository)
+        public ShareDocumentCommandHandler(Func<DomainRepository> repository)
         {
             _repository = repository;
             
@@ -19,9 +20,9 @@ namespace Documently.Domain.CommandHandlers
         {
             var repo = _repository();
             const int version = 0;
-            var document = repo.GetById<DocumentMetaData>(command.AggregateId, version);
+            var document = repo.GetById<DocMeta>(command.AggregateId, version);
             document.ShareWith(command.UserIds);
-            repo.Save(document, CombGuid.Generate(), null);
+            repo.Save(document, CombNewId.Generate(), null);
             
         }
     }

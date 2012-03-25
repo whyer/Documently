@@ -28,7 +28,7 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			where T : class, AggregateRoot;
 	}
 
-	class EventStoreRepository : DomainRepository
+	public class EventStoreRepository : DomainRepository
 	{
 		private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 		private readonly IStoreEvents _eventStore;

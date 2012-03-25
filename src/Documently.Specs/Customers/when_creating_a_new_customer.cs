@@ -40,7 +40,7 @@ namespace Documently.Specs.Customers
 	}
 
 	public class when_creating_a_new_customer :
-		CommandTestFixture<RegisterNew, CreateCustomerCommandHandler, Customer>
+		CommandTestFixture<RegisterNew, RegisterNewHandler, Customer>
 	{
 		protected override RegisterNew When()
 		{

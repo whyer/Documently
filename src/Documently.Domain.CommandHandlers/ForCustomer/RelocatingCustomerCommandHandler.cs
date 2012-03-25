@@ -5,11 +5,11 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.ForCustomer
 {
-	public class RelocatingCustomerCommandHandler : Consumes<RelocateTheCustomer>.All
+	public class RelocateTheCustomerHandler : Consumes<RelocateTheCustomer>.All
 	{
 		private readonly Func<DomainRepository> _repository;
 
-		public RelocatingCustomerCommandHandler(Func<DomainRepository> repository)
+		public RelocateTheCustomerHandler(Func<DomainRepository> repository)
 		{
 			_repository = repository;
 		}

@@ -91,12 +91,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installers\CommandHandlerInstaller.cs" />
+    <Compile Include="Installers\DomainInfraInstaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

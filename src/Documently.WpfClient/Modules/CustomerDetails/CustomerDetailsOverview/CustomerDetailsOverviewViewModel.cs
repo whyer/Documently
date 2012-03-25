@@ -1,4 +1,3 @@
-using System;
 using Caliburn.Micro;
 using Documently.ReadModel;
 using MassTransit;

@@ -6,7 +6,7 @@
 
 		public string PostalCode { get; set; }
 
-		public string StreetNumber { get; set; }
+		public uint StreetNumber { get; set; }
 
 		public string Street { get; set; }
 

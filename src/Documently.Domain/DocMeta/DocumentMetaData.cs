@@ -13,10 +13,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using Documently.Messages.DocMetaEvents;
-using Documently.Messages.DocumentMetaData;
 using MassTransit;
 using MassTransit.Util;
 
@@ -26,16 +23,18 @@ namespace Documently.Domain
 	{
 		private DocMeta()
 		{
-			_state = EventRouter.For(this);
+			_events = EventRouter.For(this);
 		}
 
-		public DocMeta(NewId documentId, string title, DateTime utcCreated)
+		public DocMeta(NewId id, string title, DateTime utcCreated)
 			: this()
 		{
-			var evt = new Created(
-				documentId, title, utcCreated);
-
-			this.Raise<DocMeta, Created>(evt);
+			this.Raise<DocMeta, Created>(new
+				{
+					AggregateId = id,
+					Title = title,
+					UtcDate = utcCreated
+				});
 		}
 
 		public void Apply(Created evt)
@@ -43,35 +42,42 @@ namespace Documently.Domain
 			Id = evt.AggregateId;
 		}
 
-		public void AssociateWithDocumentBlob(NewId blobId)
+		public NewId Id { get; private set; }
+		public uint Version { get; private set; }
+
+		private Uri _dataUri;
+		private readonly EventRouter _events;
+
+		public EventRouter Events { get { return _events; } }
+
+		public void AssociateWithData(Uri dataUri)
 		{
-			var evt = new DocumentUploaded(blobId, Id, Version + 1);
-			this.RaiseEvent(evt);
+			this.Raise<DocMeta, DocumentUploaded>(new
+				{
+					AggregateId = Id,
+					Version = Version + 1,
+					Data = dataUri
+				});
 		}
 
 		public void Apply(DocumentUploaded evt)
 		{
-			_documentBlobId = evt.BlobId;
+			_dataUri = evt.Data;
 		}
 
 		public void AssociateWithCollection(NewId collectionId)
 		{
-			var evt = new AssociatedWithCollection(Id, collectionId, Version + 1);
-			RaiseEvent(evt);
+			this.Raise<DocMeta, AssociatedWithCollection>(new
+				{
+					AggregateId = Id,
+					CollectionId = collectionId,
+					Version = Version + 1
+				});
 		}
 
 		public void Apply(AssociatedWithCollection evt)
 		{
 		}
-
-		public void Apply(WasShared evt)
-		{
-			Id = evt.AggregateId;
-			Version = evt.Version;
-		}
-
-		private NewId _documentBlobId;
-		private EventRouter _state;
 
 		public void ShareWith([NotNull] IEnumerable<int> userIds)
 		{
@@ -84,8 +90,8 @@ namespace Documently.Domain
 				});
 		}
 
-		public NewId Id { get; private set; }
-		public uint Version { get; private set; }
-		public EventRouter Events { get; private set; }
+		public void Apply(WasShared evt)
+		{
+		}
 	}
 }

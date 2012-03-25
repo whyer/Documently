@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Documently.Commands;
 using Documently.Messages;
 using NUnit.Framework;
 

@@ -1,20 +1,33 @@
-﻿using System;
+﻿// Copyright 2012 Henrik Feldt
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+
+using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.DocMetaCommands;
-using Magnum;
+using MassTransit;
 
 namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 {
 	public class CreateDocumentMetaDataViewModel : Screen
 	{
-		private readonly IBus _Bus;
-		private readonly IEventAggregator _EventAggregator;
+		private readonly IBus _bus;
+		private readonly IEventAggregator _eventAggregator;
 
 		public CreateDocumentMetaDataViewModel(IBus bus, IEventAggregator eventAggregator)
 		{
-			_Bus = bus;
-			_EventAggregator = eventAggregator;
+			_bus = bus;
+			_eventAggregator = eventAggregator;
 			Command = new SaveDocumentMetaDataModel();
 		}
 
@@ -22,21 +35,19 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 
 		public void Save()
 		{
-			_Bus.Send(new CreateImpl(CombNewId.Generate(), 0, Command.Title, DateTime.UtcNow));
-			_EventAggregator.Publish(new DocumentMetaDataSaved());
+			_bus.Send<Create>(new CreateImpl
+				{
+					AggregateId = NewId.Next(),
+					Version = 0,
+					Title = Command.Title,
+					UtcTime = DateTime.UtcNow
+				});
+			_eventAggregator.Publish(new DocumentMetaDataSaved());
 		}
 	}
 
-	class CreateImpl : Create
+	internal class CreateImpl : Create
 	{
-		public CreateImpl(NewId aggregateId, uint version, string title, DateTime utcTime)
-		{
-			AggregateId = aggregateId;
-			Version = version;
-			Title = title;
-			UtcTime = utcTime;
-		}
-
 		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string Title { get; set; }
@@ -49,5 +60,6 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 	}
 
 	public class DocumentMetaDataSaved
-	{}
+	{
+	}
 }

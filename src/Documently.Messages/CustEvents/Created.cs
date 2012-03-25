@@ -4,7 +4,7 @@ namespace Documently.Messages.CustEvents
 	{
 		string CustomerName { get; }
 		string Street { get; }
-		string StreetNumber { get; }
+		uint StreetNumber { get; }
 		string PostalCode { get; }
 		string City { get; }
 		string PhoneNumber { get; }

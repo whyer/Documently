@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Documently.Commands;
 using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;

@@ -28,13 +28,13 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			where T : class, AggregateRoot;
 	}
 
-	class DomainRepositoryImpl : DomainRepository
+	class EventStoreRepository : DomainRepository
 	{
 		private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 		private readonly IStoreEvents _eventStore;
 		private readonly AggregateRootFactory _factory;
 
-		public DomainRepositoryImpl(IStoreEvents eventStore, AggregateRootFactory factory)
+		public EventStoreRepository(IStoreEvents eventStore, AggregateRootFactory factory)
 		{
 			if (eventStore == null) throw new ArgumentNullException("eventStore");
 			if (factory == null) throw new ArgumentNullException("factory");

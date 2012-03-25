@@ -3,11 +3,11 @@
 	public class Address
 	{
 		public readonly string Street;
-		public readonly string StreetNumber;
+		public readonly uint StreetNumber;
 		public readonly string PostalCode;
 		public readonly string City;
 
-		public Address(string street, string number, string code, string city)
+		public Address(string street, uint number, string code, string city)
 		{
 			Street = street;
 			StreetNumber = number;

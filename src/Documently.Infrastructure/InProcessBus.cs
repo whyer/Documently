@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Castle.Windsor;
-using Documently.Commands;
-using Documently.Domain.CommandHandlers;
-using Documently.Infrastructure.Misc;
 using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
@@ -15,14 +12,14 @@ namespace Documently.Infrastructure
 {
 	public class InProcessBus : IBus, IDispatchCommits, IServiceBus
 	{
-		private readonly IWindsorContainer _Container;
+		private readonly IWindsorContainer _container;
 
-		private readonly Dictionary<Type, List<Action<DomainEvent>>> _Routes =
+		private readonly Dictionary<Type, List<Action<DomainEvent>>> _routes =
 			new Dictionary<Type, List<Action<DomainEvent>>>();
 
 		public InProcessBus(IWindsorContainer container)
 		{
-			_Container = container;
+			_container = container;
 		}
 
 		void IServiceBus.Publish<T>(T message, Action<IPublishContext<T>> contextCallback)
@@ -39,19 +36,19 @@ namespace Documently.Infrastructure
 
 		private Consumes<T>.All GetCommandHandlerForCommand<T>() where T : class, Command
 		{
-			return _Container.Resolve<Consumes<T>.All>();
+			return _container.Resolve<Consumes<T>.All>();
 		}
 
-		void IBus.RegisterHandler<T>(Action<T> handler)
-		{
-			List<Action<DomainEvent>> handlers;
-			if (!_Routes.TryGetValue(typeof (T), out handlers))
-			{
-				handlers = new List<Action<DomainEvent>>();
-				_Routes.Add(typeof (T), handlers);
-			}
-			handlers.Add(DelegateAdjuster.CastArgument<DomainEvent, T>(x => handler(x)));
-		}
+		//void IBus.RegisterHandler<T>(Action<T> handler)
+		//{
+		//    List<Action<DomainEvent>> handlers;
+		//    if (!_Routes.TryGetValue(typeof (T), out handlers))
+		//    {
+		//        handlers = new List<Action<DomainEvent>>();
+		//        _Routes.Add(typeof (T), handlers);
+		//    }
+		//    handlers.Add(DelegateAdjuster.CastArgument<DomainEvent, T>(x => handler(x)));
+		//}
 
 		void IDispatchCommits.Dispatch(Commit commit)
 		{
@@ -59,7 +56,7 @@ namespace Documently.Infrastructure
 			{
 				List<Action<DomainEvent>> handlers;
 
-				if (!_Routes.TryGetValue(evt.Body.GetType(), out handlers)) 
+				if (!_routes.TryGetValue(evt.Body.GetType(), out handlers)) 
 					return;
 
 				foreach (var handler in handlers)

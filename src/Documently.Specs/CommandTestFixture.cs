@@ -39,6 +39,7 @@ namespace Documently.Specs
 			AggregateRoot = new TAggregateRoot();
 			Repository = new FakeRepository(AggregateRoot);
 			CaughtException = new ThereWasNoExceptionButOneWasExpectedException();
+
 			foreach (var evt in Given())
 			{
 				AggregateRoot.ApplyEvent(evt);

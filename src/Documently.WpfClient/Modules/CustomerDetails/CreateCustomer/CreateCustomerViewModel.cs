@@ -1,8 +1,8 @@
-using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
-using Magnum;
+using Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating;
+using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 {
@@ -15,7 +15,12 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 		{
 			_bus = bus;
 			_eventAggregator = eventAggregator;
-			Command = new RegisterNewImpl(CombNewId.Generate());
+			Command = new RegisterNewImpl
+				{
+					Version = 0,
+					AggregateId = NewId.Next(),
+					Address = new AddressImpl()
+				};
 		}
 
 		public RegisterNew Command { get; private set; }
@@ -28,24 +33,6 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 			//signal for UI - change view
 			_eventAggregator.Publish(new CreateCustomerSavedEvent());
 		}
-	}
-
-	public class RegisterNewImpl : RegisterNew
-	{
-		public RegisterNewImpl(NewId arId)
-		{
-			AggregateId = arId;
-			Version = 0;
-		}
-
-		public NewId AggregateId { get; set; }
-		public uint Version { get; set; }
-		public string CustomerName { get; set; }
-		public string Street { get; set; }
-		public string StreetNumber { get; set; }
-		public string PostalCode { get; set; }
-		public string City { get; set; }
-		public string PhoneNumber { get; set; }
 	}
 
 	public class CreateCustomerSavedEvent

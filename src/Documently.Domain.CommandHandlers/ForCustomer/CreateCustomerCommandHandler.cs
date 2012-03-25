@@ -21,8 +21,8 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 			var command = context.Message;
 
 			var client = Customer.CreateNew(command.AggregateId, new CustomerName(command.CustomerName),
-			                                new Address(command.Street, command.StreetNumber,
-			                                            command.PostalCode, command.City),
+			                                new Address(command.Address.Street, command.Address.StreetNumber,
+			                                            command.Address.PostalCode, command.Address.City),
 			                                new PhoneNumber(command.PhoneNumber));
 
 			repo.Save(client, new Guid(context.MessageId).ToNewId(), context.Headers.ToDictionary(x => x.Key, x => x.Value));

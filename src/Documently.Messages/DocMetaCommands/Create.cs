@@ -1,5 +1,4 @@
 using System;
-using Documently.Commands;
 
 namespace Documently.Messages.DocMetaCommands
 {

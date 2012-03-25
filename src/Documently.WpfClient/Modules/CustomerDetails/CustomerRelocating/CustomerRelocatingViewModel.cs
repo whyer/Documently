@@ -1,11 +1,23 @@
-using System;
+// Copyright 2012 Henrik Feldt
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+
 using Caliburn.Micro;
-using Documently.Commands;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
 using Documently.WpfClient.CommandValidation;
+using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {
@@ -29,10 +41,18 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
 
 			Command = new ValidatingCommand<RelocateTheCustomer>(
-				new RelocateImpl(ViewModel.AggregateRootId,
-					ViewModel.LatestVersionSeen, 
-					ViewModel.Street, 
-					ViewModel.StreetNumber, ViewModel.PostalCode, ViewModel.City),
+				new RelocateImpl
+					{
+						AggregateId = ViewModel.AggregateId,
+						Version = ViewModel.LatestVersionSeen + 1,
+						NewAddress = new AddressImpl
+							{
+								Street = ViewModel.Street,
+								StreetNumber = ViewModel.StreetNumber,
+								PostalCode = ViewModel.PostalCode,
+								City = ViewModel.City
+							}
+					},
 				Validator);
 		}
 
@@ -60,24 +80,19 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 		}
 	}
 
-	class RelocateImpl : RelocateTheCustomer
+	public class AddressImpl : Address
 	{
-		public RelocateImpl(NewId aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
-		{
-			AggregateId = aggregateId;
-			Version = version;
-			Street = street;
-			Streetnumber = streetnumber;
-			PostalCode = postalCode;
-			City = city;
-		}
-
-		public NewId AggregateId { get; set; }
-		public uint Version { get; set; }
 		public string Street { get; set; }
-		public string Streetnumber { get; set; }
+		public uint StreetNumber { get; set; }
 		public string PostalCode { get; set; }
 		public string City { get; set; }
+	}
+
+	internal class RelocateImpl : RelocateTheCustomer
+	{
+		public NewId AggregateId { get; set; }
+		public uint Version { get; set; }
+		public Address NewAddress { get; set; }
 	}
 
 	public class CustomerRelocatingSavedEvent

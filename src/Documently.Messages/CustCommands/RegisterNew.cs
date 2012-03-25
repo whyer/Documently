@@ -1,5 +1,3 @@
-using Documently.Commands;
-
 namespace Documently.Messages.CustCommands
 {
 	public interface RegisterNew : Command
@@ -12,7 +10,7 @@ namespace Documently.Messages.CustCommands
 	public interface Address
 	{
 		string Street { get; set; }
-		string StreetNumber { get; set; }
+		uint StreetNumber { get; set; }
 		string PostalCode { get; set; }
 		string City { get; set; }
 	}

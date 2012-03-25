@@ -7,10 +7,10 @@ namespace Documently.ReadModel
 	{
 		public string Id
 		{
-			get { return GetDtoIdOf(AggregateRootId, GetType()); }
+			get { return GetDtoIdOf(AggregateId, GetType()); }
 		}
 
-		public NewId AggregateRootId { get; set; }
+		public NewId AggregateId { get; set; }
 
 		public static string GetDtoIdOf<T>(NewId id) where T : Dto
 		{

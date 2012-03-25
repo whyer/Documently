@@ -2,10 +2,10 @@
 using System.Net;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Documently.Commands;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using Documently.Messages.CustCommands;
+using Documently.Messages.CustEvents;
 using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocMetaCommands;
 using Documently.ReadModel;
@@ -102,7 +102,7 @@ namespace Documently.App
 			{
 				foreach (var dto in session.Query<CustomerListDto>())
 				{
-					Console.WriteLine(dto.Name + " now living in " + dto.City + " (" + dto.AggregateRootId + ")");
+					Console.WriteLine(dto.Name + " now living in " + dto.City + " (" + dto.AggregateId + ")");
 					Console.WriteLine("---");
 				}
 			}
@@ -110,14 +110,37 @@ namespace Documently.App
 
 		private void RegisterNewCustomer(NewId aggregateId)
 		{
-			_domainService.Send(new CreateCustImpl(aggregateId, "Jörg Egretzberger", 
-				"Meine Straße", "1", "1010", "Wien", "01/123456"));
+			_domainService.Send<Create>(new CreateCustImpl
+				{
+					AggregateId = aggregateId,
+					CustomerName = "Jörg Egretzberger",
+					Address = new AddressImpl
+						{
+							Street = "Meine Straße",
+							StreetNumber = 1,
+							City = "Wien",
+							PostalCode = "1010",
+
+						},
+					PhoneNumber = "01/123456",
+					Version = 0
+				});
 		}
 
 		private void RelocateCustomer(NewId customerId, uint prevVersion)
 		{
-			_domainService.Send(new RelocateImpl(customerId, prevVersion,
-				"Messestraße", "2", "4444", "Linz"));
+			_domainService.Send<RelocateTheCustomer>(new RelocateImpl
+				{
+					AggregateId = customerId,
+					NewAddress = new AddressImpl
+						{
+							Street = "Messestraße",
+							StreetNumber = 2,
+							PostalCode = "4444",
+							City = "Linz"
+						},
+					Version = prevVersion + 1,
+				});
 		}
 
 		private void Stop()
@@ -128,36 +151,13 @@ namespace Documently.App
 
 	class RelocateImpl : RelocateTheCustomer
 	{
-		public RelocateImpl(NewId aggregateId, uint version, string street, string streetnumber, string postalCode, string city)
-		{
-			AggregateId = aggregateId;
-			Version = version;
-			Street = street;
-			Streetnumber = streetnumber;
-			PostalCode = postalCode;
-			City = city;
-		}
-
 		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
-
-		public string Street { get; set; }
-		public string Streetnumber { get; set; }
-		public string PostalCode { get; set; }
-		public string City { get; set; }
+		public Address NewAddress { get; set; }
 	}
 
 	class CreateCustImpl : RegisterNew
 	{
-		public CreateCustImpl(NewId aggregateId, string customerName, string street, string streetNumber,
-			string postalCode, string city, string phoneNumber)
-		{
-			AggregateId = aggregateId;
-			CustomerName = customerName;
-			PhoneNumber = phoneNumber;
-			Version = 0;
-		}
-
 		public NewId AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
@@ -167,6 +167,9 @@ namespace Documently.App
 
 	class AddressImpl : Address
 	{
-		 
+		public string Street { get; set; }
+		public uint StreetNumber { get; set; }
+		public string PostalCode { get; set; }
+		public string City { get; set; }
 	}
 }

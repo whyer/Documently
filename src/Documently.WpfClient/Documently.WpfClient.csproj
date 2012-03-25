@@ -131,6 +131,7 @@
       <DependentUpon>CreateCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerViewModel.cs" />
+    <Compile Include="Commands\RegisterNewImpl.cs" />
     <Compile Include="Modules\CustomerDetails\CustomerDetailsOverview\CustomerDetailsOverviewView.xaml.cs">
       <DependentUpon>CustomerDetailsOverviewView.xaml</DependentUpon>
     </Compile>

@@ -32,7 +32,7 @@ namespace Documently.ReadModel
 			{
 				var dto = new CustomerAddressDto
 				{
-					AggregateRootId = evt.AggregateId,
+					AggregateId = evt.AggregateId,
 					CustomerName = evt.CustomerName,
 					Street = evt.Street,
 					StreetNumber = evt.StreetNumber,

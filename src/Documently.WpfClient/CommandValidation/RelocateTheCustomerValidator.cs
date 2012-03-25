@@ -11,7 +11,6 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Documently.Commands;
 using Documently.Messages.CustCommands;
 using FluentValidation;
 
@@ -24,10 +23,10 @@ namespace Documently.WpfClient.CommandValidation
 	{
 		public RelocateTheCustomerValidator()
 		{
-			RuleFor(command => command.City)
+			RuleFor(command => command.NewAddress.City)
 				.NotEmpty().NotNull();
 
-			RuleFor(c => c.Street)
+			RuleFor(c => c.NewAddress.Street)
 				.NotEmpty().NotNull();
 		}
 	}

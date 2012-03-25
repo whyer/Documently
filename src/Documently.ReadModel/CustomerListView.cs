@@ -27,7 +27,7 @@ namespace Documently.ReadModel
 		{
 			using (var session = _DocumentStore.OpenSession())
 			{
-				var dto = new CustomerListDto {AggregateRootId = evt.AggregateId, City = evt.City, Name = evt.CustomerName};
+				var dto = new CustomerListDto {AggregateId = evt.AggregateId, City = evt.City, Name = evt.CustomerName};
 				session.Store(dto);
 				session.SaveChanges();
 			}

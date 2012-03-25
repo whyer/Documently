@@ -1,5 +1,4 @@
 using System.Linq;
-using Documently.Commands;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers;
 using Documently.Messages.DocCollectionCmds;

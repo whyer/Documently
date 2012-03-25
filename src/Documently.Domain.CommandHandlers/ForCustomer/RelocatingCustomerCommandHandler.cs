@@ -1,10 +1,9 @@
 using System;
-using Documently.Commands;
 using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages.CustCommands;
 using MassTransit;
 
-namespace Documently.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers.ForCustomer
 {
 	public class RelocatingCustomerCommandHandler : Consumes<RelocateTheCustomer>.All
 	{

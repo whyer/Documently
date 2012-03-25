@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Documently.Commands;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers;
 using Documently.Messages;
+using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocMetaEvents;
-using Documently.Messages.DocumentMetaData;
 using Magnum;
 using NUnit.Framework;
 using System.Linq;

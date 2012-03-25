@@ -28,7 +28,7 @@ namespace Documently.Domain
 				});
 		}
 
-		public void RelocateCustomer(string street, string streetNumber, string postalCode, string city)
+		public void RelocateCustomer(string street, uint streetNumber, string postalCode, string city)
 		{
 			if (Id == NewId.Empty)
 				throw new NonExistingCustomerException(

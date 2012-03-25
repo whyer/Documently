@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.ForDocMeta
 {
-	public class DocumentIndexingHandler : Consumes<IConsumeContext<InitializeDocumentIndexing>>.All
+	public class DocumentIndexingHandler : Consumes<IConsumeContext<AssociateWithDocument>>.All
 	{
 		private readonly Func<DomainRepository> _repo;
 
@@ -15,13 +15,13 @@ namespace Documently.Domain.CommandHandlers.ForDocMeta
 			_repo = repo;
 		}
 
-		public void Consume(IConsumeContext<InitializeDocumentIndexing> context)
+		public void Consume(IConsumeContext<AssociateWithDocument> context)
 		{
 			var repo = _repo();
 			var command = context.Message;
 			var doc = repo.GetById<DocMeta>(command.AggregateId, command.Version);
 		
-			doc.AssociateWithDocumentBlob(command.BlobId);
+			doc.AssociateWithData(command.Data);
 
 			repo.Save(doc, context.GetMessageId(), context.GetHeaders());
 		}

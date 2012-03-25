@@ -6,7 +6,6 @@ using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages;
 using Documently.Messages.DocMetaCommands;
 using Documently.Messages.DocMetaEvents;
-using Documently.Messages.DocumentMetaData;
 using MassTransit;
 using NUnit.Framework;
 

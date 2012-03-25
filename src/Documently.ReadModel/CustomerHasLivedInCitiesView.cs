@@ -1,4 +1,3 @@
-using Documently.Messages;
 using Documently.Messages.CustEvents;
 using Raven.Client;
 
@@ -27,10 +26,10 @@ namespace Documently.ReadModel
 		{
 			using (var session = _documentStore.OpenSession())
 			{
-				var dto = new CustomerHasLivedInDto()
-				          	{
-				          		AggregateRootId = evt.AggregateId
-				          	};
+				var dto = new CustomerHasLivedInDto
+					{
+						AggregateId = evt.AggregateId
+					};
 
 				dto.AddCity(evt.City);
 

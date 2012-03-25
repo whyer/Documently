@@ -2,8 +2,8 @@ using System;
 
 namespace Documently.Messages.DocMetaCommands
 {
-	public interface InitializeDocumentIndexing : Command
+	public interface AssociateWithDocument : Command
 	{
-		NewId BlobId { get; }
+		Uri Data { get; }
 	}
 }

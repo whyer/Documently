@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Documently.Domain.Service.Installers;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using MassTransit;
@@ -13,8 +14,8 @@ namespace Documently.Domain.Service
 	class Program
 	{
 		private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-		private IWindsorContainer _Container;
-		private IServiceBus _Bus;
+		private IWindsorContainer _container;
+		private IServiceBus _bus;
 
 		public static void Main(string[] args)
 		{
@@ -42,16 +43,17 @@ namespace Documently.Domain.Service
 
 			_logger.Info("setting up domain service, installing components");
 
-			_Container = new WindsorContainer()
+			_container = new WindsorContainer()
 				.Install(
+					new DomainInfraInstaller(),
 					new RavenDbServerInstaller(),
 					new CommandHandlerInstaller(),
 					new EventStoreInstaller(),
 					new BusInstaller(Keys.DomainServiceEndpoint)
 					);
 
-			_Container.Register(Component.For<IWindsorContainer>().Instance(_Container));
-			_Bus = _Container.Resolve<IServiceBus>();
+			_container.Register(Component.For<IWindsorContainer>().Instance(_container));
+			_bus = _container.Resolve<IServiceBus>();
 
 			_logger.Info("application configured, started running");
 		}
@@ -59,8 +61,8 @@ namespace Documently.Domain.Service
 		private void Stop()
 		{
 			_logger.Info("shutting down Domain Service");
-			_Container.Release(_Bus);
-			_Container.Dispose();
+			_container.Release(_bus);
+			_container.Dispose();
 		}
 	}
 }

@@ -84,6 +84,12 @@
     <Reference Include="EventStore.Serialization.Json, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\packages\EventStore.Serialization.Json.3.0.11326.44\lib\net40\EventStore.Serialization.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\packages\Machine.Specifications.0.5.5.0\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4">
+      <HintPath>..\packages\Machine.Specifications.0.5.5.0\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+    </Reference>
     <Reference Include="Magnum, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Magnum.2.0.0.4\lib\NET40\Magnum.dll</HintPath>
@@ -138,8 +144,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\All_commands_must_be_Serializable.cs" />
-    <Compile Include="Commands\All_commands_and_events_must_have_default_ctor.cs" />
     <Compile Include="CommandTestFixture.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Documents\when_creating_new_documentCollection.cs" />
@@ -156,9 +160,9 @@
     <Compile Include="view_registration_specs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
-      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>Documently.Commands</Name>
+    <ProjectReference Include="..\Documently.Domain.CommandHandlers\Documently.Domain.CommandHandlers.csproj">
+      <Project>{6A891453-BDB7-4FCA-B8CA-D866F477F490}</Project>
+      <Name>Documently.Domain.CommandHandlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>

@@ -49,10 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="CommonDomain, Version=1.4.0.0, Culture=neutral, PublicKeyToken=ec37a15dc44010cd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CommonDomain.1.4.0\lib\net40\CommonDomain.dll</HintPath>
-    </Reference>
     <Reference Include="EventStore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
     </Reference>
@@ -123,12 +119,15 @@
     <Compile Include="ApplicationFramework\Converters\CollapsedWhenNullConverter.cs" />
     <Compile Include="ApplicationFramework\ScreenWithValidatingCommand.cs" />
     <Compile Include="ApplicationFramework\ValidatingCommand.cs" />
+    <Compile Include="CommandValidation\RelocateTheCustomerValidator.cs" />
+    <Compile Include="Infrastructure\Installers\ValidatorInstaller.cs" />
     <Compile Include="Infrastructure\Installers\ViewModelInstaller.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerView.xaml.cs">
       <DependentUpon>CreateCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\CustomerDetails\CreateCustomer\CreateCustomerViewModel.cs" />
+    <Compile Include="Commands\RegisterNewImpl.cs" />
     <Compile Include="Modules\CustomerDetails\CustomerDetailsOverview\CustomerDetailsOverviewView.xaml.cs">
       <DependentUpon>CustomerDetailsOverviewView.xaml</DependentUpon>
     </Compile>
@@ -249,10 +248,6 @@
     <Folder Include="ApplicationFramework\Controls\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Documently.Commands\Documently.Commands.csproj">
-      <Project>{22374340-0C08-4F74-86B7-6C229BE1E550}</Project>
-      <Name>Documently.Commands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Documently.Domain\Documently.Domain.csproj">
       <Project>{A9EE33AB-B226-491C-8F14-A78069618F21}</Project>
       <Name>Documently.Domain</Name>

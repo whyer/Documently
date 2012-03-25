@@ -1,10 +1,24 @@
 # Documently
 
-This is a sample application showcasing a DDD/CQRS architecture with Event Sourcing 
-with a number of excellent open source software technologies. 
-I (Henrik) want to make it easy for people to get started with this 
-architecture - why not try to maximize developer happiness and make the 
-world a better place and learn it yourself while you're at it?
+This is a sample application showcasing an event driven architecture with that uses Domain Driven Design and Event Sourcing. Documently shows what sort of architecture we like to work with at [Jayway](http://jayway.com).
+
+## TODO for v2
+
+ * StateBox for union and ordinary event stream merging when eventually consistent **event store** (different from the often spoken about eventual consistency of read models) - this would allow you to use Riak and other master-master type events stores and also handle for example event-stores in different countries/data centers in which case net-splits between stores may occurr.
+ * All messages interfaces + proper infrastructure
+ * Do away with complex unit testing procedures
+ * Better cohesion in code base by avoiding inheritance and using value objects to a greater extent and having infrastructure that is only used with command handlers in that specific assembly (that may take a couple of dependencies on infrastructure)
+ * Better naming of commands and events based on experience with too-long-names
+ * Better documentation in each folder
+ * Using dynamic instead of CommonDomain
+ * (web with SignalR?)
+ * Proper Saga example with Automatonymous and MassTransit (and EventStore?)
+ * Properly handling de-duplication of events on the read-side
+ * Properly handling replaying of the event store from the last received point forward on the read-side
+ * Finishing implementing the Document-part of the App and WpfClient
+ * Running a WPF, a iOS phone and console application side-by-side and having the system work as a whole.
+ * Implement the indexing logic for the Document-part of the domain using SVMs.
+ * Bump up the domain model complexity a notch to warrant DDD in the first place!
 
 Some of the concepts you can learn include:
 
@@ -16,16 +30,6 @@ Some of the concepts you can learn include:
  * Getting started with RabbitMQ
  * Doing application validation logic (non-emptyness, etc) with *FluentValidation*
  * How to use TopShelf with the DomainService (in daemon/Windows Service mode, not hosted).
-
-Currently incomplete but upcoming features:
-
- * Properly handling de-duplication of events on the read-side
- * Properly handling replaying of the event store from the last received point forward on the read-side
- * Finishing implementing the Document-part of the App and WpfClient
- * Running a WPF, a iOS phone and console application side-by-side and having the system work as a whole.
- * Implement the indexing logic for the Document-part of the domain using SVMs.
-
-The above tasks are rather easy to accomplish, they just take a few hours worth of time - so if you feel up for learning the concepts of CQRS and Event Sourcing, feel free to have a go and send a pull-request!
 
 ## Getting started
 

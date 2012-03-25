@@ -2,7 +2,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Documently.Infrastructure;
-using Documently.Messages.CustomerEvents;
+using Documently.Messages.CustEvents;
 using Documently.ReadModel;
 using MassTransit;
 using Moq;

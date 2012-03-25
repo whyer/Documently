@@ -32,14 +32,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Automatonymous, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Automatonymous.0.3.2.0\lib\net40\Automatonymous.dll</HintPath>
+      <HintPath>..\packages\Automatonymous.0.4.0.0\lib\net40\Automatonymous.dll</HintPath>
     </Reference>
-    <Reference Include="Automatonymous.MassTransitIntegration, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Automatonymous.MassTransitIntegration, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Automatonymous.MassTransit.0.3.2.0\lib\net40\Automatonymous.MassTransitIntegration.dll</HintPath>
+      <HintPath>..\packages\Automatonymous.MassTransit.0.4.0.0\lib\net40\Automatonymous.MassTransitIntegration.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications">
-      <HintPath>..\packages\Machine.Specifications.0.5.3.0\lib\Machine.Specifications.dll</HintPath>
+    <Reference Include="Machine.Specifications, Version=0.5.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Machine.Specifications.0.5.5.0\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4">
+      <HintPath>..\packages\Machine.Specifications.0.5.5.0\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="Magnum">
       <HintPath>..\packages\Magnum.2.0.0.4\lib\NET40\Magnum.dll</HintPath>

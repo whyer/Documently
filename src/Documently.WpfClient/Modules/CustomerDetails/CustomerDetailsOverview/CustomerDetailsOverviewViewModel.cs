@@ -1,6 +1,6 @@
-using System;
 using Caliburn.Micro;
 using Documently.ReadModel;
+using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 {
@@ -18,9 +18,9 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 			ViewModel = _readRepository.GetById<CustomerListDto>(customerDtoId);
 		}
 
-		public Guid GetCustomerId()
+		public NewId GetCustomerId()
 		{
-			return ViewModel.AggregateRootId;
+			return ViewModel.AggregateId;
 		}
 
 		//TODO: Change CustomerListDto to something specific for this screen

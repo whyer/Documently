@@ -1,4 +1,5 @@
 ﻿using System;
+using MassTransit;
 
 namespace Documently.Messages
 {
@@ -10,7 +11,7 @@ namespace Documently.Messages
 		/// <summary>
 		/// Gets the aggregate root id of the domain event.
 		/// </summary>
-		Guid AggregateId { get; }
+		NewId AggregateId { get; }
 
 		/// <summary>
 		/// Gets the version of the aggregate which this event corresponds to.

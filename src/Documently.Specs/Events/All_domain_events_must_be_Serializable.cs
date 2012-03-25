@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Documently.Messages;
-using Documently.Messages.CustomerEvents;
+using Documently.Messages.CustEvents;
 using NUnit.Framework;
 
 namespace Documently.Specs.Events

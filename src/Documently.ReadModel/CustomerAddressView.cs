@@ -1,5 +1,5 @@
 using Documently.Messages;
-using Documently.Messages.CustomerEvents;
+using Documently.Messages.CustEvents;
 using Raven.Client;
 
 namespace Documently.ReadModel
@@ -13,31 +13,31 @@ namespace Documently.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Consume(Relocated @event)
+		public void Consume(Relocated evt)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
-				var dto = session.Load<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(@event.AggregateId));
-				dto.Street = @event.Street;
-				dto.StreetNumber = @event.StreetNumber;
-				dto.PostalCode = @event.PostalCode;
-				dto.City = @event.City;
+				var dto = session.Load<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(evt.AggregateId));
+				dto.Street = evt.Street;
+				dto.StreetNumber = evt.StreetNumber;
+				dto.PostalCode = evt.PostalCode;
+				dto.City = evt.City;
 				session.SaveChanges();
 			}
 		}
 
-		public void Consume(Created @event)
+		public void Consume(Created evt)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
 				var dto = new CustomerAddressDto
 				{
-					AggregateRootId = @event.AggregateId,
-					CustomerName = @event.CustomerName,
-					Street = @event.Street,
-					StreetNumber = @event.StreetNumber,
-					PostalCode = @event.PostalCode,
-					City = @event.City
+					AggregateId = evt.AggregateId,
+					CustomerName = evt.CustomerName,
+					Street = evt.Street,
+					StreetNumber = evt.StreetNumber,
+					PostalCode = evt.PostalCode,
+					City = evt.City
 				};
 				session.Store(dto);
 				session.SaveChanges();

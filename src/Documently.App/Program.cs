@@ -2,15 +2,19 @@
 using System.Net;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Documently.Commands;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
+using Documently.Messages.CustCommands;
+using Documently.Messages.CustEvents;
+using Documently.Messages.DocCollectionCmds;
+using Documently.Messages.DocMetaCommands;
 using Documently.ReadModel;
 using Magnum;
 using MassTransit;
 using NLog;
 using NLog.Config;
 using Raven.Client;
+using Create = Documently.Messages.DocCollectionCmds.Create;
 
 namespace Documently.App
 {
@@ -19,6 +23,7 @@ namespace Documently.App
 		private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		
 		private IWindsorContainer _container;
+		private IEndpoint _domainService;
 
 		private static void Main()
 		{
@@ -35,6 +40,7 @@ namespace Documently.App
 			try
 			{
 				_logger.Info("installing and setting up components");
+
 				_container = new WindsorContainer()
 					.Install(
 						new RavenDbServerInstaller(),
@@ -44,19 +50,22 @@ namespace Documently.App
 
 				_container.Register(Component.For<IWindsorContainer>().Instance(_container));
 
-				var customerId = CombGuid.Generate();
+				var bus = _container.Resolve<IServiceBus>();
+				_domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
+
+				var customerId = NewId.Next();
 
 				Console.WriteLine("create new customer by pressing a key");
 				Console.ReadKey(true);
 
 				//create customer (Write/Command)
-				CreateCustomer(customerId);
+				RegisterNewCustomer(customerId);
 
 				Console.WriteLine("Customer created. Press any key to relocate customer.");
 				Console.ReadKey(true);
 
 				//Customer relocating (Write/Command)
-				RelocateCustomer(customerId);
+				RelocateCustomer(customerId, 1);
 
 				Console.WriteLine("Customer relocated. Press any key to show list of customers.");
 				Console.ReadKey(true);
@@ -93,34 +102,74 @@ namespace Documently.App
 			{
 				foreach (var dto in session.Query<CustomerListDto>())
 				{
-					Console.WriteLine(dto.Name + " now living in " + dto.City + " (" + dto.AggregateRootId + ")");
+					Console.WriteLine(dto.Name + " now living in " + dto.City + " (" + dto.AggregateId + ")");
 					Console.WriteLine("---");
 				}
 			}
 		}
 
-		private void CreateCustomer(Guid aggregateId)
+		private void RegisterNewCustomer(NewId aggregateId)
 		{
-			GetDomainService()
-				.Send(new CreateNewCustomer(aggregateId, "Jörg Egretzberger", "Meine Straße", "1", "1010", "Wien", "01/123456"));
+			_domainService.Send<Create>(new CreateCustImpl
+				{
+					AggregateId = aggregateId,
+					CustomerName = "Jörg Egretzberger",
+					Address = new AddressImpl
+						{
+							Street = "Meine Straße",
+							StreetNumber = 1,
+							City = "Wien",
+							PostalCode = "1010",
+
+						},
+					PhoneNumber = "01/123456",
+					Version = 0
+				});
 		}
 
-		private void RelocateCustomer(Guid customerId)
+		private void RelocateCustomer(NewId customerId, uint prevVersion)
 		{
-			GetDomainService()
-				.Send(new RelocateTheCustomer(customerId, "Messestraße", "2", "4444", "Linz"));
-		}
-
-		private IEndpoint GetDomainService()
-		{
-			var bus = _container.Resolve<IServiceBus>();
-			var domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
-			return domainService;
+			_domainService.Send<RelocateTheCustomer>(new RelocateImpl
+				{
+					AggregateId = customerId,
+					NewAddress = new AddressImpl
+						{
+							Street = "Messestraße",
+							StreetNumber = 2,
+							PostalCode = "4444",
+							City = "Linz"
+						},
+					Version = prevVersion + 1,
+				});
 		}
 
 		private void Stop()
 		{
 			_container.Dispose();
 		}
+	}
+
+	class RelocateImpl : RelocateTheCustomer
+	{
+		public NewId AggregateId { get; set; }
+		public uint Version { get; set; }
+		public Address NewAddress { get; set; }
+	}
+
+	class CreateCustImpl : RegisterNew
+	{
+		public NewId AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string CustomerName { get; set; }
+		public string PhoneNumber { get; set; }
+		public Address Address { get; set; }
+	}
+
+	class AddressImpl : Address
+	{
+		public string Street { get; set; }
+		public uint StreetNumber { get; set; }
+		public string PostalCode { get; set; }
+		public string City { get; set; }
 	}
 }

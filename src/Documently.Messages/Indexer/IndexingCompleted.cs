@@ -1,9 +1,11 @@
 using System;
+using MassTransit;
 
 namespace Documently.Messages.Indexer
 {
 	public interface IndexingCompleted
+		: CorrelatedBy<NewId>
 	{
-		Guid DocumentId { get; }
+		NewId DocumentId { get; }
 	}
 }

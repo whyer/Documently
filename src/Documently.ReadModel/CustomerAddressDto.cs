@@ -6,10 +6,12 @@
 
 		public string PostalCode { get; set; }
 
-		public string StreetNumber { get; set; }
+		public uint StreetNumber { get; set; }
 
 		public string Street { get; set; }
 
 		public string CustomerName { get; set; }
+
+		public uint LatestVersionSeen { get; set; }
 	}
 }

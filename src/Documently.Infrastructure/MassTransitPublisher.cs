@@ -1,8 +1,10 @@
 using System;
+using Documently.Messages;
 using EventStore;
 using EventStore.Dispatcher;
 using MassTransit;
 using Magnum.Reflection;
+using MassTransit.Util;
 
 namespace Documently.Infrastructure
 {
@@ -20,19 +22,12 @@ namespace Documently.Infrastructure
 			_Bus.Publish(command);
 		}
 
-		void IBus.RegisterHandler<T>(Action<T> handler)
-		{
-			_Bus.SubscribeHandler(handler);
-		}
-
 		void IDispatchCommits.Dispatch(Commit commit)
 		{
-			commit.Events.ForEach(@event =>
-				{
-					this.FastInvoke("PublishEvent", @event.Body);
-				});
+			commit.Events.ForEach(evt => this.FastInvoke("PublishEvent", evt.Body));
 		}
 
+		[UsedImplicitly]
 		void PublishEvent<T>(T message)
 			where T : class
 		{

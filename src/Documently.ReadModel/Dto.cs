@@ -1,4 +1,5 @@
 ﻿using System;
+using MassTransit;
 
 namespace Documently.ReadModel
 {
@@ -6,17 +7,17 @@ namespace Documently.ReadModel
 	{
 		public string Id
 		{
-			get { return GetDtoIdOf(AggregateRootId, GetType()); }
+			get { return GetDtoIdOf(AggregateId, GetType()); }
 		}
 
-		public Guid AggregateRootId { get; set; }
+		public NewId AggregateId { get; set; }
 
-		public static string GetDtoIdOf<T>(Guid id) where T : Dto
+		public static string GetDtoIdOf<T>(NewId id) where T : Dto
 		{
 			return GetDtoIdOf(id, typeof (T));
 		}
 
-		public static string GetDtoIdOf(Guid id, Type type)
+		public static string GetDtoIdOf(NewId id, Type type)
 		{
 			return type.Name + "/" + id;
 		}

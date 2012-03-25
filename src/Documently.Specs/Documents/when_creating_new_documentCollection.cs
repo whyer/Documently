@@ -1,28 +1,27 @@
 ﻿using System.Linq;
-using Documently.Commands;
+using Documently.Domain;
 using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
-using Documently.Messages.DocumentCollection;
-using Magnum;
+using Documently.Messages.DocCollectionCmds;
+using Documently.Messages.DocCollectionEvents;
 using NUnit.Framework;
 using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
 	public class when_creating_new_documentCollection
-		: CommandTestFixture<CreateNewDocumentCollection, CreateNewDocumentCollectionHandler, DocumentCollection>
+		: CommandTestFixture<Create, CreateNewDocumentCollectionHandler, DocumentCollection>
 	{
 		private string _collectionName = "Name";
 
-		protected override CreateNewDocumentCollection When()
+		protected override Create When()
 		{
-			return new CreateNewDocumentCollection(CombGuid.Generate(), _collectionName);
+			return new Create(NewId.Generate(), _collectionName);
 		}
 
 		[Test]
 		public void should_recieve_new_collection_created_event()
 		{
-			var evt = (CollectionCreated) PublishedEventsT.First();
+			var evt = (Created) PublishedEventsT.First();
 			evt.Name.Should().Be(_collectionName);
 		}
 	}

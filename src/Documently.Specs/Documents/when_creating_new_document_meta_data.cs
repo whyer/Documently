@@ -13,25 +13,25 @@
 
 using System;
 using System.Linq;
-using Documently.Commands;
-using Documently.Domain.CommandHandlers;
-using Documently.Domain.Domain;
-using Documently.Messages.DocumentMetaData;
-using Magnum;
+using Documently.Domain;
+using Documently.Domain.CommandHandlers.ForDocMeta;
+using Documently.Messages.DocMetaCommands;
+using Documently.Messages.DocMetaEvents;
+using MassTransit;
 using NUnit.Framework;
 using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
 	public class when_creating_new_document_meta_data
-		: CommandTestFixture<CreateDocumentMetaData, DocumentMetaDataHandler, DocumentMetaData>
+		: CommandTestFixture<Create, DocumentMetaDataHandler, DocMeta>
 	{
 		private readonly DateTime _created = DateTime.UtcNow;
-		private readonly Guid _documentId = CombGuid.Generate();
+		private readonly NewId _documentId = NewId.Next();
 
-		protected override CreateDocumentMetaData When()
+		protected override Create When()
 		{
-			return new CreateDocumentMetaData(_documentId, "My document", _created);
+			return new Create(_documentId, "My document", _created);
 		}
 
 		[Test]

@@ -55,16 +55,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForCustomer\RegisterNewHandler.cs" />
-    <Compile Include="ForDocCollection\CreateNewDocumentCollectionHandler.cs" />
+    <Compile Include="ForDocCollection\CreateHandler.cs" />
     <Compile Include="ForDocMeta\AssociateWithCollectionHandler.cs" />
-    <Compile Include="ForDocMeta\DocumentIndexingHandler.cs" />
+    <Compile Include="ForDocMeta\AssociateWithDocumentHandler.cs" />
     <Compile Include="ForDocMeta\DocumentMetaDataHandler.cs" />
     <Compile Include="IConsumeContextEx.cs" />
     <Compile Include="Infrastructure\AggregateFactory.cs" />
     <Compile Include="Infrastructure\DomainRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ForCustomer\RelocatingCustomerCommandHandler.cs" />
-    <Compile Include="ForDocMeta\ShareDocumentCommandHandler.cs" />
+    <Compile Include="ForCustomer\RelocateTheCustomerHandler.cs" />
+    <Compile Include="ForDocMeta\ShareDocumentHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

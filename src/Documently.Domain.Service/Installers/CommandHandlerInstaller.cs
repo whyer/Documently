@@ -5,7 +5,7 @@ using Castle.Windsor;
 using Documently.Domain.CommandHandlers.ForCustomer;
 using MassTransit;
 
-namespace Documently.Infrastructure.Installers
+namespace Documently.Domain.Service.Installers
 {
 	public class CommandHandlerInstaller : IWindsorInstaller
 	{

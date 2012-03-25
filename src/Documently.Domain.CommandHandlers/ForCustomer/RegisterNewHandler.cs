@@ -3,6 +3,7 @@ using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages.CustCommands;
 using MassTransit;
 using System.Linq;
+using Address = Documently.Domain.Address;
 
 namespace Documently.Domain.CommandHandlers.ForCustomer
 {

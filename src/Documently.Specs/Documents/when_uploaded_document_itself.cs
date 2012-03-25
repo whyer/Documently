@@ -13,7 +13,7 @@ using SharpTestsEx;
 namespace Documently.Specs.Documents
 {
 	public class when_uploaded_document_itself
-		: CommandTestFixture<AssociateWithDocument, DocumentIndexingHandler, DocMeta>
+		: CommandTestFixture<AssociateWithDocument, AssociateWithDocumentHandler, DocMeta>
 	{
 		private NewId _DocId = CombNewId.Generate();
 

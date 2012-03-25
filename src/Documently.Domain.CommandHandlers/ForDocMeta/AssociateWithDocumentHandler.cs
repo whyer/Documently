@@ -5,11 +5,11 @@ using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.ForDocMeta
 {
-	public class DocumentIndexingHandler : Consumes<IConsumeContext<AssociateWithDocument>>.All
+	public class AssociateWithDocumentHandler : Consumes<IConsumeContext<AssociateWithDocument>>.All
 	{
 		private readonly Func<DomainRepository> _repo;
 
-		public DocumentIndexingHandler(Func<DomainRepository> repo)
+		public AssociateWithDocumentHandler(Func<DomainRepository> repo)
 		{
 			if (repo == null) throw new ArgumentNullException("repo");
 			_repo = repo;

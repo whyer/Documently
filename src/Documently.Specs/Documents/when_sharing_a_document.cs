@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers;
+using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages;
 using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocMetaEvents;
@@ -12,7 +13,7 @@ using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
-    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentCommandHandler, DocMeta>
+    public class when_sharing_a_document : CommandTestFixture<ShareDocument, ShareDocumentHandler, DocMeta>
     {
     	private readonly List<int> _userIDs = new List<int> {1, 2, 3};
     	private readonly NewId _documentId = CombNewId.Generate();

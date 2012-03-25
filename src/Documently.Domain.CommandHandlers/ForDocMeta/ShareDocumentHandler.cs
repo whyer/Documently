@@ -16,13 +16,13 @@ using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages.DocCollectionCmds;
 using MassTransit;
 
-namespace Documently.Domain.CommandHandlers
+namespace Documently.Domain.CommandHandlers.ForDocMeta
 {
-	public class ShareDocumentCommandHandler : Consumes<IConsumeContext<ShareDocument>>.All
+	public class ShareDocumentHandler : Consumes<IConsumeContext<ShareDocument>>.All
 	{
 		private readonly Func<DomainRepository> _repository;
 
-		public ShareDocumentCommandHandler(Func<DomainRepository> repository)
+		public ShareDocumentHandler(Func<DomainRepository> repository)
 		{
 			_repository = repository;
 		}

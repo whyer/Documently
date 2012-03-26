@@ -12,6 +12,7 @@
 // specific language governing permissions and limitations under the License.
 
 using Documently.Messages;
+using Magnum.Reflection;
 
 namespace Documently.Domain
 {
@@ -26,8 +27,10 @@ namespace Documently.Domain
 
 		internal static void Raise<TAr, T>(this TAr ar, object anonymousDictionary)
 			where TAr : EventAccessor
-			where T : DomainEvent
+			where T : class, DomainEvent
 		{
+			var evt = InterfaceImplementationExtensions.InitializeProxy<T>(anonymousDictionary);
+			ar.Events.RaiseEvent(evt);
 		}
 	}
 }

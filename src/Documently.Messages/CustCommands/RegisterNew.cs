@@ -6,12 +6,4 @@ namespace Documently.Messages.CustCommands
 		string PhoneNumber { get; }
 		Address Address { get; }
 	}
-
-	public interface Address
-	{
-		string Street { get; set; }
-		uint StreetNumber { get; set; }
-		string PostalCode { get; set; }
-		string City { get; set; }
-	}
 }

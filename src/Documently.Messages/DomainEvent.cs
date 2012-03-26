@@ -1,5 +1,4 @@
-﻿using System;
-using MassTransit;
+﻿using MassTransit;
 
 namespace Documently.Messages
 {
@@ -18,6 +17,6 @@ namespace Documently.Messages
 		/// E.g. CreateNewCustomerCommand would map to (:NewCustomerCreated).Version = 1,
 		/// as that event corresponds to the creation of the customer.
 		/// </summary>
-		int Version { get; set; }
+		uint Version { get; }
 	}
 }

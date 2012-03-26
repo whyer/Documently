@@ -15,7 +15,9 @@ using System;
 using System.Collections.Generic;
 using Documently.Messages;
 using EventStore;
+using Magnum.Policies;
 using MassTransit;
+using MassTransit.Util;
 
 namespace Documently.Domain.CommandHandlers.Infrastructure
 {
@@ -33,13 +35,19 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 		private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 		private readonly IStoreEvents _eventStore;
 		private readonly AggregateRootFactory _factory;
+		readonly ExceptionPolicy _retryPolicy;
 
-		public EventStoreRepository(IStoreEvents eventStore, AggregateRootFactory factory)
+		public EventStoreRepository([NotNull] IStoreEvents eventStore,
+			[NotNull] AggregateRootFactory factory,
+			[NotNull] ExceptionPolicy retryPolicy)
 		{
 			if (eventStore == null) throw new ArgumentNullException("eventStore");
 			if (factory == null) throw new ArgumentNullException("factory");
+			if (retryPolicy == null) throw new ArgumentNullException("retryPolicy");
+
 			_eventStore = eventStore;
 			_factory = factory;
+			_retryPolicy = retryPolicy;
 		}
 
 		public T GetById<T>(NewId aggregateId, uint version)
@@ -47,7 +55,7 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 		{
 			try
 			{
-				var stream = _eventStore.OpenStream(aggregateId.ToGuid(), checked((int) version), int.MaxValue);
+				var stream = _eventStore.OpenStream(aggregateId.ToGuid(), 0, checked((int) version));
 				var ar = _factory.Build(typeof (T), aggregateId, null) as T;
 
 				foreach (var evt in stream.CommittedEvents)
@@ -63,9 +71,15 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			}
 		}
 
-		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers) 
+		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
 			where T : class, AggregateRoot
 		{
+			_retryPolicy.Do(() =>
+				{
+					var stream = _eventStore.OpenStream(aggregate.Id.ToGuid(), 0, int.MaxValue);
+					stream.Add(new EventMessage());
+					stream.CommitChanges(commitId.ToGuid());
+				});
 		}
 	}
 }

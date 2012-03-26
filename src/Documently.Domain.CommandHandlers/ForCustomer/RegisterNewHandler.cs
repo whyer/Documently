@@ -1,24 +1,38 @@
+// Copyright 2012 Henrik Feldt
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+
 using System;
+using System.Linq;
 using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages.CustCommands;
 using MassTransit;
-using System.Linq;
-using Address = Documently.Domain.Address;
+using MassTransit.Util;
 
 namespace Documently.Domain.CommandHandlers.ForCustomer
 {
 	public class RegisterNewHandler : Consumes<IConsumeContext<RegisterNew>>.All
 	{
-		private readonly Func<DomainRepository> _Repository;
+		private readonly Func<DomainRepository> _repository;
 
-		public RegisterNewHandler(Func<DomainRepository> repository)
+		public RegisterNewHandler([NotNull] Func<DomainRepository> repository)
 		{
-			_Repository = repository;
+			if (repository == null) throw new ArgumentNullException("repository");
+			_repository = repository;
 		}
 
 		public void Consume(IConsumeContext<RegisterNew> context)
 		{
-			var repo = _Repository();
+			var repo = _repository();
 			var command = context.Message;
 
 			var client = Customer.CreateNew(command.AggregateId, new CustomerName(command.CustomerName),
@@ -26,7 +40,7 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 			                                            command.Address.PostalCode, command.Address.City),
 			                                new PhoneNumber(command.PhoneNumber));
 
-			repo.Save(client, new Guid(context.MessageId).ToNewId(), context.Headers.ToDictionary(x => x.Key, x => x.Value));
+			repo.Save(client, context.GetMessageId(), context.GetHeaders());
 		}
 	}
 }

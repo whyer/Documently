@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="CustCommands\Address.cs" />
     <Compile Include="CustCommands\RegisterNew.cs" />
     <Compile Include="CustCommands\RelocateTheCustomer.cs" />
     <Compile Include="DocCollectionCmds\CreateNew.cs" />

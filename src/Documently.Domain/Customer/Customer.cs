@@ -16,7 +16,7 @@ namespace Documently.Domain
 		private Customer(NewId id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 			: this()
 		{
-			this.Raise<Customer, Created>(new
+			this.Raise<Customer, Created>(new 
 				{
 					Id = id,
 					customerName.Name,

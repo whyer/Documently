@@ -39,7 +39,7 @@ namespace Documently.Domain
 
 	public class EventRouter
 	{
-		private readonly AggregateRoot _instance;
+		private readonly dynamic _instance;
 
 		private readonly List<DomainEvent> _raisedEvents = new List<DomainEvent>();
 
@@ -51,12 +51,14 @@ namespace Documently.Domain
 
 		public void ApplyEvent<T>(T evt) where T : DomainEvent
 		{
-			dynamic i = _instance;
-			i.Apply(evt);
+			_instance.Apply(evt);
 		}
 
 		public void RaiseEvent<T>(T e) where T : DomainEvent
 		{
+			if (e.Version != _instance.Version + 1)
+				throw new ArgumentException("The event needs to increment the aggregate's version by one.");
+			
 			_raisedEvents.Add(e);
 		}
 

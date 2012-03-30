@@ -27,7 +27,7 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			where T : class, AggregateRoot, EventAccessor;
 
 		void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
-			where T : class, AggregateRoot;
+			where T : class, AggregateRoot, EventAccessor;
 	}
 
 	public class EventStoreRepository : DomainRepository
@@ -72,7 +72,7 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 		}
 
 		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
-			where T : class, AggregateRoot
+			where T : class, AggregateRoot, EventAccessor
 		{
 			_retryPolicy.Do(() =>
 				{

@@ -1,4 +1,4 @@
-namespace Documently.Messages.CustCommands
+namespace Documently.Messages.CustDtos
 {
 	public interface Address
 	{

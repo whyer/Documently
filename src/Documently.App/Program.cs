@@ -5,6 +5,7 @@ using Castle.Windsor;
 using Documently.Infrastructure;
 using Documently.Infrastructure.Installers;
 using Documently.Messages.CustCommands;
+using Documently.Messages.CustDtos;
 using Documently.Messages.CustEvents;
 using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocMetaCommands;

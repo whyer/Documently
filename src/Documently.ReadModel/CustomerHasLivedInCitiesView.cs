@@ -3,7 +3,7 @@ using Raven.Client;
 
 namespace Documently.ReadModel
 {
-	class CustomerHasLivedInCitiesView : HandlesEvent<Created>, HandlesEvent<Relocated>
+	class CustomerHasLivedInCitiesView : HandlesEvent<Registered>, HandlesEvent<Relocated>
 	{
 		private readonly IDocumentStore _documentStore;
 
@@ -12,12 +12,12 @@ namespace Documently.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Consume(Created evt)
+		public void Consume(Registered evt)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
 				var dto = session.Load<CustomerHasLivedInDto>(Dto.GetDtoIdOf<CustomerHasLivedInDto>(evt.AggregateId));
-				dto.AddCity(evt.City);
+				dto.AddCity(evt.Address.City);
 				session.SaveChanges();
 			}
 		}

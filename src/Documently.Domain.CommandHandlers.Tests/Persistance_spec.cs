@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Documently.Messages;
 using EventStore;
 using EventStore.Persistence;
 using FakeItEasy;
@@ -14,9 +16,12 @@ using It = Machine.Specifications.It;
 
 namespace Documently.Domain.CommandHandlers.Tests
 {
-	static class TestFac
+	static class RepoFac
 	{
-		public static Func<DateTime> InstantGetter = () => DateTime.UtcNow;
+		public static readonly Func<DateTime> InstantGetter = () => DateTime.UtcNow;
+
+		public static readonly ExceptionPolicy DefaultRepoExceptionPolicy = 
+			ExceptionPolicy.InCaseOf<Exception>().Retry(1);
 
 		public static EventStoreRepository CreateRepo(
 			[NotNull] IStoreEvents eventStore = null,
@@ -26,14 +31,26 @@ namespace Documently.Domain.CommandHandlers.Tests
 			return new EventStoreRepository(
 				eventStore ?? A.Fake<IStoreEvents>(),
 				factory ?? A.Fake<AggregateRootFactory>(),
-				retryPolicy ?? A.Fake<ExceptionPolicy>());
+				retryPolicy ?? DefaultRepoExceptionPolicy);
 		}
 	}
 
-	class DummyAr : AggregateRoot
+	class DummyAr : AggregateRoot, EventAccessor
 	{
-		public NewId Id { get; private set; }
-		public uint Version { get; private set; }
+		readonly EventRouter _router;
+
+		public DummyAr()
+		{
+			_router = EventRouter.For(this);
+		}
+
+		public NewId Id { get; set; }
+		public uint Version { get; set; }
+
+		public EventRouter Events
+		{
+			get { return _router; }
+		}
 	}
 
 	// machine specifications howto:
@@ -43,26 +60,33 @@ namespace Documently.Domain.CommandHandlers.Tests
 	[Subject(typeof (EventStoreRepository))]
 	public class when_getting_non_existent_entity_by_id
 	{
-		static IStoreEvents eventStore;
 		static NewId commitId;
 		static EventStoreRepository subject;
+
+		static IStoreEvents eventStore;
+		static IEventStream stream;
 
 		Establish context = () =>
 			{
 				commitId = NewId.Next();
-				eventStore = A.Fake<IStoreEvents>();
-				subject = TestFac.CreateRepo(eventStore);
+				eventStore = A.Fake<IStoreEvents>(); 
+				stream = A.Fake<IEventStream>();
+
+				A.CallTo(() => eventStore.OpenStream(A<Guid>.Ignored, A<int>.Ignored, A<int>.Ignored))
+					.Returns(stream);
+
+				subject = RepoFac.CreateRepo(eventStore);
 			};
 
 		Because of = () => subject.Save(new DummyAr(), commitId, null);
 
-		It should_have_called_eventStore_save =
-			() => A.CallTo(() => 
-						eventStore.Advanced.Commit(A.Fake<Commit>()))
+		It should_have_called_eventStore_save =() => 
+			A.CallTo(() => 
+				stream.CommitChanges(A<Guid>.Ignored))
 					.MustHaveHappened(Repeated.Exactly.Once);
 	}
 
-	[Subject(typeof(EventStoreRepository))]
+	[Subject(typeof(EventStoreRepository), "retry policy")]
 	public class when_getting_storage_unavailble_exception
 	{
 		const int Retries = 3;
@@ -84,7 +108,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 				A.CallTo(() => stream.CommitChanges(A<Guid>.Ignored))
 					.Throws(new StorageUnavailableException("oh noes"));
 
-				subject = TestFac.CreateRepo(eventStore, retryPolicy: retryPolicy);
+				subject = RepoFac.CreateRepo(eventStore, retryPolicy: retryPolicy);
 			};
 
 		Because of = () => Ignoring.Exception<StorageUnavailableException>(

@@ -54,6 +54,8 @@
     <Compile Include="DocMeta\DocumentState.cs" />
     <Compile Include="Customer\NonExistingCustomerException.cs" />
     <Compile Include="Customer\PhoneNumber.cs" />
+    <Compile Include="EventAccessor.cs" />
+    <Compile Include="EventRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

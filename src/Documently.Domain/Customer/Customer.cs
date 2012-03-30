@@ -4,6 +4,19 @@ using MassTransit.Util;
 
 namespace Documently.Domain
 {
+	/// <summary>
+	/// internal small classes that are simple event interface implementations
+	/// </summary>
+	class R
+		: Registered
+	{
+		public NewId AggregateId { get; set; }
+		public uint Version { get;  set; }
+		public string CustomerName { get; set; }
+		public Messages.CustDtos.Address Address { get; set; }
+		public string PhoneNumber { get; set; }
+	}
+
 	public class Customer : AggregateRoot, EventAccessor
 	{
 		private readonly EventRouter _eventRouter;
@@ -16,15 +29,13 @@ namespace Documently.Domain
 		private Customer(NewId id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 			: this()
 		{
-			this.Raise<Customer, Created>(new 
+			this.Raise<Customer, Registered>(new R
 				{
-					Id = id,
-					customerName.Name,
-					address.Street,
-					address.StreetNumber,
-					address.PostalCode,
-					address.City,
-					phoneNumber.Number
+					AggregateId = id,
+					Version = Version + 1,
+					CustomerName = customerName.Name,
+					Address = new Address(address.Street, address.StreetNumber, address.PostalCode, address.City),
+					PhoneNumber = phoneNumber.Number
 				});
 		}
 
@@ -36,11 +47,12 @@ namespace Documently.Domain
 
 			this.Raise<Customer, Relocated>(new
 				{
-					Id,
+					AggregateId = Id,
 					Street = street,
 					StreetNumber = streetNumber,
 					PostalCode = postalCode,
-					City = city
+					City = city,
+					Version = Version + 1
 				});
 		}
 
@@ -48,7 +60,7 @@ namespace Documently.Domain
 		public uint Version { get; private set; }
 
 		[UsedImplicitly]
-		private void Apply(Created evt)
+		private void Apply(Registered evt)
 		{
 			Id = evt.AggregateId;
 		}

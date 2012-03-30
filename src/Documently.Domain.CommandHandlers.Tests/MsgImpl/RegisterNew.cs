@@ -13,18 +13,15 @@
 
 using MassTransit;
 
-namespace Documently.Domain
+namespace Documently.Domain.CommandHandlers.Tests.MsgImpl
 {
-	public interface AggregateRoot
+	class RegisterNew
+		: Messages.CustCommands.RegisterNew
 	{
-		/// <summary>
-		/// Gets the id of the aggregate root
-		/// </summary>
-		NewId Id { get; }
-
-		/// <summary>
-		/// Gets the current aggregate root version. This correspond to the event sequence number.
-		/// </summary>
-		uint Version { get; }
+		public NewId AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string CustomerName { get; set; }
+		public string PhoneNumber { get; set; }
+		public Messages.CustDtos.Address Address { get; set; }
 	}
 }

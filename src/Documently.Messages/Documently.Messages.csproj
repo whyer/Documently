@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="CustCommands\Address.cs" />
+    <Compile Include="CustDtos\Address.cs" />
     <Compile Include="CustCommands\RegisterNew.cs" />
     <Compile Include="CustCommands\RelocateTheCustomer.cs" />
     <Compile Include="DocCollectionCmds\CreateNew.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="DocMetaCommands\InitializeDocumentIndexing.cs" />
     <Compile Include="DocMetaEvents\DocumentUploaded.cs" />
     <Compile Include="DocMetaEvents\AssociatedWithCollection.cs" />
-    <Compile Include="CustEvents\Created.cs" />
+    <Compile Include="CustEvents\Registered.cs" />
     <Compile Include="CustEvents\Relocated.cs" />
     <Compile Include="DocCollectionEvents\CollectionCreated.cs" />
     <Compile Include="Indexer\IndexingCompleted.cs" />

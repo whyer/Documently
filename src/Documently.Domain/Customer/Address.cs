@@ -1,12 +1,8 @@
 ﻿namespace Documently.Domain
 {
 	public class Address
+		: Messages.CustDtos.Address
 	{
-		public readonly string Street;
-		public readonly uint StreetNumber;
-		public readonly string PostalCode;
-		public readonly string City;
-
 		public Address(string street, uint number, string code, string city)
 		{
 			Street = street;
@@ -14,5 +10,10 @@
 			PostalCode = code;
 			City = city;
 		}
+
+		public string Street { get; private set; }
+		public uint StreetNumber { get; private set; }
+		public string PostalCode { get; private set; }
+		public string City { get; private set; }
 	}
 }

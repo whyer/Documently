@@ -1,7 +1,8 @@
 using Documently.Messages.CustCommands;
+using Documently.Messages.CustDtos;
 using MassTransit;
 
-namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
+namespace Documently.WpfClient.Commands
 {
 	public class RegisterNewImpl : RegisterNew
 	{

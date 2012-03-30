@@ -1,6 +1,7 @@
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
+using Documently.WpfClient.Commands;
 using Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating;
 using MassTransit;
 

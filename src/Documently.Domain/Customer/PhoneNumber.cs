@@ -2,11 +2,11 @@
 {
 	public class PhoneNumber
 	{
-		public readonly string Number;
-
 		public PhoneNumber(string phoneNumber)
 		{
 			Number = phoneNumber;
 		}
+
+		internal string Number { get; private set; }
 	}
 }

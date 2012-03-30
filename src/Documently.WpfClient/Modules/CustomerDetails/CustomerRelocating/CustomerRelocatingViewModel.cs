@@ -14,6 +14,7 @@
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
+using Documently.Messages.CustDtos;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
 using Documently.WpfClient.CommandValidation;

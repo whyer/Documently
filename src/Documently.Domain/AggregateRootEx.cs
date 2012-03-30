@@ -26,7 +26,7 @@ namespace Documently.Domain
 			where TAr : AggregateRoot, EventAccessor
 			where T : class, DomainEvent
 		{
-			evt = SetEmpties(ar, evt);
+			//evt = SetEmpties(ar, evt);
 			ar.Events.RaiseEvent(evt);
 		}
 
@@ -35,46 +35,46 @@ namespace Documently.Domain
 			where T : class, DomainEvent
 		{
 			var evt = InterfaceImplementationExtensions.InitializeProxy<T>(anonymousDictionary);
-			evt = SetEmpties(ar, evt);
+			//evt = SetEmpties(ar, evt);
 			ar.Events.RaiseEvent(evt);
 		}
 
-		static T SetEmpties<TAr, T>(TAr ar, T evt)
-			where TAr : AggregateRoot, EventAccessor
-			where T : class, DomainEvent
-		{
-			if (evt.Version == 0)
-				evt = Merge(evt, new
-					{
-						Version = ar.Version + 1
-					});
+		//static T SetEmpties<TAr, T>(TAr ar, T evt)
+		//    where TAr : AggregateRoot, EventAccessor
+		//    where T : class, DomainEvent
+		//{
+		//    if (evt.Version == 0)
+		//        evt = Merge(evt, new
+		//            {
+		//                Version = ar.Version + 1
+		//            });
 
-			if (evt.AggregateId == NewId.Empty)
-				evt = Merge(evt, new
-					{
-						AggregateId = ar.Id
-					});
+		//    if (evt.AggregateId == NewId.Empty)
+		//        evt = Merge(evt, new
+		//            {
+		//                AggregateId = ar.Id
+		//            });
 
-			return evt;
-		}
+		//    return evt;
+		//}
 
-		static T Merge<T>(T item1, object item2)
-			where T : class
-		{
-			if (item1 == null) throw new ArgumentNullException("item1");
-			if (item2 == null) throw new ArgumentNullException("item2");
+		//static T Merge<T>(T item1, object item2)
+		//    where T : class
+		//{
+		//    if (item1 == null) throw new ArgumentNullException("item1");
+		//    if (item2 == null) throw new ArgumentNullException("item2");
 
-			dynamic expando = new ExpandoObject();
-			var result = expando as IDictionary<string, object>;
+		//    dynamic expando = new ExpandoObject();
+		//    var result = expando as IDictionary<string, object>;
 			
-			foreach (System.Reflection.PropertyInfo fi in item1.GetType().GetProperties())
-				result[fi.Name] = fi.GetValue(item1, null);
+		//    foreach (System.Reflection.PropertyInfo fi in item1.GetType().GetProperties())
+		//        result[fi.Name] = fi.GetValue(item1, null);
 			
-			foreach (System.Reflection.PropertyInfo fi in item2.GetType().GetProperties())
-				result[fi.Name] = fi.GetValue(item2, null);
+		//    foreach (System.Reflection.PropertyInfo fi in item2.GetType().GetProperties())
+		//        result[fi.Name] = fi.GetValue(item2, null);
 
-			return InterfaceImplementationExtensions.InitializeProxy<T>(result);
-		}
+		//    return InterfaceImplementationExtensions.InitializeProxy<T>(result);
+		//}
 
 	}
 }

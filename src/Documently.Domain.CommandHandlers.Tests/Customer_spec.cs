@@ -22,6 +22,7 @@ using FakeItEasy;
 using Machine.Specifications;
 using MassTransit;
 using I = Magnum.Reflection.InterfaceImplementationExtensions;
+using Magnum.Extensions;
 
 // ReSharper disable InconsistentNaming
 
@@ -69,6 +70,8 @@ namespace Documently.Domain.CommandHandlers.Tests
 				handler = new RegisterNewHandler(() => repo);
 				consumeContext = A.Fake<IConsumeContext<RegisterNew>>();
 
+				A.CallTo(() => consumeContext.MessageId).Returns(NewId.Next().ToString());
+
 				var msg = new MsgImpl.RegisterNew
 					{
 						CustomerName = "Henrik F",
@@ -89,7 +92,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 			() => handler.Consume(consumeContext);
 
 		It should_yield_customer_registered =
-			() => yieldedEvents.ShouldContain(e => e.GetType() == typeof (Registered));
+			() => yieldedEvents.ShouldContain(e => e.Implements<Registered>());
 
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_correct_versions;
 	}

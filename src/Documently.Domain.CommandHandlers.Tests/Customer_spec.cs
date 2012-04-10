@@ -70,7 +70,8 @@ namespace Documently.Domain.CommandHandlers.Tests
 				handler = new RegisterNewHandler(() => repo);
 				consumeContext = A.Fake<IConsumeContext<RegisterNew>>();
 
-				A.CallTo(() => consumeContext.MessageId).Returns(NewId.Next().ToString());
+				A.CallTo(() => consumeContext.MessageId)
+					.Returns(NewId.Next().ToString());
 
 				var msg = new MsgImpl.RegisterNew
 					{

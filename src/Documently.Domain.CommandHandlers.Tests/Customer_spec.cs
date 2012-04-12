@@ -11,10 +11,10 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using System;
 using System.Collections.Generic;
 using Documently.Domain.CommandHandlers.ForCustomer;
 using Documently.Domain.CommandHandlers.Infrastructure;
+using Documently.Domain.CommandHandlers.Tests.Behaviors;
 using Documently.Messages;
 using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
@@ -25,7 +25,10 @@ using MassTransit;
 using System.Linq;
 
 // ReSharper disable InconsistentNaming
-// ReSharper disable UnassignedField.Local
+// ReSharper disable UnassignedField.Global
+// ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Documently.Domain.CommandHandlers.Tests
 {
@@ -34,15 +37,23 @@ namespace Documently.Domain.CommandHandlers.Tests
 		protected static DomainRepository repo;
 		protected static List<DomainEvent> yieldedEvents = new List<DomainEvent>();
 
+		interface AnyAr : AggregateRoot, EventAccessor {}
+
 		Establish context = () =>
 			{
-				var r = A.Fake<DomainRepository>();
-
-				A.CallTo(() => r.Save(A<Customer>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
-					.Invokes(fake => yieldedEvents.AddRange(((EventAccessor) fake.Arguments[0]).Events.GetUncommitted()));
-
-				repo = r;
+				repo = A.Fake<DomainRepository>();
 			};
+
+		protected static void has_seen_events<TAr>(params DomainEvent[] evtSeen)
+			where TAr : class, EventAccessor, AggregateRoot
+		{
+			if (repo == null) throw new SpecificationException("call setup_repository_for<Customer>(); before has_seen_events");
+			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
+			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
+			var aggregateId = evtSeen.First().AggregateId;
+			var maxVersion = evtSeen.Max(e => e.Version);
+			A.CallTo(() => repo.GetById<TAr>(aggregateId, maxVersion)).Returns(ar as TAr);
+		}
 
 		protected static IConsumeContext<T> a_command<T>(T command)
 			where T : class
@@ -53,70 +64,13 @@ namespace Documently.Domain.CommandHandlers.Tests
 			return consumeContext;
 		}
 
-		protected static void HasSeenEvents<TAr>(params DomainEvent[] evtSeen)
-			where TAr : class, EventAccessor, AggregateRoot
+		protected static void setup_repository_for<TAr>()
+			where TAr : class, AggregateRoot, EventAccessor
 		{
-			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
-			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
-			var aggregateId = evtSeen.First().AggregateId;
-			var maxVersion = evtSeen.Max(e => e.Version);
-			A.CallTo(() => repo.GetById<TAr>(aggregateId, maxVersion)).Returns(ar as TAr);
+			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
+					.WithAnyArguments()
+					.Invokes(fake => yieldedEvents.AddRange(((EventAccessor)fake.Arguments[0]).Events.GetUncommitted()));
 		}
-	}
-
-	[Behaviors]
-	public class Event_versions_are_greater_than_zero
-	{
-		protected static IEnumerable<DomainEvent> yieldedEvents;
-
-		It should_specify_correct_event_versions = () => 
-			yieldedEvents
-				.ToList()
-				.ForEach(e => e.Version.ShouldBeGreaterThan(0U));
-	}
-
-	[Behaviors]
-	public class Event_versions_are_monotonically_increasing
-	{
-		protected static IEnumerable<DomainEvent> yieldedEvents;
-
-		It should_contain_only_events_with_increasing_versions = () =>
-			yieldedEvents.OrderBy(x => x.Version)
-				.Zip(yieldedEvents.Skip(1).OrderBy(x => x.Version), Tuple.Create)
-				.ToList()
-				.ForEach(t => t.Item1.Version.ShouldEqual(t.Item2.Version - 1U));
-	}
-
-	[Behaviors]
-	public class Events_has_non_default_aggregate_root_id
-	{
-		protected static IEnumerable<DomainEvent> yieldedEvents;
-
-		It should_have_non_default_ar_ids = () =>
-			yieldedEvents
-				.ToList()
-				.ForEach(e => e.AggregateId.ShouldNotEqual(NewId.Empty));
-	}
-
-	static class CustomerTestFactory
-	{
-		public static Registered Registered(NewId arId)
-		{
-			return new RegisteredImpl
-			{
-				AggregateId = arId,
-				CustomerName = "Henrik F",
-				PhoneNumber = "+46727344868",
-				Address = new MsgImpl.Address
-					{
-						Street = "Drottninggatan",
-						StreetNumber = 108,
-						PostalCode = "113 60",
-						City = "Stockholm"
-					},
-				Version = 1U
-			};
-		} 
 	}
 
 	[Subject(typeof (Customer))]
@@ -126,7 +80,10 @@ namespace Documently.Domain.CommandHandlers.Tests
 		static RegisterNewHandler handler;
 
 		Establish context = () =>
-			handler = new RegisterNewHandler(() => repo);
+			{
+				setup_repository_for<Customer>();
+				handler = new RegisterNewHandler(() => repo);
+			};
 
 		Because of = () =>
 			handler.Consume(a_command<RegisterNew>(new MsgImpl.RegisterNew
@@ -162,7 +119,8 @@ namespace Documently.Domain.CommandHandlers.Tests
 
 		Establish context = () =>
 			{
-				HasSeenEvents<Customer>(CustomerTestFactory.Registered(AggregateId));
+				setup_repository_for<Customer>();
+				has_seen_events<Customer>(CustomerTestFactory.Registered(AggregateId));
 				handler = new RelocateTheCustomerHandler(() => repo);
 			};
 

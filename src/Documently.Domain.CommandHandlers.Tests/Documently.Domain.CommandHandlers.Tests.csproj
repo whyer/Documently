@@ -69,6 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assumptions\CanCreateProxy.cs" />
+    <Compile Include="Behaviors\Events_has_non_default_aggregate_root_id.cs" />
+    <Compile Include="Behaviors\Event_versions_are_greater_than_zero.cs" />
+    <Compile Include="Behaviors\Event_versions_are_monotonically_increasing.cs" />
+    <Compile Include="CustomerTestFactory.cs" />
     <Compile Include="Customer_spec.cs" />
     <Compile Include="EventListExtensions.cs" />
     <Compile Include="Ignoring.cs" />
@@ -95,6 +99,7 @@
       <Name>Documently.Messages</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

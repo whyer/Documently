@@ -22,8 +22,6 @@ using FakeItEasy;
 using Machine.Specifications;
 using Magnum.Reflection;
 using MassTransit;
-using I = Magnum.Reflection.InterfaceImplementationExtensions;
-using Magnum.Extensions;
 using System.Linq;
 
 // ReSharper disable InconsistentNaming

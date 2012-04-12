@@ -74,6 +74,7 @@
     <Compile Include="Ignoring.cs" />
     <Compile Include="MsgImpl\Address.cs" />
     <Compile Include="MsgImpl\RegisterNew.cs" />
+    <Compile Include="MsgImpl\Relocate.cs" />
     <Compile Include="Persistance_spec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

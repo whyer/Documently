@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using System.Collections;
 using System.Linq;
 using Documently.Messages;
@@ -24,12 +25,22 @@ namespace Documently.Domain.CommandHandlers.Tests
 		public static void ShouldContain<T>(this IEnumerable items)
 			where T : DomainEvent
 		{
-			if (!items.Cast<object>().Any(item => item.Implements<T>()))
+			ShouldContain<T>(items, e => { });
+		}
+
+		public static void ShouldContain<T>(this IEnumerable items, Action<T> withEvent)
+			where T : DomainEvent
+		{
+			var found = items.Cast<object>().Where(item => item.Implements<T>());
+
+			if (!found.Any())
 				throw new SpecificationException(string.Format("Could not find event {0} in list of events: [{1}]",
 				                                               typeof (T).Name,
 				                                               string.Join("; ", items.Cast<object>()
 				                                                                 	.SelectMany(x => x.GetType().GetInterfaces())
 																					.Select(t => t.Name))));
+
+			withEvent(found.Cast<T>().First());
 		}
 	}
 }

@@ -21,7 +21,8 @@ namespace Documently.Domain
 	{
 		private readonly EventRouter _eventRouter;
 
-		private Customer()
+		// for construction in tests
+		internal Customer()
 		{
 			_eventRouter = EventRouter.For(this);
 		}
@@ -60,13 +61,13 @@ namespace Documently.Domain
 		public uint Version { get; private set; }
 
 		[UsedImplicitly]
-		private void Apply(Registered evt)
+		internal void Apply(Registered evt)
 		{
 			Id = evt.AggregateId;
 		}
 
 		[UsedImplicitly]
-		private void Apply(Relocated evt)
+		internal void Apply(Relocated evt)
 		{
 			// neither do we here, at this point in time since we've already sent the event.
 			//new Address(evt.Street, evt.StreetNumber, evt.PostalCode, evt.City);

@@ -20,6 +20,7 @@ using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
 using FakeItEasy;
 using Machine.Specifications;
+using Magnum.Reflection;
 using MassTransit;
 using I = Magnum.Reflection.InterfaceImplementationExtensions;
 using Magnum.Extensions;
@@ -53,6 +54,16 @@ namespace Documently.Domain.CommandHandlers.Tests
 			A.CallTo(() => consumeContext.Message).Returns(command);
 			return consumeContext;
 		}
+
+		protected static void HasSeenEvents<TAr>(params DomainEvent[] evtSeen)
+			where TAr : class, EventAccessor, AggregateRoot
+		{
+			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
+			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
+			var aggregateId = evtSeen.First().AggregateId;
+			var maxVersion = evtSeen.Max(e => e.Version);
+			A.CallTo(() => repo.GetById<TAr>(aggregateId, maxVersion)).Returns(ar as TAr);
+		}
 	}
 
 	[Behaviors]
@@ -71,7 +82,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 	{
 		protected static IEnumerable<DomainEvent> yieldedEvents;
 
-		It should_contain_only_events_with_increasing_versions = () => 
+		It should_contain_only_events_with_increasing_versions = () =>
 			yieldedEvents.OrderBy(x => x.Version)
 				.Zip(yieldedEvents.Skip(1).OrderBy(x => x.Version), Tuple.Create)
 				.ToList()
@@ -87,6 +98,27 @@ namespace Documently.Domain.CommandHandlers.Tests
 			yieldedEvents
 				.ToList()
 				.ForEach(e => e.AggregateId.ShouldNotEqual(NewId.Empty));
+	}
+
+	static class CustomerTestFactory
+	{
+		public static Registered Registered(NewId arId)
+		{
+			return new RegisteredImpl
+			{
+				AggregateId = arId,
+				CustomerName = "Henrik F",
+				PhoneNumber = "+46727344868",
+				Address = new MsgImpl.Address
+					{
+						Street = "Drottninggatan",
+						StreetNumber = 108,
+						PostalCode = "113 60",
+						City = "Stockholm"
+					},
+				Version = 1U
+			};
+		} 
 	}
 
 	[Subject(typeof (Customer))]
@@ -114,6 +146,48 @@ namespace Documently.Domain.CommandHandlers.Tests
 			}));
 
 		It should_yield_customer_registered = () => yieldedEvents.ShouldContain<Registered>();
+		It should_specify_correct_number = () => yieldedEvents.ShouldContain<Registered>(r => 
+			r.PhoneNumber.ShouldEqual("+46727344868"));
+
+		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
+		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;
+		Behaves_like<Events_has_non_default_aggregate_root_id> should_have_non_default_ar_ids;
+	}
+
+	[Subject(typeof(Customer))]
+	public class When_customer_relocates
+		: Handler_and_Aggregate_spec
+	{
+		static NewId AggregateId = NewId.Next();
+
+		static RelocateTheCustomerHandler handler;
+
+		Establish context = () =>
+			{
+				HasSeenEvents<Customer>(CustomerTestFactory.Registered(AggregateId));
+				handler = new RelocateTheCustomerHandler(() => repo);
+			};
+
+		Because of = () =>
+			handler.Consume(a_command<RelocateTheCustomer>(new MsgImpl.Relocate
+				{
+					AggregateId = AggregateId,
+					NewAddress = new MsgImpl.Address
+						{
+							City = "Berlin",
+							PostalCode = "4566",
+							Street = "FünfteStrasse",
+							StreetNumber = 45
+						},
+					Version = 1U
+				}));
+
+		It should_have_loaded_existing = () =>
+			A.CallTo(() => repo.GetById<Customer>(AggregateId, 1)).MustHaveHappened(Repeated.Exactly.Once);
+
+		It should_have_published_relocated_event = () => 
+			yieldedEvents.ShouldContain<Relocated>(
+				r => r.City.ShouldEqual("Berlin"));
 
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
 		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;

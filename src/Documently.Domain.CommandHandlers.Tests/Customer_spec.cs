@@ -45,7 +45,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 		protected static void has_seen_events<TAr>(params DomainEvent[] evtSeen)
 			where TAr : class, EventAccessor, AggregateRoot
 		{
-			if (repo == null) throw new SpecificationException("call setup_repository_for<Customer>(); before has_seen_events");
+			if (repo == null) throw new SpecificationException("call setup_repository_for<MyAr>(); before has_seen_events");
 			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
 			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
 			var aggregateId = evtSeen.First().AggregateId;
@@ -99,8 +99,9 @@ namespace Documently.Domain.CommandHandlers.Tests
 			}));
 
 		It should_yield_customer_registered = () => yieldedEvents.ShouldContain<Registered>();
-		It should_specify_correct_number = () => yieldedEvents.ShouldContain<Registered>(r => 
-			r.PhoneNumber.ShouldEqual("+46727344868"));
+		It should_specify_correct_number = () => 
+			yieldedEvents.ShouldContain<Registered>(r =>
+				r.PhoneNumber.ShouldEqual("+46727344868"));
 
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
 		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;

@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Assumptions\CanCreateProxy.cs" />
     <Compile Include="Customer_spec.cs" />
+    <Compile Include="EventListExtensions.cs" />
     <Compile Include="Ignoring.cs" />
     <Compile Include="MsgImpl\Address.cs" />
     <Compile Include="MsgImpl\RegisterNew.cs" />

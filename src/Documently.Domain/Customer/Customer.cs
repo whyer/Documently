@@ -7,7 +7,7 @@ namespace Documently.Domain
 	/// <summary>
 	/// internal small classes that are simple event interface implementations
 	/// </summary>
-	class R
+	class RegisteredImpl
 		: Registered
 	{
 		public NewId AggregateId { get; set; }
@@ -29,7 +29,7 @@ namespace Documently.Domain
 		private Customer(NewId id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 			: this()
 		{
-			this.Raise<Customer, Registered>(new R
+			this.Raise<Customer, Registered>(new RegisteredImpl
 				{
 					AggregateId = id,
 					Version = Version + 1,

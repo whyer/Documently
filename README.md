@@ -2,6 +2,10 @@
 
 This is a sample application showcasing an event driven architecture with that uses Domain Driven Design and Event Sourcing. Documently shows what sort of architecture we like to work with at [Jayway](http://jayway.com).
 
+## `refs/develop` status
+
+You need to unload .Specs from the solution in order to compile.
+
 ## TODO for v2
 
  * StateBox for union and ordinary event stream merging when eventually consistent **event store** (different from the often spoken about eventual consistency of read models) - this would allow you to use Riak and other master-master type events stores and also handle for example event-stores in different countries/data centers in which case net-splits between stores may occurr.

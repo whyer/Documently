@@ -37,8 +37,6 @@ namespace Documently.Domain.CommandHandlers.Tests
 		protected static DomainRepository repo;
 		protected static List<DomainEvent> yieldedEvents = new List<DomainEvent>();
 
-		interface AnyAr : AggregateRoot, EventAccessor {}
-
 		Establish context = () =>
 			{
 				repo = A.Fake<DomainRepository>();

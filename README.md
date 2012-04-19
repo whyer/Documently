@@ -46,10 +46,8 @@ Once both RavenDB and the *Domain Service* are started without error messages, s
 
 The sample is based on code by:
 
- * **Mark Nijhof**: <https://github.com/MarkNijhof/Fohjin>
  * **Greg Young**: <http://github.com/gregoryyoung/m-r>
- * <http://dddsamplenet.codeplex.com/>
- * and uses **[Jonathan Oliver](https://github.com/joliver/)**'s [EventStore](https://github.com/joliver/EventStore)  and [CommonDomain](https://github.com/haf/CommonDomain) [wiki](https://github.com/haf/CommonDomain/wiki) libraries.
+ * and uses **[Jonathan Oliver](https://github.com/joliver/)**'s [EventStore](https://github.com/joliver/EventStore) libraries.
  * The WPF Client uses Caliburn.Micro: <http://caliburnmicro.codeplex.com/>
  * The wiki is in parts based on a presentation 2011-07-23 by Greg Young
 

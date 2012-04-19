@@ -11,14 +11,13 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using System.Collections.Generic;
 using System.Linq;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers.ForCustomer;
-using Documently.Messages;
 using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using SharpTestsEx;
 using Address = Documently.Messages.CustDtos.Address;
@@ -60,6 +59,11 @@ namespace Documently.Specs.Customers
 						},
 					PhoneNumber = "01/123456"
 				};
+		}
+
+		protected override void Consume(ConsumeContext<RegisterNew> cmd)
+		{
+			CommandHandler.Consume(cmd);
 		}
 
 		[Test]

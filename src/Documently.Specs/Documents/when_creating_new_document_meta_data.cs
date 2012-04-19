@@ -19,6 +19,7 @@ using Documently.Messages.DocMetaCommands;
 using Documently.Messages.DocMetaEvents;
 using FakeItEasy;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -33,6 +34,11 @@ namespace Documently.Specs.Documents
 		protected override Create When()
 		{
 			return null;//new Create(_documentId, "My document", _created);
+		}
+
+		protected override void Consume(ConsumeContext<Create> cmd)
+		{
+			CommandHandler.Consume(cmd);
 		}
 
 		[Test]

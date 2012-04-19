@@ -17,6 +17,7 @@ using Documently.Domain.CommandHandlers.ForDocCollection;
 using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocCollectionEvents;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -28,6 +29,11 @@ namespace Documently.Specs.Documents
 		protected override Create When()
 		{
 			return null;//new Create(NewId.Next(), string.Empty);
+		}
+
+		protected override void Consume(ConsumeContext<Create> cmd)
+		{
+			CommandHandler.Consume(cmd);
 		}
 
 		[Test]

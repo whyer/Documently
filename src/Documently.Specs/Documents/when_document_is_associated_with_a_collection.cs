@@ -7,6 +7,7 @@ using Documently.Messages;
 using Documently.Messages.DocMetaCommands;
 using Documently.Messages.DocMetaEvents;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -29,6 +30,11 @@ namespace Documently.Specs.Documents
 		protected override AssociateWithCollection When()
 		{
 			return null;//new AssociateWithCollection(docId, collectionId);
+		}
+
+		protected override void Consume(ConsumeContext<AssociateWithCollection> cmd)
+		{
+			CommandHandler.Consume(cmd);
 		}
 
 		[Test]

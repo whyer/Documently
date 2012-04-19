@@ -8,6 +8,7 @@ using Documently.Messages.DocCollectionCmds;
 using Documently.Messages.DocMetaEvents;
 using Magnum;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using System.Linq;
 using SharpTestsEx;
@@ -31,6 +32,11 @@ namespace Documently.Specs.Documents
         {
 			return null;//new ShareDocument(NewId.Next(), 1, _userIDs);
         }
+
+    	protected override void Consume(ConsumeContext<ShareDocument> cmd)
+    	{
+    		CommandHandler.Consume(cmd);
+    	}
 
     	[Test]
         public void Then_a_document_shared_event_will_be_pulished()

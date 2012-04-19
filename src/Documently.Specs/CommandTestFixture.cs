@@ -7,6 +7,7 @@ using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages;
 using Magnum.Reflection;
 using MassTransit;
+using MassTransit.Context;
 using NUnit.Framework;
 using System.Linq;
 
@@ -15,11 +16,11 @@ namespace Documently.Specs
 	[TestFixture]
 	public abstract class CommandTestFixture<TCommand, TCommandHandler, TAggregateRoot>
 		where TCommand : class, Command
-		where TCommandHandler : class, Consumes<TCommand>.All
+		where TCommandHandler : class
 		where TAggregateRoot : class, AggregateRoot, EventAccessor
 	{
 		protected TAggregateRoot AggregateRoot;
-		protected Consumes<TCommand>.All CommandHandler;
+		protected TCommandHandler CommandHandler;
 		protected Exception CaughtException;
 		protected IEnumerable<DomainEvent> PublishedEvents;
 		protected IEnumerable<DomainEvent> PublishedEventsT { get { return PublishedEvents.Cast<DomainEvent>(); } } 
@@ -40,6 +41,8 @@ namespace Documently.Specs
 
 		protected abstract TCommand When();
 
+		protected abstract void Consume(ConsumeContext<TCommand> cmd);
+
 		[SetUp]
 		public void Setup()
 		{
@@ -56,7 +59,9 @@ namespace Documently.Specs
 			SetupDependencies();
 			try
 			{
-				CommandHandler.Consume(When());
+				var cmd = When();
+				var ctx = new ConsumeContext<TCommand>(ReceiveContext.Empty(), cmd);
+				Consume(ctx);
 				if (Repository.SavedAggregate == null)
 					PublishedEvents = AggregateRoot.Events.GetUncommitted();
 				else
@@ -72,7 +77,7 @@ namespace Documently.Specs
 			}
 		}
 
-		private Consumes<TCommand>.All BuildCommandHandler()
+		private TCommandHandler BuildCommandHandler()
 		{
 		    Func<DomainRepository> createReposFunc = () => Repository;
 			return Activator.CreateInstance(typeof(TCommandHandler), createReposFunc) as TCommandHandler;

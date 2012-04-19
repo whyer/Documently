@@ -7,13 +7,12 @@ A higher-level description of the architecture is available at the [Jayway Archi
 ## TODO for v2
 
  * StateBox for union and ordinary event stream merging when eventually consistent **event store** (different from the often spoken about eventual consistency of read models) - this would allow you to use Riak and other master-master type events stores and also handle for example event-stores in different countries/data centers in which case net-splits between stores may occurr.
- * All messages interfaces + proper infrastructure
+ * <del>All messages interfaces + proper infrastructure</del>
  * Do away with complex unit testing procedures
  * Better cohesion in code base by avoiding inheritance and using value objects to a greater extent and having infrastructure that is only used with command handlers in that specific assembly (that may take a couple of dependencies on infrastructure)
- * Better naming of commands and events based on experience with too-long-names
- * Better documentation in each folder
- * Using dynamic instead of CommonDomain
- * (web with SignalR?)
+ * <del>Better naming of commands and events based on experience with too-long-names</del>
+ * <del>Better documentation for each folder</del>
+ * <del>Using dynamic instead of CommonDomain</del>
  * Proper Saga example with Automatonymous and MassTransit (and EventStore?)
  * Properly handling de-duplication of events on the read-side
  * Properly handling replaying of the event store from the last received point forward on the read-side

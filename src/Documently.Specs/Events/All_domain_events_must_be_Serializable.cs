@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Documently.Messages;
 using Documently.Messages.CustEvents;
+using Documently.Messages.DocCollectionEvents;
 using NUnit.Framework;
 
 namespace Documently.Specs.Events
@@ -12,7 +13,8 @@ namespace Documently.Specs.Events
 		[Test]
 		public void All_domain_events_will_have_the_Serializable_attribute_assigned()
 		{
-			var domainEventTypes = typeof(Created).Assembly.GetExportedTypes().Where(x => x.BaseType == typeof(DomainEvent)).ToList();
+			var domainEventTypes = typeof(Created).Assembly
+				.GetExportedTypes().Where(x => x.BaseType == typeof(DomainEvent)).ToList();
 			foreach (var domainEventType in domainEventTypes)
 			{
 				if (domainEventType.IsSerializable)

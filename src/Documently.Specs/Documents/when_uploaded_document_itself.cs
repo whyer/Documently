@@ -18,12 +18,13 @@ namespace Documently.Specs.Documents
 
 		protected override System.Collections.Generic.IEnumerable<DomainEvent> Given()
 		{
-			return new[] {new Created(_docId, "My document",  DateTime.UtcNow)};
+			yield break;
+			//return new[] {new Created(_docId, "My document",  DateTime.UtcNow)};
 		}
 
 		protected override AssociateWithDocument When()
 		{
-			return new AssociateWithDocument(_docId, CombNewId.Generate());
+			return null;//new AssociateWithDocument(_docId, NewId.Next());
 		}
 
 		[Test]

@@ -8,6 +8,7 @@ using Documently.Messages.DocMetaCommands;
 using Documently.Messages.DocMetaEvents;
 using MassTransit;
 using NUnit.Framework;
+using SharpTestsEx;
 
 namespace Documently.Specs.Documents
 {
@@ -21,13 +22,13 @@ namespace Documently.Specs.Documents
 		{
 			return new List<DomainEvent>
 				{
-					new Created(docId, "title",  DateTime.UtcNow)
+					null //new Created(docId, "title",  DateTime.UtcNow)
 				};
 		}
 
 		protected override AssociateWithCollection When()
 		{
-			return new AssociateWithCollection(docId, collectionId);
+			return null;//new AssociateWithCollection(docId, collectionId);
 		}
 
 		[Test]

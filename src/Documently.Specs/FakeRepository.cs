@@ -22,7 +22,7 @@ namespace Documently.Specs
 	public class FakeRepository : DomainRepository
 	{
 		private readonly object _instance;
-		public AggregateRoot SavedAggregate { get; set; }
+		public EventAccessor SavedAggregate { get; set; }
 
 		public FakeRepository(object instance)
 		{
@@ -34,7 +34,8 @@ namespace Documently.Specs
 			return (T) _instance ?? Activator.CreateInstance(typeof (T)) as T;
 		}
 
-		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers) where T : class, AggregateRoot
+		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
+			where T : class, EventAccessor, AggregateRoot
 		{
 			SavedAggregate = aggregate;
 		}

@@ -17,6 +17,7 @@ using Documently.Domain;
 using Documently.Domain.CommandHandlers.ForDocMeta;
 using Documently.Messages.DocMetaCommands;
 using Documently.Messages.DocMetaEvents;
+using FakeItEasy;
 using MassTransit;
 using NUnit.Framework;
 using SharpTestsEx;
@@ -31,7 +32,7 @@ namespace Documently.Specs.Documents
 
 		protected override Create When()
 		{
-			return new Create(_documentId, "My document", _created);
+			return null;//new Create(_documentId, "My document", _created);
 		}
 
 		[Test]

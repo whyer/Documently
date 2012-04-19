@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using CommonDomain.Persistence;
 using Documently.Domain;
+using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages;
+using Magnum.Reflection;
 using MassTransit;
 using NUnit.Framework;
 using System.Linq;
@@ -14,15 +16,20 @@ namespace Documently.Specs
 	public abstract class CommandTestFixture<TCommand, TCommandHandler, TAggregateRoot>
 		where TCommand : class, Command
 		where TCommandHandler : class, Consumes<TCommand>.All
-		where TAggregateRoot : AggregateRoot, new()
+		where TAggregateRoot : class, AggregateRoot, EventAccessor
 	{
 		protected TAggregateRoot AggregateRoot;
 		protected Consumes<TCommand>.All CommandHandler;
 		protected Exception CaughtException;
-		protected ICollection PublishedEvents;
+		protected IEnumerable<DomainEvent> PublishedEvents;
 		protected IEnumerable<DomainEvent> PublishedEventsT { get { return PublishedEvents.Cast<DomainEvent>(); } } 
 		protected FakeRepository Repository;
 		protected virtual void SetupDependencies() { }
+
+		protected T FirstOf<T>()
+		{
+			return PublishedEvents.Where(t => t.GetType() == typeof(T)).Cast<T>().First();
+		}
 
 		protected virtual IEnumerable<DomainEvent> Given()
 		{
@@ -36,13 +43,13 @@ namespace Documently.Specs
 		[SetUp]
 		public void Setup()
 		{
-			AggregateRoot = new TAggregateRoot();
+			AggregateRoot = FastActivator.Create(typeof(TAggregateRoot)) as TAggregateRoot;
 			Repository = new FakeRepository(AggregateRoot);
 			CaughtException = new ThereWasNoExceptionButOneWasExpectedException();
 
 			foreach (var evt in Given())
 			{
-				AggregateRoot.ApplyEvent(evt);
+				AggregateRoot.Events.ApplyEvent(evt);
 			}
 
 			CommandHandler = BuildCommandHandler();
@@ -51,9 +58,9 @@ namespace Documently.Specs
 			{
 				CommandHandler.Consume(When());
 				if (Repository.SavedAggregate == null)
-					PublishedEvents = AggregateRoot.GetUncommittedEvents();
+					PublishedEvents = AggregateRoot.Events.GetUncommitted();
 				else
-					PublishedEvents = Repository.SavedAggregate.GetUncommittedEvents();
+					PublishedEvents = Repository.SavedAggregate.Events.GetUncommitted();
 			}
 			catch (Exception exception)
 			{
@@ -67,7 +74,7 @@ namespace Documently.Specs
 
 		private Consumes<TCommand>.All BuildCommandHandler()
 		{
-		    Func<IRepository> createReposFunc = () => Repository;
+		    Func<DomainRepository> createReposFunc = () => Repository;
 			return Activator.CreateInstance(typeof(TCommandHandler), createReposFunc) as TCommandHandler;
 		}
 	}

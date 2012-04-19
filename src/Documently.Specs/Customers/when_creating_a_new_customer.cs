@@ -11,14 +11,17 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System.Collections.Generic;
+using System.Linq;
 using Documently.Domain;
 using Documently.Domain.CommandHandlers.ForCustomer;
+using Documently.Messages;
 using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
 using MassTransit;
 using NUnit.Framework;
 using SharpTestsEx;
-using Address = Documently.Messages.CustCommands.Address;
+using Address = Documently.Messages.CustDtos.Address;
 
 namespace Documently.Specs.Customers
 {
@@ -34,7 +37,7 @@ namespace Documently.Specs.Customers
 	class AddressImpl : Address
 	{
 		public string Street { get; set; }
-		public string StreetNumber { get; set; }
+		public uint StreetNumber { get; set; }
 		public string PostalCode { get; set; }
 		public string City { get; set; }
 	}
@@ -51,7 +54,7 @@ namespace Documently.Specs.Customers
 					Address = new AddressImpl
 						{
 							Street = "Ringstraße",
-							StreetNumber = "1",
+							StreetNumber = 1,
 							PostalCode = "1010",
 							City = "Wien"
 						},
@@ -62,28 +65,29 @@ namespace Documently.Specs.Customers
 		[Test]
 		public void Then_a_client_created_event_will_be_published()
 		{
-			Assert.AreEqual(typeof (Created), PublishedEvents.Last().GetType());
+			Assert.AreEqual(typeof (Registered), PublishedEvents.Last().GetType());
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_name_of_the_client()
 		{
-			Assert.That(PublishedEvents.Last<Created>().CustomerName == "Jörg Egretzberger");
+			Assert.That(FirstOf<Registered>().CustomerName == "Jörg Egretzberger");
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_address_of_the_client()
 		{
-			PublishedEvents.Last<Created>().Street.Should().Be.EqualTo("Ringstraße");
-			PublishedEvents.Last<Created>().StreetNumber.Should().Be.EqualTo("1");
-			PublishedEvents.Last<Created>().PostalCode.Should().Be.EqualTo("1010");
-			PublishedEvents.Last<Created>().City.Should().Be.EqualTo("Wien");
+			var address = FirstOf<Registered>().Address;
+			address.Street.Should().Be.EqualTo("Ringstraße");
+			address.StreetNumber.Should().Be.EqualTo("1");
+			address.PostalCode.Should().Be.EqualTo("1010");
+			address.City.Should().Be.EqualTo("Wien");
 		}
 
 		[Test]
 		public void Then_the_published_event_will_contain_the_phone_number_of_the_client()
 		{
-			PublishedEvents.Last<Created>().PhoneNumber.Should().Be.EqualTo("01/123456");
+			FirstOf<Registered>().PhoneNumber.Should().Be.EqualTo("01/123456");
 		}
 	}
 }

@@ -51,5 +51,4 @@ The sample is based on code by:
  * The WPF Client uses Caliburn.Micro: <http://caliburnmicro.codeplex.com/>
  * The wiki is in parts based on a presentation 2011-07-23 by Greg Young
 
-CommonDomain documentation at <https://github.com/haf/CommonDomain/wiki/Intro-to-Common-Domain>
 You can find more information about CQRS in the wiki: <https://github.com/haf/Documently/wiki>

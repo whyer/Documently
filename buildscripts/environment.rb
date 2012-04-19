@@ -37,13 +37,8 @@ namespace :env do
     CLEAN.include(FOLDERS[:test_out])
 
 
-    FOLDERS[:cmds][:out] = File.join(FOLDERS[:src], PROJECTS[:cmds][:dir], 'bin', CONFIGURATION)
-    CLEAN.include(FOLDERS[:cmds][:out])
-
-    # for tests
-    FOLDERS[:cmds][:test_out] = File.join(FOLDERS[:src], PROJECTS[:cmds][:test_dir], 'bin', CONFIGURATION)
-    FILES[:cmds][:test] = File.join(FOLDERS[:cmds][:test_out], "#{PROJECTS[:cmds][:test_dir]}.dll")
-    CLEAN.include(FOLDERS[:test_out])
+    FOLDERS[:msg][:out] = File.join(FOLDERS[:src], PROJECTS[:msg][:dir], 'bin', CONFIGURATION)
+    CLEAN.include(FOLDERS[:msg][:out])
 
 
     FOLDERS[:domain][:out] = File.join(FOLDERS[:src], PROJECTS[:domain][:dir], 'bin', CONFIGURATION)
@@ -137,7 +132,7 @@ namespace :env do
     end
 
     [:out, :nuspec].each do |dir|
-      [:app, :cmds, :domain, :domain_svc, :index, :indexer_tests, :infr, :rm, :specs, :wpf, :evtlist].each{ |k|
+      [:app, :msg, :domain, :domain_svc, :index, :indexer_tests, :infr, :rm, :specs, :wpf, :evtlist].each{ |k|
         directory FOLDERS[k][dir]
         all_dirs << FOLDERS[k][dir]
       }

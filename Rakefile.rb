@@ -57,9 +57,9 @@ task :app_output => [:msbuild] do
 end
 
 
-task :cmds_output => [:msbuild] do
-  target = File.join(FOLDERS[:binaries], PROJECTS[:cmds][:id])
-  copy_files FOLDERS[:cmds][:out], "*.{xml,dll,pdb,config}", target
+task :msg_output => [:msbuild] do
+  target = File.join(FOLDERS[:binaries], PROJECTS[:msg][:id])
+  copy_files FOLDERS[:msg][:out], "*.{xml,dll,pdb,config}", target
   CLEAN.include(target)
 end
 
@@ -126,40 +126,40 @@ task :evtlist_output => [:msbuild] do
   CLEAN.include(target)
 end
 
-task :output => [:app_output, :cmds_output, :domain_output, :domain_svc_output, :index_output, :indexer_tests_output, :infr_output, :rm_output, :specs_output, :wpf_output, :evtlist_output]
-task :nuspecs => [:cmds_nuspec]
+task :output => [:app_output, :msg_output, :domain_output, :domain_svc_output, :index_output, :indexer_tests_output, :infr_output, :rm_output, :specs_output, :wpf_output, :evtlist_output]
+task :nuspecs => [:msg_nuspec]
 
-desc "Create a nuspec for 'Documently.Commands'"
-nuspec :cmds_nuspec do |nuspec|
-  nuspec.id = "#{PROJECTS[:cmds][:nuget_key]}"
+desc "Create a nuspec for 'Documently.Messages'"
+nuspec :msg_nuspec do |nuspec|
+  nuspec.id = "#{PROJECTS[:msg][:nuget_key]}"
   nuspec.version = BUILD_VERSION
-  nuspec.authors = "#{PROJECTS[:cmds][:authors]}"
-  nuspec.description = "#{PROJECTS[:cmds][:description]}"
-  nuspec.title = "#{PROJECTS[:cmds][:title]}"
+  nuspec.authors = "#{PROJECTS[:msg][:authors]}"
+  nuspec.description = "#{PROJECTS[:msg][:description]}"
+  nuspec.title = "#{PROJECTS[:msg][:title]}"
   # nuspec.projectUrl = 'http://github.com/haf' # TODO: Set this for nuget generation
   nuspec.language = "en-US"
   nuspec.licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0" # TODO: set this for nuget generation
   nuspec.requireLicenseAcceptance = "false"
   
-  nuspec.output_file = FILES[:cmds][:nuspec]
-  nuspec_copy(:cmds, "#{PROJECTS[:cmds][:id]}.{dll,pdb,xml}")
+  nuspec.output_file = FILES[:msg][:nuspec]
+  nuspec_copy(:msg, "#{PROJECTS[:msg][:id]}.{dll,pdb,xml}")
 end
 
-task :nugets => [:"env:release", :nuspecs, :cmds_nuget]
+task :nugets => [:"env:release", :nuspecs, :msg_nuget]
 
 desc "nuget pack 'Documently.Commands'"
-nugetpack :cmds_nuget do |nuget|
+nugetpack :msg_nuget do |nuget|
    nuget.command     = "#{COMMANDS[:nuget]}"
-   nuget.nuspec      = "#{FILES[:cmds][:nuspec]}"
+   nuget.nuspec      = "#{FILES[:msg][:nuspec]}"
    nuget.output      = "#{FOLDERS[:nuget]}"
 end
 
-task :publish => [:"env:release", :cmds_nuget_push]
+task :publish => [:"env:release", :msg_nuget_push]
 
 desc "publishes (pushes) the nuget package 'Documently.Commands'"
-nugetpush :cmds_nuget_push do |nuget|
+nugetpush :msg_nuget_push do |nuget|
   nuget.command = "#{COMMANDS[:nuget]}"
-  nuget.package = "#{File.join(FOLDERS[:nuget], PROJECTS[:cmds][:nuget_key] + "." + BUILD_VERSION + '.nupkg')}"
+  nuget.package = "#{File.join(FOLDERS[:nuget], PROJECTS[:msg][:nuget_key] + "." + BUILD_VERSION + '.nupkg')}"
   nuget.create_only = false
 end
 

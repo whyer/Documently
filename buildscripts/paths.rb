@@ -23,9 +23,9 @@ FOLDERS = folders.merge({
       :test_out => 'placeholder - environment.rb sets this'
   },
   
-  :cmds => {
+  :msg => {
       :test_dir => '',
-      :nuspec => "#{File.join(folders[:nuspec], PROJECTS[:cmds][:nuget_key])}",
+      :nuspec => "#{File.join(folders[:nuspec], PROJECTS[:msg][:nuget_key])}",
       :out => 'placeholder - environment.rb will sets this',
       :test_out => 'placeholder - environment.rb sets this'
   },
@@ -102,8 +102,8 @@ FILES = {
     :nuspec => File.join(FOLDERS[:app][:nuspec], "#{PROJECTS[:app][:nuget_key]}.nuspec")
   },
   
-  :cmds => {
-    :nuspec => File.join(FOLDERS[:cmds][:nuspec], "#{PROJECTS[:cmds][:nuget_key]}.nuspec")
+  :msg => {
+    :nuspec => File.join(FOLDERS[:msg][:nuspec], "#{PROJECTS[:msg][:nuget_key]}.nuspec")
   },
   
   :domain => {

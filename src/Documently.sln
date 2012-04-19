@@ -17,8 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.WpfClient", "Doc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{8F360B84-9B2F-4986-953B-CCAEBB8A384F}"
 	ProjectSection(SolutionItems) = preProject
+		..\InitialReadme.md = ..\InitialReadme.md
 		..\docs\license.txt = ..\docs\license.txt
-		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documently.Domain.Service", "Documently.Domain.Service\Documently.Domain.Service.csproj", "{20C3A690-6C1C-4FE5-8DCF-29E5EFAA1A13}"

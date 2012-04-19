@@ -1,10 +1,8 @@
 # Documently
 
-This is a sample application showcasing an event driven architecture with that uses Domain Driven Design and Event Sourcing. Documently shows what sort of architecture we like to work with at [Jayway](http://jayway.com).
+Documently is a single *bounded context* with a single *domain model* and multiple *autonymous services*. The SAAS that is Documently is exposed by sending command to the `Documently.Domain.Service` and listening to corresponding events domain events.
 
-## `refs/develop` status
-
-You need to unload .Specs from the solution in order to compile.
+A higher-level description of the architecture is available at the [Jayway Architecture site](http://architecture.jayway.com).
 
 ## TODO for v2
 

@@ -47,6 +47,7 @@ msbuild :msbuild => [:assemblyinfo, :ensure_packages] do |msb|
   msb.solution   = FILES[:sln]
   msb.properties :Configuration => CONFIGURATION
   msb.targets    :Clean, :Build
+  msb.verbosity = "minimal"
 end
 
 
@@ -149,9 +150,9 @@ task :nugets => [:"env:release", :nuspecs, :msg_nuget]
 
 desc "nuget pack 'Documently.Commands'"
 nugetpack :msg_nuget do |nuget|
-   nuget.command     = "#{COMMANDS[:nuget]}"
-   nuget.nuspec      = "#{FILES[:msg][:nuspec]}"
-   nuget.output      = "#{FOLDERS[:nuget]}"
+  nuget.command     = "#{COMMANDS[:nuget]}"
+  nuget.nuspec      = "#{FILES[:msg][:nuspec]}"
+  nuget.output      = "#{FOLDERS[:nuget]}"
 end
 
 task :publish => [:"env:release", :msg_nuget_push]
@@ -164,3 +165,18 @@ nugetpush :msg_nuget_push do |nuget|
 end
 
 task :default  => ["env:release", "msbuild", "output", "nugets"]
+
+def get_proj_exe symbol
+  File.join 'src', PROJECTS[symbol][:dir], 'bin', CONFIGURATION, "#{PROJECTS[symbol][:title]}.exe"
+end
+
+desc "run the sample"
+task :sample => ["env:release", :msbuild] do
+  ravens = Dir.glob "src/packages/Raven*"
+  raven = File.join ravens.sort().first, "server", "Raven.Server.exe"
+  domain_service = get_proj_exe :domain_svc
+  wpf_client = get_proj_exe :wpf
+  sh "start #{raven}"
+  sh "start #{domain_service}"
+  sh "start #{wpf_client}"
+end

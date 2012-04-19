@@ -34,9 +34,16 @@ assemblyinfo :assemblyinfo => ["env:release"] do |asm|
   asm.namespaces = "System", "System.Reflection", "System.Runtime.InteropServices", "System.Security"
 end
 
+task :ensure_packages do
+  Dir.glob("./src/**/packages.config") do |cfg|
+    sh %Q[tools/NuGet.exe install "#{cfg}" -o "src/packages"] do |ok, res|
+      puts (res.inspect) unless ok
+    end
+  end
+end
 
 desc "build sln file"
-msbuild :msbuild do |msb|
+msbuild :msbuild => [:assemblyinfo, :ensure_packages] do |msb|
   msb.solution   = FILES[:sln]
   msb.properties :Configuration => CONFIGURATION
   msb.targets    :Clean, :Build
@@ -156,4 +163,4 @@ nugetpush :cmds_nuget_push do |nuget|
   nuget.create_only = false
 end
 
-task :default  => ["env:release", "assemblyinfo", "msbuild", "output", "nugets"]
+task :default  => ["env:release", "msbuild", "output", "nugets"]

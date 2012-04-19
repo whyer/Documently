@@ -9,3 +9,4 @@ Logs/
 *.tmp_proj
 src/SharedAssemblyInfo.cs
 build/
+packages/

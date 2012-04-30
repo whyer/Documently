@@ -59,6 +59,7 @@
     <Compile Include="EventAccessor.cs" />
     <Compile Include="EventRouter.cs" />
     <Compile Include="InternalsVisibleTo.cs" />
+    <Compile Include="PrivateReflectionDynamicObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

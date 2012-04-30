@@ -67,7 +67,10 @@ namespace Documently.Domain.CommandHandlers.Tests
 		{
 			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
 					.WithAnyArguments()
-					.Invokes(fake => yieldedEvents.AddRange(((EventAccessor)fake.Arguments[0]).Events.GetUncommitted()));
+                    .Invokes(fake => { yieldedEvents.Clear();
+                                         yieldedEvents.AddRange(
+                                             ((EventAccessor) fake.Arguments[0]).Events.GetUncommitted());
+                    });
 		}
 	}
 
@@ -87,21 +90,22 @@ namespace Documently.Domain.CommandHandlers.Tests
 			handler.Consume(a_command<RegisterNew>(new MsgImpl.RegisterNew
 			{
 				AggregateId = NewId.Next(),
-				CustomerName = "Henrik F",
-				PhoneNumber = "+46727344868",
+				CustomerName = "Christian J",
+				PhoneNumber = "+46555666777",
 				Address = new MsgImpl.Address
 					{
-						Street = "Drottninggatan",
+						Street = "Strandvägen",
 						StreetNumber = 108,
 						PostalCode = "113 60",
 						City = "Stockholm"
-					}
+					},
+                    Version = 1U
 			}));
 
 		It should_yield_customer_registered = () => yieldedEvents.ShouldContain<Registered>();
 		It should_specify_correct_number = () => 
 			yieldedEvents.ShouldContain<Registered>(r =>
-				r.PhoneNumber.ShouldEqual("+46727344868"));
+                r.PhoneNumber.ShouldEqual("+46555666777"));
 
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
 		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;

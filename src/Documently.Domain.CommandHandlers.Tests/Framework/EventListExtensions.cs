@@ -18,7 +18,7 @@ using Documently.Messages;
 using Machine.Specifications;
 using Magnum.Extensions;
 
-namespace Documently.Domain.CommandHandlers.Tests
+namespace Documently.Domain.CommandHandlers.Tests.Framework
 {
 	public static class EventListExtensions
 	{

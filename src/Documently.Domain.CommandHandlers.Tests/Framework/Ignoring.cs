@@ -1,7 +1,7 @@
 using System;
 using MassTransit.Util;
 
-namespace Documently.Domain.CommandHandlers.Tests
+namespace Documently.Domain.CommandHandlers.Tests.Framework
 {
 	static class Ignoring
 	{

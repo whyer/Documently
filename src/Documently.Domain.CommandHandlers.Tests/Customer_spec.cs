@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Documently.Domain.CommandHandlers.ForCustomer;
 using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Domain.CommandHandlers.Tests.Behaviors;
+using Documently.Domain.CommandHandlers.Tests.Framework;
 using Documently.Messages;
 using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
@@ -32,48 +33,6 @@ using System.Linq;
 
 namespace Documently.Domain.CommandHandlers.Tests
 {
-	public class Handler_and_Aggregate_spec
-	{
-		protected static DomainRepository repo;
-		protected static List<DomainEvent> yieldedEvents = new List<DomainEvent>();
-
-		Establish context = () =>
-			{
-				repo = A.Fake<DomainRepository>();
-			};
-
-		protected static void has_seen_events<TAr>(params DomainEvent[] evtSeen)
-			where TAr : class, EventAccessor, AggregateRoot
-		{
-			if (repo == null) throw new SpecificationException("call setup_repository_for<MyAr>(); before has_seen_events");
-			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
-			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
-			var aggregateId = evtSeen.First().AggregateId;
-			var maxVersion = evtSeen.Max(e => e.Version);
-			A.CallTo(() => repo.GetById<TAr>(aggregateId, maxVersion)).Returns(ar as TAr);
-		}
-
-		protected static IConsumeContext<T> a_command<T>(T command)
-			where T : class
-		{
-			var consumeContext = A.Fake<IConsumeContext<T>>();
-			A.CallTo(() => consumeContext.MessageId).Returns(NewId.Next().ToString());
-			A.CallTo(() => consumeContext.Message).Returns(command);
-			return consumeContext;
-		}
-
-		protected static void setup_repository_for<TAr>()
-			where TAr : class, AggregateRoot, EventAccessor
-		{
-			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
-					.WithAnyArguments()
-                    .Invokes(fake => { yieldedEvents.Clear();
-                                         yieldedEvents.AddRange(
-                                             ((EventAccessor) fake.Arguments[0]).Events.GetUncommitted());
-                    });
-		}
-	}
-
 	[Subject(typeof (Customer))]
 	public class when_registering_new
 		: Handler_and_Aggregate_spec
@@ -99,13 +58,13 @@ namespace Documently.Domain.CommandHandlers.Tests
 						PostalCode = "113 60",
 						City = "Stockholm"
 					},
-                    Version = 1U
+				Version = 1U
 			}));
 
 		It should_yield_customer_registered = () => yieldedEvents.ShouldContain<Registered>();
 		It should_specify_correct_number = () => 
 			yieldedEvents.ShouldContain<Registered>(r =>
-                r.PhoneNumber.ShouldEqual("+46555666777"));
+				r.PhoneNumber.ShouldEqual("+46555666777"));
 
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
 		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;
@@ -151,5 +110,52 @@ namespace Documently.Domain.CommandHandlers.Tests
 		Behaves_like<Event_versions_are_greater_than_zero> should_specify_versions_above_zero;
 		Behaves_like<Event_versions_are_monotonically_increasing> should_specify_monotonically_increasing_versions;
 		Behaves_like<Events_has_non_default_aggregate_root_id> should_have_non_default_ar_ids;
+	}
+
+	public abstract class Handler_and_Aggregate_spec
+	{
+		// just read the method names of this class when starting out,
+		// the actual specs are further down.
+
+		protected static DomainRepository repo;
+		protected static List<DomainEvent> yieldedEvents = new List<DomainEvent>();
+
+		Establish context = () =>
+			{
+				repo = A.Fake<DomainRepository>();
+			};
+
+		protected static void has_seen_events<TAr>(params DomainEvent[] evtSeen)
+			where TAr : class, EventAccessor, AggregateRoot
+		{
+			if (repo == null) throw new SpecificationException("call setup_repository_for<MyAr>(); before has_seen_events");
+			var ar = (EventAccessor)FastActivator.Create(typeof(TAr));
+			evtSeen.ToList().ForEach(ar.Events.ApplyEvent);
+			var aggregateId = evtSeen.First().AggregateId;
+			var maxVersion = evtSeen.Max(e => e.Version);
+			A.CallTo(() => repo.GetById<TAr>(aggregateId, maxVersion)).Returns(ar as TAr);
+		}
+
+		protected static IConsumeContext<T> a_command<T>(T command)
+			where T : class
+		{
+			var consumeContext = A.Fake<IConsumeContext<T>>();
+			A.CallTo(() => consumeContext.MessageId).Returns(NewId.Next().ToString());
+			A.CallTo(() => consumeContext.Message).Returns(command);
+			return consumeContext;
+		}
+
+		protected static void setup_repository_for<TAr>()
+			where TAr : class, AggregateRoot, EventAccessor
+		{
+			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
+				.WithAnyArguments()
+				.Invokes(fake =>
+					{
+						yieldedEvents.Clear();
+						yieldedEvents.AddRange(
+							((EventAccessor)fake.Arguments[0]).Events.GetUncommitted());
+					});
+		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Documently.Messages;
+using Documently.Domain.CommandHandlers.Tests.Framework;
 using EventStore;
 using EventStore.Persistence;
 using FakeItEasy;

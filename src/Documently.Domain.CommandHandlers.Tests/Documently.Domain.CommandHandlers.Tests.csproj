@@ -76,8 +76,8 @@
     <Compile Include="Behaviors\Event_versions_are_monotonically_increasing.cs" />
     <Compile Include="CustomerTestFactory.cs" />
     <Compile Include="Customer_spec.cs" />
-    <Compile Include="EventListExtensions.cs" />
-    <Compile Include="Ignoring.cs" />
+    <Compile Include="Framework\EventListExtensions.cs" />
+    <Compile Include="Framework\Ignoring.cs" />
     <Compile Include="MsgImpl\Address.cs" />
     <Compile Include="MsgImpl\RegisterNew.cs" />
     <Compile Include="MsgImpl\Relocate.cs" />

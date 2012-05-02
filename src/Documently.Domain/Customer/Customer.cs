@@ -11,24 +11,24 @@ namespace Documently.Domain
 		: Registered
 	{
 		public NewId AggregateId { get; set; }
-		public uint Version { get;  set; }
+		public uint Version { get; set; }
 		public string CustomerName { get; set; }
 		public Messages.CustDtos.Address Address { get; set; }
 		public string PhoneNumber { get; set; }
 	}
 
-    /// <summary>
-    /// internal small classes that are simple event interface implementations
-    /// </summary>
-    class RelocatedImpl : Relocated
-    {
-        public NewId AggregateId { get; set; }
-        public uint Version { get; set; }
-        public string Street { get; set; }
-        public uint StreetNumber { get; set; }
-        public string PostalCode { get; set; }
-        public string City { get; set; }
-    }
+	/// <summary>
+	/// internal small classes that are simple event interface implementations
+	/// </summary>
+	class RelocatedImpl : Relocated
+	{
+		public NewId AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string Street { get; set; }
+		public uint StreetNumber { get; set; }
+		public string PostalCode { get; set; }
+		public string City { get; set; }
+	}
 
 	public class Customer : AggregateRoot, EventAccessor
 	{

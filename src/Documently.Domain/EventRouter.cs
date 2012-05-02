@@ -14,7 +14,7 @@ namespace Documently.Domain
 		private EventRouter([NotNull] AggregateRoot instance)
 		{
 			if (instance == null) throw new ArgumentNullException("instance");
-			_instance = instance;
+		    _instance = PrivateReflectionDynamicObject.WrapObjectIfNeeded(instance);
 		}
 
 		public void ApplyEvent<T>(T evt) where T : DomainEvent

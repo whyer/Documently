@@ -17,6 +17,19 @@ namespace Documently.Domain
 		public string PhoneNumber { get; set; }
 	}
 
+    /// <summary>
+    /// internal small classes that are simple event interface implementations
+    /// </summary>
+    class RelocatedImpl : Relocated
+    {
+        public NewId AggregateId { get; set; }
+        public uint Version { get; set; }
+        public string Street { get; set; }
+        public uint StreetNumber { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+    }
+
 	public class Customer : AggregateRoot, EventAccessor
 	{
 		private readonly EventRouter _eventRouter;
@@ -46,7 +59,7 @@ namespace Documently.Domain
 				throw new NonExistingCustomerException(
 					"The customer is not created and no opperations can be executed on it");
 
-			this.Raise<Customer, Relocated>(new
+			this.Raise<Customer, Relocated>(new RelocatedImpl()
 				{
 					AggregateId = Id,
 					Street = street,

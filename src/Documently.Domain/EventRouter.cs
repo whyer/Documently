@@ -34,6 +34,7 @@ namespace Documently.Domain
 				throw new ArgumentException("The event needs to increment the aggregate's version by one.");
 			
 			_raisedEvents.Add(e);
+			_instance.Apply(e);
 		}
 
 		[NotNull]

@@ -1,2 +1,2 @@
-﻿module Module1
+﻿module MetadataTests
 

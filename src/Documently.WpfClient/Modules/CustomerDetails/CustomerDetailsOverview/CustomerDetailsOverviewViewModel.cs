@@ -1,7 +1,6 @@
 using System;
 using Caliburn.Micro;
 using Documently.ReadModel;
-using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 {

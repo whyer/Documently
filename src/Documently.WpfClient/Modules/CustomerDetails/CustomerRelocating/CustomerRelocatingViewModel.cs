@@ -19,7 +19,6 @@ using Documently.Messages.CustDtos;
 using Documently.ReadModel;
 using Documently.WpfClient.ApplicationFramework;
 using Documently.WpfClient.CommandValidation;
-using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 {

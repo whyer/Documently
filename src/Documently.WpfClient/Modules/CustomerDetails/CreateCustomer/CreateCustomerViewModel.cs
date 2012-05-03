@@ -1,11 +1,9 @@
-using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
 using Documently.WpfClient.Commands;
 using Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating;
 using Magnum;
-using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 {

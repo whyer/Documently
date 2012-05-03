@@ -16,10 +16,14 @@ Once both RavenDB and the *Domain Service* are started without error messages, s
 
 ## TODO for v2
 
- * StateBox for union and ordinary event stream merging when eventually consistent **event store** (different from the often spoken about eventual consistency of read models) - this would allow you to use Riak and other master-master type events stores and also handle for example event-stores in different countries/data centers in which case net-splits between stores may occurr.
+ * StateBox-like for union and ordinary event stream merging when eventually consistent **event store** (different from the often spoken about eventual consistency of read models) - this would allow you to use Riak and other master-master type events stores and also handle for example event-stores in different countries/data centers in which case net-splits between stores may occurr.
+ * Document upload in user interface
+ * Document listing in user interface
+ * Document details in user interface
+ * Document search in user interface
  * <del>All messages interfaces + proper infrastructure</del>
- * Do away with complex unit testing procedures
- * Better cohesion in code base by avoiding inheritance and using value objects to a greater extent and having infrastructure that is only used with command handlers in that specific assembly (that may take a couple of dependencies on infrastructure)
+ * <del>Do away with complex unit testing procedures</del>
+ * <del>Better cohesion in code base by avoiding inheritance and using value objects to a greater extent and having infrastructure that is only used with command handlers in that specific assembly (that may take a couple of dependencies on infrastructure)</del>
  * <del>Better naming of commands and events based on experience with too-long-names</del>
  * <del>Better documentation for each folder</del>
  * <del>Using dynamic instead of CommonDomain</del>

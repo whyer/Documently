@@ -103,21 +103,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Magnum.2.0.0.4\lib\NET40\Magnum.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MassTransit, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.5.0-prerelease\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.MSMQ, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MassTransit.Transports.MSMQ, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.2.1.0\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.5.0-prerelease\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Transports.RabbitMq, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MassTransit.Transports.RabbitMq, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.1.0\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.5.0-prerelease\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.WindsorIntegration, Version=2.1.408.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MassTransit.WindsorIntegration, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MassTransit.CastleWindsor.2.1.0\lib\net40\MassTransit.WindsorIntegration.dll</HintPath>
+      <HintPath>..\packages\MassTransit.CastleWindsor.2.5.0-prerelease\lib\net40\MassTransit.WindsorIntegration.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -126,9 +126,9 @@
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="RabbitMQ.Client, Version=2.7.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+    <Reference Include="RabbitMQ.Client, Version=2.8.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RabbitMQ.Client.2.7.1\lib\net30\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\packages\RabbitMQ.Client.2.8.1\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.1.0.701\lib\net40\Raven.Abstractions.dll</HintPath>

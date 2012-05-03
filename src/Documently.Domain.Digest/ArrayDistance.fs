@@ -1,4 +1,4 @@
-﻿module StringDistance
+﻿module ArrayDistance
 
 /// Calcs the Damerau Levenshtein Distance (http://en.wikipedia.org/wiki/Damerau-Levenshtein_distance)
 /// In information theory and computer science, the Damerau–Levenshtein distance 

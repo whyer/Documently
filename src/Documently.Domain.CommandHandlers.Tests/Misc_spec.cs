@@ -11,13 +11,15 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using MassTransit;
 using NUnit.Framework;
 using System.Linq;
 
 namespace Documently.Domain.CommandHandlers.Tests
 {
-	public class Misc_spec
+	public class NextId_spec
 	{
 		[Test]
 		public void nextids_not_equal()
@@ -34,6 +36,19 @@ namespace Documently.Domain.CommandHandlers.Tests
 		{
 			for (int i = 0; i < 10000; i++)
 				nextids_not_equal();
+		}
+
+		[Test]
+		public void is_it_serializable()
+		{
+			NewId id2;
+			var id = NewId.Next();
+			using (var ms = new MemoryStream())
+			{
+				new BinaryFormatter().Serialize(ms, id);
+				id2 = new NewId(ms.ToArray());
+			}
+			id2.ToByteArray().SequenceEqual(id.ToByteArray());
 		}
 	}
 }

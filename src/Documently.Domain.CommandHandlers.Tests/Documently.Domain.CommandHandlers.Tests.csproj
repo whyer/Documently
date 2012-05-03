@@ -79,6 +79,7 @@
     <Compile Include="EventRouter_spec.cs" />
     <Compile Include="Framework\EventListExtensions.cs" />
     <Compile Include="Framework\Ignoring.cs" />
+    <Compile Include="Misc_spec.cs" />
     <Compile Include="MsgImpl\Address.cs" />
     <Compile Include="MsgImpl\RegisterNew.cs" />
     <Compile Include="MsgImpl\Relocate.cs" />

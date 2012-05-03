@@ -26,7 +26,7 @@ namespace Documently.Domain
 			_events = EventRouter.For(this);
 		}
 
-		public DocMeta(NewId id, string title, DateTime utcCreated)
+		public DocMeta(Guid id, string title, DateTime utcCreated)
 			: this()
 		{
 			this.Raise<DocMeta, Created>(new
@@ -42,7 +42,7 @@ namespace Documently.Domain
 			Id = evt.AggregateId;
 		}
 
-		public NewId Id { get; private set; }
+		public Guid Id { get; private set; }
 		public uint Version { get; private set; }
 
 		private Uri _dataUri;
@@ -65,7 +65,7 @@ namespace Documently.Domain
 			_dataUri = evt.Data;
 		}
 
-		public void AssociateWithCollection(NewId collectionId)
+		public void AssociateWithCollection(Guid collectionId)
 		{
 			this.Raise<DocMeta, AssociatedWithCollection>(new
 				{

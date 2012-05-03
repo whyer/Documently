@@ -24,10 +24,10 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 {
 	public interface DomainRepository
 	{
-		T GetById<T>(NewId aggregateId, uint version)
+		T GetById<T>(Guid aggregateId, uint version)
 			where T : class, AggregateRoot, EventAccessor;
 
-		void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
+		void Save<T>(T aggregate, Guid commitId, IDictionary<string, string> headers)
 			where T : class, AggregateRoot, EventAccessor;
 	}
 
@@ -51,12 +51,12 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			_retryPolicy = retryPolicy;
 		}
 
-		public T GetById<T>(NewId aggregateId, uint version)
+		public T GetById<T>(Guid aggregateId, uint version)
 			where T : class, AggregateRoot, EventAccessor
 		{
 			try
 			{
-				var stream = _eventStore.OpenStream(aggregateId.ToGuid(), 0, checked((int) version));
+				var stream = _eventStore.OpenStream(aggregateId, 0, checked((int) version));
 				var ar = _factory.Build(typeof (T), aggregateId, null) as T;
 
 				foreach (var evt in stream.CommittedEvents)
@@ -72,17 +72,17 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			}
 		}
 
-		public void Save<T>(T aggregate, NewId commitId, IDictionary<string, string> headers)
+		public void Save<T>(T aggregate, Guid commitId, IDictionary<string, string> headers)
 			where T : class, AggregateRoot, EventAccessor
 		{
 			_retryPolicy.Do(() =>
 				{
-					var stream = _eventStore.OpenStream(aggregate.Id.ToGuid(), 0, int.MaxValue);
+					var stream = _eventStore.OpenStream(aggregate.Id, 0, int.MaxValue);
 					EventAccessor accessor = aggregate;
 					accessor.WriteToStream(stream);
 					try
 					{
-						stream.CommitChanges(commitId.ToGuid());
+						stream.CommitChanges(commitId);
 					}
 					catch (DuplicateCommitException)
 					{

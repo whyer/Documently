@@ -1,4 +1,5 @@
-﻿using Documently.Messages;
+﻿using System;
+using Documently.Messages;
 using Documently.Messages.DocCollectionEvents;
 using Magnum;
 using MassTransit;
@@ -19,7 +20,7 @@ namespace Documently.Domain
 		{
 			this.Raise<DocumentCollection, Created>(new
 				{
-					Id = NewId.Next(),
+					Id = CombGuid.Generate(),
 					Name = collectionName
 				});
 		}
@@ -42,7 +43,7 @@ namespace Documently.Domain
 			throw new System.NotImplementedException();
 		}
 
-		public NewId Id { get; private set; }
+		public Guid Id { get; private set; }
 		public uint Version { get; private set; }
 
 		public EventRouter Events

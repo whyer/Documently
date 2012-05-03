@@ -11,18 +11,18 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using Documently.Messages;
-using MassTransit;
 
 namespace Documently.Infrastructure.Misc
 {
 	public class EventDescriptor
 	{
 		public readonly DomainEvent EventData;
-		public readonly NewId Id;
+		public readonly Guid Id;
 		public readonly int Version;
 
-		public EventDescriptor(NewId aggregateId, DomainEvent eventData, int version)
+		public EventDescriptor(Guid aggregateId, DomainEvent eventData, int version)
 		{
 			EventData = eventData;
 			Version = version;

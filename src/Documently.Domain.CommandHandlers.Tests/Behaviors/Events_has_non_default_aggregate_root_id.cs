@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Documently.Messages;
 using Machine.Specifications;
-using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.Tests.Behaviors
 {
@@ -14,6 +14,6 @@ namespace Documently.Domain.CommandHandlers.Tests.Behaviors
 		It should_have_non_default_ar_ids = () =>
 		                                    yieldedEvents
 		                                    	.ToList()
-		                                    	.ForEach(e => e.AggregateId.ShouldNotEqual(NewId.Empty));
+		                                    	.ForEach(e => e.AggregateId.ShouldNotEqual(Guid.Empty));
 	}
 }

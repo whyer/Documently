@@ -17,7 +17,7 @@ using MassTransit;
 namespace Documently.Messages.Indexer
 {
 	public interface IndexingTakingTooLong
-		: CorrelatedBy<NewId>
+		: CorrelatedBy<Guid>
 	{
 	}
 }

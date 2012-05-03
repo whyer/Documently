@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using MassTransit;
 
 namespace Documently.Domain
@@ -20,7 +21,7 @@ namespace Documently.Domain
 		/// <summary>
 		/// Gets the id of the aggregate root
 		/// </summary>
-		NewId Id { get; }
+		Guid Id { get; }
 
 		/// <summary>
 		/// Gets the current aggregate root version. This correspond to the event sequence number.

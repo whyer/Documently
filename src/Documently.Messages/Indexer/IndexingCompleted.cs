@@ -4,8 +4,8 @@ using MassTransit;
 namespace Documently.Messages.Indexer
 {
 	public interface IndexingCompleted
-		: CorrelatedBy<NewId>
+		: CorrelatedBy<Guid>
 	{
-		NewId DocumentId { get; }
+		Guid DocumentId { get; }
 	}
 }

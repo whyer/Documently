@@ -33,7 +33,7 @@ namespace Documently.Domain.CommandHandlers.ForDocCollection
 		{
 			var collection = DocumentCollection.CreateNew(context.Message.Name);
 			var repository = _reposistory();
-			repository.Save(collection, new NewId(context.MessageId),
+			repository.Save(collection, context.GetMessageId(),
 			                context.GetHeaders());
 		}
 	}

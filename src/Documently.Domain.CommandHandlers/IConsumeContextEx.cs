@@ -28,11 +28,11 @@ namespace Documently.Domain.CommandHandlers
 			return context.Headers.ToDictionary(x => x.Key, x => x.Value);
 		}
 
-		public static NewId GetMessageId<T>([NotNull] this IConsumeContext<T> context)
+		public static Guid GetMessageId<T>([NotNull] this IConsumeContext<T> context)
 			where T : class
 		{
 			if (context == null) throw new ArgumentNullException("context");
-			return new NewId(context.MessageId);
+			return new Guid(context.MessageId);
 		}
 	}
 }

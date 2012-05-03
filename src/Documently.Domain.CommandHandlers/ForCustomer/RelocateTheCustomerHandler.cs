@@ -14,6 +14,7 @@
 using System;
 using Documently.Domain.CommandHandlers.Infrastructure;
 using Documently.Messages.CustCommands;
+using Magnum;
 using MassTransit;
 
 namespace Documently.Domain.CommandHandlers.ForCustomer
@@ -33,7 +34,7 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 			var address = message.Message.NewAddress;
 			var customer = repo.GetById<Customer>(message.Message.AggregateId, message.Message.Version);
 			customer.RelocateCustomer(address.Street, address.StreetNumber, address.PostalCode, address.City);
-			repo.Save(customer, NewId.Next(), null);
+			repo.Save(customer, CombGuid.Generate(), null);
 		}
 	}
 }

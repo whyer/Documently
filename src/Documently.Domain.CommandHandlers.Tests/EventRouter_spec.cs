@@ -11,10 +11,11 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using Documently.Messages;
 using Machine.Specifications;
-using MassTransit;
+using Magnum;
 
 namespace Documently.Domain.CommandHandlers.Tests
 {
@@ -29,11 +30,11 @@ namespace Documently.Domain.CommandHandlers.Tests
 			_events = EventRouter.For(this);
 			
 			// invariants
-			Id = NewId.Next();
+			Id = CombGuid.Generate();
 			Version = 1;
 		}
 
-		public NewId Id { get; set; }
+		public Guid Id { get; set; }
 		public uint Version { get; set; }
 
 		// public method, causes state change
@@ -73,7 +74,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 		: UtteredWisdom
 	{
 		public string BossSayz { get; set; }
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 	}
 

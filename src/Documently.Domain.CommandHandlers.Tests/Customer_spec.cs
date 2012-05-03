@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using Documently.Domain.CommandHandlers.ForCustomer;
 using Documently.Domain.CommandHandlers.Infrastructure;
@@ -21,6 +22,7 @@ using Documently.Messages.CustCommands;
 using Documently.Messages.CustEvents;
 using FakeItEasy;
 using Machine.Specifications;
+using Magnum;
 using Magnum.Reflection;
 using MassTransit;
 using System.Linq;
@@ -48,7 +50,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 		Because of = () =>
 			handler.Consume(a_command<RegisterNew>(new MsgImpl.RegisterNew
 			{
-				AggregateId = NewId.Next(),
+				AggregateId = CombGuid.Generate(),
 				CustomerName = "Christian J",
 				PhoneNumber = "+46555666777",
 				Address = new MsgImpl.Address
@@ -75,7 +77,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 	public class When_customer_relocates
 		: Handler_and_Aggregate_spec
 	{
-		static NewId AggregateId = NewId.Next();
+		static Guid AggregateId = CombGuid.Generate();
 
 		static RelocateTheCustomerHandler handler;
 
@@ -140,7 +142,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 			where T : class
 		{
 			var consumeContext = A.Fake<IConsumeContext<T>>();
-			A.CallTo(() => consumeContext.MessageId).Returns(NewId.Next().ToString());
+			A.CallTo(() => consumeContext.MessageId).Returns(CombGuid.Generate().ToString());
 			A.CallTo(() => consumeContext.Message).Returns(command);
 			return consumeContext;
 		}
@@ -148,7 +150,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 		protected static void setup_repository_for<TAr>()
 			where TAr : class, AggregateRoot, EventAccessor
 		{
-			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<NewId>.Ignored, A<IDictionary<string, string>>.Ignored))
+			A.CallTo(() => repo.Save(A<TAr>.Ignored, A<Guid>.Ignored, A<IDictionary<string, string>>.Ignored))
 				.WithAnyArguments()
 				.Invokes(fake =>
 					{

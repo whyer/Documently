@@ -15,7 +15,7 @@ using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.DocMetaCommands;
-using MassTransit;
+using Magnum;
 
 namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 {
@@ -37,7 +37,7 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 		{
 			_bus.Send<Create>(new CreateImpl
 				{
-					AggregateId = NewId.Next(),
+					AggregateId = CombGuid.Generate(),
 					Version = 0,
 					Title = Command.Title,
 					UtcTime = DateTime.UtcNow
@@ -48,7 +48,7 @@ namespace Documently.WpfClient.Modules.DocumentDetails.CreateMeta
 
 	internal class CreateImpl : Create
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string Title { get; set; }
 		public DateTime UtcTime { get; set; }

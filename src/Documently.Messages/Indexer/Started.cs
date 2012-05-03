@@ -17,7 +17,7 @@ using MassTransit;
 namespace Documently.Messages.Indexer
 {
 	public interface Started
-		: CorrelatedBy<NewId>
+		: CorrelatedBy<Guid>
 	{
 	}
 }

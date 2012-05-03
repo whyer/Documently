@@ -1,3 +1,4 @@
+using System;
 using Documently.Messages.CustEvents;
 using MassTransit;
 using MassTransit.Util;
@@ -10,7 +11,7 @@ namespace Documently.Domain
 	class RegisteredImpl
 		: Registered
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
 		public Messages.CustDtos.Address Address { get; set; }
@@ -22,7 +23,7 @@ namespace Documently.Domain
 	/// </summary>
 	class RelocatedImpl : Relocated
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string Street { get; set; }
 		public uint StreetNumber { get; set; }
@@ -40,7 +41,7 @@ namespace Documently.Domain
 			_eventRouter = EventRouter.For(this);
 		}
 
-		private Customer(NewId id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
+		private Customer(Guid id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 			: this()
 		{
 			this.Raise<Customer, Registered>(new RegisteredImpl
@@ -55,7 +56,7 @@ namespace Documently.Domain
 
 		public void RelocateCustomer(string street, uint streetNumber, string postalCode, string city)
 		{
-			if (Id == NewId.Empty)
+			if (Id == Guid.Empty)
 				throw new NonExistingCustomerException(
 					"The customer is not created and no opperations can be executed on it");
 
@@ -70,7 +71,7 @@ namespace Documently.Domain
 				});
 		}
 
-		public NewId Id { get; private set; }
+		public Guid Id { get; private set; }
 		public uint Version { get; private set; }
 
 		[UsedImplicitly]
@@ -91,7 +92,7 @@ namespace Documently.Domain
 			get { return _eventRouter; }
 		}
 
-		public static Customer CreateNew(NewId id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
+		public static Customer CreateNew(Guid id, CustomerName customerName, Address address, PhoneNumber phoneNumber)
 		{
 			return new Customer(id, customerName, address, phoneNumber);
 		}

@@ -54,7 +54,7 @@ namespace Documently.App
 				var bus = _container.Resolve<IServiceBus>();
 				_domainService = bus.GetEndpoint(new Uri(Keys.DomainServiceEndpoint));
 
-				var customerId = NewId.Next();
+				Guid customerId = CombGuid.Generate();
 
 				Console.WriteLine("create new customer by pressing a key");
 				Console.ReadKey(true);
@@ -109,7 +109,7 @@ namespace Documently.App
 			}
 		}
 
-		private void RegisterNewCustomer(NewId aggregateId)
+		private void RegisterNewCustomer(Guid aggregateId)
 		{
 			_domainService.Send<Create>(new CreateCustImpl
 				{
@@ -128,7 +128,7 @@ namespace Documently.App
 				});
 		}
 
-		private void RelocateCustomer(NewId customerId, uint prevVersion)
+		private void RelocateCustomer(Guid customerId, uint prevVersion)
 		{
 			_domainService.Send<RelocateTheCustomer>(new RelocateImpl
 				{
@@ -152,14 +152,14 @@ namespace Documently.App
 
 	class RelocateImpl : RelocateTheCustomer
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public Address NewAddress { get; set; }
 	}
 
 	class CreateCustImpl : RegisterNew
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
 		public string PhoneNumber { get; set; }

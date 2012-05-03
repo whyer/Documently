@@ -10,14 +10,14 @@ namespace Documently.ReadModel
 			get { return GetDtoIdOf(AggregateId, GetType()); }
 		}
 
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 
-		public static string GetDtoIdOf<T>(NewId id) where T : Dto
+		public static string GetDtoIdOf<T>(Guid id) where T : Dto
 		{
 			return GetDtoIdOf(id, typeof (T));
 		}
 
-		public static string GetDtoIdOf(NewId id, Type type)
+		public static string GetDtoIdOf(Guid id, Type type)
 		{
 			return type.Name + "/" + id;
 		}

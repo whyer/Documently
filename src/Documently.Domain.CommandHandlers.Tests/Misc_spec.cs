@@ -19,6 +19,10 @@ using MassTransit;
 using NUnit.Framework;
 using System.Linq;
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable ClassNeverInstantiated.Local
+// ReSharper disable UnusedMember.Global
+
 namespace Documently.Domain.CommandHandlers.Tests
 {
 	public class NextId_spec
@@ -50,7 +54,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 				new BinaryFormatter().Serialize(ms, id);
 				id2 = new NewId(ms.ToArray());
 			}
-			id2.ToByteArray().SequenceEqual(id.ToByteArray());
+			Assert.That(id2.ToByteArray().SequenceEqual(id.ToByteArray()));
 		}
 
 		[Test, Description("Related to https://github.com/joliver/EventStore/issues/112")]

@@ -5,6 +5,7 @@ using EventStore.Persistence;
 using FakeItEasy;
 using Machine.Specifications;
 using Documently.Domain.CommandHandlers.Infrastructure;
+using Magnum;
 using Magnum.Policies;
 using MassTransit;
 using MassTransit.Util;
@@ -43,7 +44,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 			_router = EventRouter.For(this);
 		}
 
-		public NewId Id { get; set; }
+		public Guid Id { get; set; }
 		public uint Version { get; set; }
 
 		public EventRouter Events
@@ -59,7 +60,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 	[Subject(typeof (EventStoreRepository))]
 	public class when_getting_non_existent_entity_by_id
 	{
-		static NewId commitId;
+		static Guid commitId;
 		static EventStoreRepository subject;
 
 		static IStoreEvents eventStore;
@@ -67,7 +68,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 
 		Establish context = () =>
 			{
-				commitId = NewId.Next();
+				commitId = CombGuid.Generate();
 				eventStore = A.Fake<IStoreEvents>(); 
 				stream = A.Fake<IEventStream>();
 
@@ -111,7 +112,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 			};
 
 		Because of = () => Ignoring.Exception<StorageUnavailableException>(
-			() => subject.Save(new DummyAr(), NewId.Next(), null));
+			() => subject.Save(new DummyAr(), CombGuid.Generate(), null));
 
 		It should_open_stream = () =>
 			A.CallTo(() =>

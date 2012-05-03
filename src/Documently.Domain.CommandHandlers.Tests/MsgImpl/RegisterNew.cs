@@ -11,14 +11,14 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using MassTransit;
+using System;
 
 namespace Documently.Domain.CommandHandlers.Tests.MsgImpl
 {
 	class RegisterNew
 		: Messages.CustCommands.RegisterNew
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public string CustomerName { get; set; }
 		public string PhoneNumber { get; set; }

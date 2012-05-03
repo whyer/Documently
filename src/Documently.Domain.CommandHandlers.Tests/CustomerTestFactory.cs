@@ -1,3 +1,4 @@
+using System;
 using Documently.Messages.CustEvents;
 using MassTransit;
 
@@ -5,7 +6,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 {
 	static class CustomerTestFactory
 	{
-		public static Registered Registered(NewId arId)
+		public static Registered Registered(Guid arId)
 		{
 			return new RegisteredImpl
 				{

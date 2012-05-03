@@ -11,13 +11,13 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using MassTransit;
+using System;
 
 namespace Documently.Domain
 {
 	public class User : AggregateRoot
 	{
-		public NewId Id { get; private set; }
+		public Guid Id { get; private set; }
 		public uint Version { get; private set; }
 	}
 }

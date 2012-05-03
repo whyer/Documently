@@ -1,8 +1,10 @@
+using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
 using Documently.WpfClient.Commands;
 using Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating;
+using Magnum;
 using MassTransit;
 
 namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
@@ -19,7 +21,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CreateCustomer
 			Command = new RegisterNewImpl
 				{
 					Version = 0,
-					AggregateId = NewId.Next(),
+					AggregateId = CombGuid.Generate(),
 					Address = new AddressImpl()
 				};
 		}

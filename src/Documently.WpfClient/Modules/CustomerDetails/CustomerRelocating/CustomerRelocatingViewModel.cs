@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using Caliburn.Micro;
 using Documently.Infrastructure;
 using Documently.Messages.CustCommands;
@@ -37,7 +38,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 			Validator = new RelocateTheCustomerValidator();
 		}
 
-		public void WithCustomer(NewId customerId)
+		public void WithCustomer(Guid customerId)
 		{
 			ViewModel = _readRepository.GetById<CustomerAddressDto>(Dto.GetDtoIdOf<CustomerAddressDto>(customerId));
 
@@ -91,7 +92,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerRelocating
 
 	internal class RelocateImpl : RelocateTheCustomer
 	{
-		public NewId AggregateId { get; set; }
+		public Guid AggregateId { get; set; }
 		public uint Version { get; set; }
 		public Address NewAddress { get; set; }
 	}

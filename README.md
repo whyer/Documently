@@ -6,7 +6,14 @@ A higher-level description of the architecture is available at the [Jayway Archi
 
 ## Getting started
 
-First, start the event-store and view-store - RavenDB.Server, in this case. It can be found in `src\packages\RavenDB.1.x.x\server`. Once this is done, install [RabbitMQ](http://www.rabbitmq.com/download.html)
+First with git:
+```
+git clone https://github.com/haf/Documently.git
+git submodule init
+```
+then:
+
+Start the event-store and view-store - RavenDB.Server, in this case. It can be found in `src\packages\RavenDB.1.x.x\server`. Once this is done, install [RabbitMQ](http://www.rabbitmq.com/download.html)
 
 There are two sample clients: one WPF Client with a nice UI and one console application for a quick start. Before using them, you need to compile the solution and start the `Documently.Domain.Service` console application. This is the domain service that handles the domain logic and broadcasts the (domain) events.
 

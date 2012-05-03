@@ -47,7 +47,7 @@ task :ensure_modules do
 end
 
 desc "build sln file"
-msbuild :msbuild => [:assemblyinfo, :ensure_packages] do |msb|
+msbuild :msbuild => [:assemblyinfo, :ensure_packages, :ensure_modules] do |msb|
   msb.solution   = FILES[:sln]
   msb.properties :Configuration => CONFIGURATION
   msb.targets    :Clean, :Build

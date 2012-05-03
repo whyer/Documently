@@ -11,6 +11,8 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using MassTransit;
@@ -38,7 +40,7 @@ namespace Documently.Domain.CommandHandlers.Tests
 				nextids_not_equal();
 		}
 
-		[Test]
+		[Test, Description("Related to https://groups.google.com/forum/#!msg/masstransit-discuss/hIBg9eaj1Zk/khk0xwxQ55YJ")]
 		public void is_it_serializable()
 		{
 			NewId id2;
@@ -49,6 +51,23 @@ namespace Documently.Domain.CommandHandlers.Tests
 				id2 = new NewId(ms.ToArray());
 			}
 			id2.ToByteArray().SequenceEqual(id.ToByteArray());
+		}
+
+		[Test, Description("Related to https://github.com/joliver/EventStore/issues/112")]
+		public void Assignable()
+		{
+			Assert.That(X<IEnumerable<A>>(), Is.True);
+			Assert.That(X<List<A>>(), Is.False);
+		}
+
+		static bool X<T>()
+		{
+			//return typeof(IEnumerable).IsAsysignableFrom(typeof(T));
+			return typeof (T).IsInterface && typeof (IEnumerable).IsAssignableFrom(typeof (T));
+		}
+
+		class A
+		{
 		}
 	}
 }

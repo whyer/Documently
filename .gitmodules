@@ -1,0 +1,3 @@
+[submodule "src/vendor/LibSvmSharp"]
+	path = src/vendor/LibSvmSharp
+	url = https://github.com/haf/LibSvmSharp.git

@@ -23,7 +23,7 @@ using System.Linq;
 // ReSharper disable ClassNeverInstantiated.Local
 // ReSharper disable UnusedMember.Global
 
-namespace Documently.Domain.CommandHandlers.Tests
+namespace Documently.Domain.CommandHandlers.Tests.Assumptions
 {
 	public class NextId_spec
 	{

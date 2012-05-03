@@ -42,6 +42,10 @@ task :ensure_packages do
   end
 end
 
+task :ensure_modules do
+  `git submodule init`
+end
+
 desc "build sln file"
 msbuild :msbuild => [:assemblyinfo, :ensure_packages] do |msb|
   msb.solution   = FILES[:sln]

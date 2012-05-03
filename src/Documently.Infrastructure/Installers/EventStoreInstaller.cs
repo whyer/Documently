@@ -4,6 +4,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EventStore;
 using EventStore.Dispatcher;
+using EventStore.Logging.NLog;
 using EventStore.Persistence;
 using EventStore.Serialization;
 using Magnum.Extensions;
@@ -39,6 +40,7 @@ namespace Documently.Infrastructure.Installers
 						{
 							var policy = k.Resolve<ExceptionPolicy>("eventstore");
 							var wup = Wireup.Init()
+								.LogTo(t => new NLogLogger(t))
 								.UsingAsynchronousDispatchScheduler(k.Resolve<IDispatchCommits>())
 								.UsingRavenPersistence(Keys.RavenDbConnectionStringName)
 									.ConsistentQueries()

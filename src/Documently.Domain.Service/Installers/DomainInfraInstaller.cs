@@ -15,6 +15,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Documently.Domain.CommandHandlers.Infrastructure;
+using Magnum.Policies;
 
 namespace Documently.Domain.Service.Installers
 {
@@ -24,7 +25,7 @@ namespace Documently.Domain.Service.Installers
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
 			container.Register(
-				C<DomainRepository, EventStoreRepository>(),
+				C<DomainRepository, EventStoreRepository>().DependsOn((a,b) => a.Resolve<ExceptionPolicy>("eventstore")),
 				C<AggregateRootFactory, AggregateFactory>());//,
 				//C<IDetectConflicts, ConflictDetector>());
 		}

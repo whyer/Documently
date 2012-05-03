@@ -47,6 +47,9 @@
     <Reference Include="EventStore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
     </Reference>
+    <Reference Include="EventStore.Logging.NLog">
+      <HintPath>..\packages\EventStore.Logging.NLog.3.0.11326.44\lib\net40\EventStore.Logging.NLog.dll</HintPath>
+    </Reference>
     <Reference Include="EventStore.Persistence.RavenPersistence, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\packages\EventStore.Persistence.RavenPersistence.3.0.11326.44\lib\net40\EventStore.Persistence.RavenPersistence.dll</HintPath>
     </Reference>

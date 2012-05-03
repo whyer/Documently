@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Documently.Messages;
 using EventStore;
 using Magnum.Policies;
@@ -77,9 +78,34 @@ namespace Documently.Domain.CommandHandlers.Infrastructure
 			_retryPolicy.Do(() =>
 				{
 					var stream = _eventStore.OpenStream(aggregate.Id.ToGuid(), 0, int.MaxValue);
-					stream.Add(new EventMessage());
-					stream.CommitChanges(commitId.ToGuid());
+					EventAccessor accessor = aggregate;
+					accessor.WriteToStream(stream);
+					try
+					{
+						stream.CommitChanges(commitId.ToGuid());
+					}
+					catch (DuplicateCommitException)
+					{
+						// ignore, we're OK!
+					}
+					catch (ConcurrencyException)
+					{
+						// possible merge?
+					}
 				});
+		}
+	}
+
+	public static class EventAccessorEx
+	{
+		public static void WriteToStream(this EventAccessor accessor, IEventStream stream, IDictionary<string, object> headers = null)
+		{
+			foreach (var e in accessor.Events.GetUncommitted())
+			{
+				var toSave = new EventMessage {Body = e};
+				if (headers != null) headers.ToList().ForEach(kv => toSave.Headers.Add(kv.Key, kv.Value));
+				stream.Add(toSave);
+			}
 		}
 	}
 }

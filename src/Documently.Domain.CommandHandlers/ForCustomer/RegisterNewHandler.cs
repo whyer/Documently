@@ -31,7 +31,6 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 
 		public void Consume(IConsumeContext<RegisterNew> context)
 		{
-			var repo = _repository();
 			var command = context.Message;
 
 			var client = Customer.CreateNew(command.AggregateId, new CustomerName(command.CustomerName),
@@ -39,6 +38,7 @@ namespace Documently.Domain.CommandHandlers.ForCustomer
 			                                            command.Address.PostalCode, command.Address.City),
 			                                new PhoneNumber(command.PhoneNumber));
 
+			var repo = _repository();
 			repo.Save(client, context.GetMessageId(), context.GetHeaders());
 		}
 	}

@@ -34,7 +34,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\FSharp\1.0\Microsoft.FSharp.Targets" Condition="!Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
   <ItemGroup>
-    <None Include="Script.fsx" />
     <Compile Include="IndexerServices.fs" />
     <Compile Include="Helpers.fs" />
     <Compile Include="Program.fs" />
@@ -42,34 +41,31 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="CommonDomain">
-      <HintPath>..\packages\CommonDomain.1.2.2\lib\net40\CommonDomain.dll</HintPath>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Name>Documently.Messages</Name>
+      <Project>{eee89c0c-f925-4320-9e50-b252633cf941}</Project>
       <Private>True</Private>
-    </Reference>
+    </ProjectReference>
     <Reference Include="EventStore">
-      <HintPath>..\packages\EventStore.3.0.11293.43\lib\net40\EventStore.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magnum">
-      <HintPath>..\packages\Magnum.2.0.0.2\lib\NET40\Magnum.dll</HintPath>
+      <HintPath>..\packages\Magnum.2.0.0.4\lib\NET40\Magnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit">
-      <HintPath>..\packages\MassTransit.2.0.1.0\lib\net40\MassTransit.dll</HintPath>
+      <HintPath>..\packages\MassTransit.2.5.0-prerelease\lib\net40\MassTransit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
-      <HintPath>..\packages\MassTransit.RabbitMQ.2.0.1.0\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\MassTransit.RabbitMQ.2.5.0-prerelease\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="RabbitMQ.Client">
-      <HintPath>..\packages\RabbitMQ.Client.2.6.1\lib\net30\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\packages\RabbitMQ.Client.2.8.1\lib\net30\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -20,7 +20,7 @@ namespace Documently.WpfClient.Modules.CustomerDetails.CustomerDetailsOverview
 
 		public Guid GetCustomerId()
 		{
-			return ViewModel.AggregateRootId;
+			return ViewModel.AggregateId;
 		}
 
 		//TODO: Change CustomerListDto to something specific for this screen

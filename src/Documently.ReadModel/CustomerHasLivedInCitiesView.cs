@@ -1,10 +1,9 @@
-using Documently.Messages;
-using Documently.Messages.CustomerEvents;
+using Documently.Messages.CustEvents;
 using Raven.Client;
 
 namespace Documently.ReadModel
 {
-	class CustomerHasLivedInCitiesView : HandlesEvent<Created>, HandlesEvent<Relocated>
+	class CustomerHasLivedInCitiesView : HandlesEvent<Registered>, HandlesEvent<Relocated>
 	{
 		private readonly IDocumentStore _documentStore;
 
@@ -13,26 +12,26 @@ namespace Documently.ReadModel
 			_documentStore = documentStore;
 		}
 
-		public void Consume(Created @event)
+		public void Consume(Registered evt)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
-				var dto = session.Load<CustomerHasLivedInDto>(Dto.GetDtoIdOf<CustomerHasLivedInDto>(@event.AggregateId));
-				dto.AddCity(@event.City);
+				var dto = session.Load<CustomerHasLivedInDto>(Dto.GetDtoIdOf<CustomerHasLivedInDto>(evt.AggregateId));
+				dto.AddCity(evt.Address.City);
 				session.SaveChanges();
 			}
 		}
 
-		public void Consume(Relocated @event)
+		public void Consume(Relocated evt)
 		{
 			using (var session = _documentStore.OpenSession())
 			{
-				var dto = new CustomerHasLivedInDto()
-				          	{
-				          		AggregateRootId = @event.AggregateId
-				          	};
+				var dto = new CustomerHasLivedInDto
+					{
+						AggregateId = evt.AggregateId
+					};
 
-				dto.AddCity(@event.City);
+				dto.AddCity(evt.City);
 
 				session.Store(dto);
 				session.SaveChanges();

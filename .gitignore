@@ -9,5 +9,4 @@ Logs/
 *.tmp_proj
 src/SharedAssemblyInfo.cs
 build/
-*.ncrunch*
-*.crunchsolution.cache
+packages/

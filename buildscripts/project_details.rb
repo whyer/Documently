@@ -2,7 +2,7 @@ PROJECTS = {
 
     :app => {:title=>"Documently.App", :id=>"Documently.App", :dir=>"Documently.App", :test_dir=>"", :description=>"Missing description for Documently.App", :authors=>nil, :company=>nil, :copyright=>"Copyright (c)", :nuget_key=>"", :ruby_key=>"app", :guid=>"4f4f5d60-e97f-4793-b2b2-e3a9f60cf082", :dependencies=>[], :create_package=>false},
 
-    :cmds => {:title=>"Documently.Commands", :id=>"Documently.Commands", :dir=>"Documently.Commands", :test_dir=>"", :description=>"Commands that can be sent to the domain service", :authors=>"Henrik", :company=>"Jayway", :copyright=>"Henrik 2011-2012", :nuget_key=>"Documently.Commands", :ruby_key=>"cmds", :guid=>"711948dc-14c0-4026-ac5d-d6d766048d82", :dependencies=>[], :create_package=>true},
+    :msg => {:title=>"Documently.Messages", :id=>"Documently.Messages", :dir=>"Documently.Messages", :test_dir=>"", :description=>"Commands, Events and other messaging contracts", :authors=>"Henrik", :company=>"Jayway", :copyright=>"Henrik 2011-2012", :nuget_key=>"Documently.Messages", :ruby_key=>"msg", :guid=>"711948dc-14c0-4026-ac5d-d6d766048d82", :dependencies=>[], :create_package=>true},
 
     :domain => {:title=>"Documently.Domain", :id=>"Documently.Domain", :dir=>"Documently.Domain", :test_dir=>"Documently.Domain.Tests", :description=>"Domain Model", :authors=>"Henrik", :company=>"Jayway", :copyright=>"Henrik 2011-2012", :nuget_key=>"", :ruby_key=>"domain", :guid=>"a8a0b3b7-860d-4669-8e27-2e779330376d", :dependencies=>[], :create_package=>false},
 

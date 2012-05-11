@@ -1,0 +1,19 @@
+﻿<use namespace ="Documently.WebApp.Handlers.DocumentMetaData"/>
+<viewdata model="Documently.WebApp.Handlers.DocumentMetaData.DocumentMetaDataModel" />
+
+<content:title>Create document</content:title>
+<content:main>
+	<Form model="DocumentMetaDataModel">
+		<div class="formInput">
+			<p>
+				<LabelFor model="DocumentMetaDataModel" property="Name" />
+				<InputFor model="DocumentMetaDataModel" property="Name" />
+			</p>
+		</div>
+		<input type="submit" value="Create" />
+	</Form>
+</content:main>
+
+<!--<html>
+	<viewdata model="Documently.WebApp.Handlers.CreateDocumentMetaData.DocumentMetaDataModel" />
+</html>-->

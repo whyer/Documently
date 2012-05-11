@@ -49,10 +49,15 @@ namespace Documently.Sagas
 			Event(() => MetaDataCreated);
 			Event(() => IndexingStarted);
 			Event(() => IndexingCompleted);
+			Event(() => TimeoutExpired);
 
-			During(Initial,
+			Initially(
 				When(MetaDataCreated)
 					.TransitionTo(IndexingPending));
+
+			//During(Initial,
+			//    When(MetaDataCreated)
+			//        .TransitionTo(IndexingPending));
 
 			During(IndexingPending,
 				When(IndexingStarted)
@@ -64,11 +69,7 @@ namespace Documently.Sagas
 				When(IndexingCompleted)
 					.TransitionTo(Final),
 				When(TimeoutExpired)
-					//.Then((_) => Bus.Publish<IndexingTakingTooLong>(new
-					//    {
-					//        CorrelationId
-					//    }))
-				);
+					.TransitionTo(Indexing));
 		}
 
 		public State IndexingPending { get; private set; }

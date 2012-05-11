@@ -71,6 +71,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Documently.Messages\Documently.Messages.csproj">
+      <Project>{EEE89C0C-F925-4320-9E50-B252633CF941}</Project>
+      <Name>Documently.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Documently.Sagas\Documently.Sagas.csproj">
       <Project>{7E4AD334-FE9C-459E-8EE5-942EA71665B9}</Project>
       <Name>Documently.Sagas</Name>

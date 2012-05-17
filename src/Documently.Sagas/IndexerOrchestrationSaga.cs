@@ -21,7 +21,7 @@ using Created = Documently.Messages.DocMetaEvents.Created;
 namespace Documently.Sagas
 {
 	public class Instance
-		: StateMachineInstance
+		: SagaStateMachineInstance
 	{
 		public Instance(Guid correlationId)
 		{
@@ -54,10 +54,6 @@ namespace Documently.Sagas
 			Initially(
 				When(MetaDataCreated)
 					.TransitionTo(IndexingPending));
-
-			//During(Initial,
-			//    When(MetaDataCreated)
-			//        .TransitionTo(IndexingPending));
 
 			During(IndexingPending,
 				When(IndexingStarted)

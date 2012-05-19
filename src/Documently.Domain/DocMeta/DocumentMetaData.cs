@@ -31,6 +31,7 @@ namespace Documently.Domain
 		{
 			this.Raise<DocMeta, Created>(new DocMetaImpl
 				{
+					CorrelationId = id,
 					AggregateId = id,
 					Title = title,
 					UtcDate = utcCreated,

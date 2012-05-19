@@ -8,6 +8,7 @@ using Magnum.Extensions;
 using MassTransit;
 using MassTransit.AutomatonymousTests;
 using MassTransit.Saga;
+using MassTransit.Services.Timeout.Messages;
 using MassTransit.SubscriptionConfigurators;
 using NUnit.Framework;
 using Automatonymous;
@@ -49,6 +50,29 @@ namespace Documently.Sagas.Specs
 
 			Instance instance = _repository.ShouldContainSagaInState(sagaId, _machine.Indexing, 8.Seconds());
 			Assert.IsNotNull(instance);
+		}
+
+		[Test]
+		public void Should_publish_TimeoutMessage_when_indexingStarted()
+		{
+			Guid sagaId = Guid.NewGuid();
+
+			var messageReceived = new FutureMessage<ScheduleTimeout>();
+			Bus.SubscribeHandler<ScheduleTimeout>(messageReceived.Set);
+
+			Bus.Publish(new TestCreatedEvent
+			{
+			    CorrelationId = sagaId,
+			});
+
+			var indexerStarted = new TestIndexerStarted
+			{
+			    CorrelationId = sagaId
+			};
+			Bus.Publish(indexerStarted);
+
+			Assert.IsTrue(messageReceived.IsAvailable(8.Seconds()));
+			Assert.AreEqual(indexerStarted.CorrelationId, messageReceived.Message.CorrelationId);
 		}
 
 		class TestCreatedEvent : Created

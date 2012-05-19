@@ -56,16 +56,15 @@ namespace Documently.Sagas
 					.TransitionTo(IndexingPending));
 
 			During(IndexingPending,
-				When(IndexingStarted)
-					//.Publish((a,b) => )
-					//.Then(instance => Bus.Publish(new ScheduleTimeout(CorrelationId, DateTime.UtcNow.AddMinutes(2))))
-					.TransitionTo(Indexing));
+			       When(IndexingStarted)
+			       	.Publish((i, m) => new ScheduleTimeout(i.CorrelationId, DateTime.UtcNow.AddMinutes(2)))
+			       	.TransitionTo(Indexing));
 
 			During(Indexing,
 				When(IndexingCompleted)
 					.TransitionTo(Final),
 				When(TimeoutExpired)
-					.TransitionTo(Indexing));
+					.TransitionTo(IndexingPending));
 		}
 
 		public State IndexingPending { get; private set; }

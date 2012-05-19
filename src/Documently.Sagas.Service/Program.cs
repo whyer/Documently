@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading;
 using Automatonymous;
-using Documently.Messages;
 using MassTransit;
+using MassTransit.NHibernateIntegration.Saga;
+using MassTransit.NLogIntegration.Logging;
 using MassTransit.Saga;
 using MassTransit.NLogIntegration;
+using MassTransit.Services.Timeout;
+using MassTransit.Services.Timeout.Server;
 using NLog;
 using Topshelf;
 using log4net.Config;
@@ -15,6 +18,7 @@ namespace Documently.Sagas.Service
 	{
 		private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		private IServiceBus _bus;
+		TimeoutService _service;
 
 		public static void Main(string[] args)
 		{
@@ -37,14 +41,13 @@ namespace Documently.Sagas.Service
 
 		private void Start()
 		{
-			BasicConfigurator.Configure(); // for TopShelf until it upgrades
-			NLog.Config.SimpleConfigurator.ConfigureForConsoleLogging();
+			MassTransit.Logging.Logger.UseLogger(new NLogLogger());
 
+			BasicConfigurator.Configure(); // for TopShelf until it upgrades
+			
 			_logger.Info("setting up saga service");
 
-			try
-			{
-				_bus = ServiceBusFactory.New(sbc =>
+			_bus = ServiceBusFactory.New(sbc =>
 				{
 					sbc.UseNLog();
 					sbc.UseRabbitMqRouting();
@@ -54,20 +57,23 @@ namespace Documently.Sagas.Service
 						s.StateMachineSaga(new IndexerOrchestrationSaga(), new InMemorySagaRepository<Instance>());
 					});
 				});
-			}
 
-			catch(Exception ex)
-			{
-				_logger.DebugException("Error on bus config", ex);
-			}
+			// The timeout service should probably run in its own Topshelf process when we are done testing the sagas
+			_service = new TimeoutService(_bus, new InMemorySagaRepository<TimeoutSaga>());
+			_service.Start();
 
-			_logger.Info("application configured, started running");
+			_logger.Info("application configured, it is now running");
 		}
 
 		private void Stop()
 		{
 			_logger.Info("shutting down Domain Service");
-			_bus.Dispose();
+			
+			if(_service != null)
+				_service.Stop();
+			
+			if(_bus != null)
+				_bus.Dispose();
 		}
 	}
 }

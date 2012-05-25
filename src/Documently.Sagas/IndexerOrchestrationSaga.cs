@@ -21,7 +21,7 @@ using Created = Documently.Messages.DocMetaEvents.Created;
 namespace Documently.Sagas
 {
 	public class Instance
-		: StateMachineInstance
+		: SagaStateMachineInstance
 	{
 		public Instance(Guid correlationId)
 		{
@@ -49,26 +49,22 @@ namespace Documently.Sagas
 			Event(() => MetaDataCreated);
 			Event(() => IndexingStarted);
 			Event(() => IndexingCompleted);
+			Event(() => TimeoutExpired);
 
-			During(Initial,
+			Initially(
 				When(MetaDataCreated)
 					.TransitionTo(IndexingPending));
 
 			During(IndexingPending,
-				When(IndexingStarted)
-					//.Publish((a,b) => )
-					//.Then(instance => Bus.Publish(new ScheduleTimeout(CorrelationId, DateTime.UtcNow.AddMinutes(2))))
-					.TransitionTo(Indexing));
+			       When(IndexingStarted)
+			       	.Publish((i, m) => new ScheduleTimeout(i.CorrelationId, DateTime.UtcNow.AddMinutes(2)))
+			       	.TransitionTo(Indexing));
 
 			During(Indexing,
 				When(IndexingCompleted)
 					.TransitionTo(Final),
 				When(TimeoutExpired)
-					//.Then((_) => Bus.Publish<IndexingTakingTooLong>(new
-					//    {
-					//        CorrelationId
-					//    }))
-				);
+					.TransitionTo(IndexingPending));
 		}
 
 		public State IndexingPending { get; private set; }

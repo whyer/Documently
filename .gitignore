@@ -10,3 +10,6 @@ Logs/
 src/SharedAssemblyInfo.cs
 build/
 packages/
+build/
+*.ncrunch*
+*.crunchsolution.cache

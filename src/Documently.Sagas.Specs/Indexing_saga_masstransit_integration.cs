@@ -29,7 +29,7 @@ namespace Documently.Sagas.Specs
 			    CorrelationId = sagaId
 			});
 
-			Instance instance = _repository.ShouldContainSagaInState(sagaId, _machine.IndexingPending, 8.Seconds());
+			IndexerOrchestrationSagaInstance instance = _repository.ShouldContainSagaInState(sagaId, _machine.IndexingPending, 8.Seconds());
 			Assert.IsNotNull(instance);
 		}
 
@@ -48,7 +48,7 @@ namespace Documently.Sagas.Specs
 				CorrelationId = sagaId
 			});
 
-			Instance instance = _repository.ShouldContainSagaInState(sagaId, _machine.Indexing, 8.Seconds());
+			IndexerOrchestrationSagaInstance instance = _repository.ShouldContainSagaInState(sagaId, _machine.Indexing, 8.Seconds());
 			Assert.IsNotNull(instance);
 		}
 
@@ -90,12 +90,12 @@ namespace Documently.Sagas.Specs
 			public Guid CorrelationId { get; set; }
 		}
 
-		InMemorySagaRepository<Instance> _repository;
+		InMemorySagaRepository<IndexerOrchestrationSagaInstance> _repository;
 		IndexerOrchestrationSaga _machine;
 
 		protected override void ConfigureSubscriptions(SubscriptionBusServiceConfigurator configurator)
 		{
-			_repository = new InMemorySagaRepository<Instance>();
+			_repository = new InMemorySagaRepository<IndexerOrchestrationSagaInstance>();
 			 _machine = new IndexerOrchestrationSaga();
 
 			configurator.StateMachineSaga(_machine, _repository);

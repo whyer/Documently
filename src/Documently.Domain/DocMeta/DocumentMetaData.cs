@@ -29,11 +29,12 @@ namespace Documently.Domain
 		public DocMeta(Guid id, string title, DateTime utcCreated)
 			: this()
 		{
-			this.Raise<DocMeta, Created>(new
+			this.Raise<DocMeta, Created>(new DocMetaImpl
 				{
 					AggregateId = id,
 					Title = title,
-					UtcDate = utcCreated
+					UtcDate = utcCreated,
+					Version = Version + 1
 				});
 		}
 
@@ -93,5 +94,13 @@ namespace Documently.Domain
 		public void Apply(WasShared evt)
 		{
 		}
+	}
+
+	public class DocMetaImpl : Created
+	{
+		public Guid AggregateId { get; set; }
+		public uint Version { get; set; }
+		public string Title { get; set; }
+		public DateTime UtcDate { get; set; }
 	}
 }

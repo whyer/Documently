@@ -1,0 +1,12 @@
+﻿<viewdata model="Documently.WebApp.Handlers.Home.HomeModel" />
+<content:title>Documently Web App</content:title>
+<content:main>
+
+	<div id="menu">
+		<ul id="headerLinks">
+			<li>
+				<linkTo action="Documently.WebApp.Handlers.DocumentMetaData.GetHandler" method="Execute()">Create document</linkTo>
+			</li>
+		</ul>
+	</div>
+</content:main>

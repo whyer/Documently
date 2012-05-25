@@ -40,8 +40,9 @@
     <Reference Include="EventStore">
       <HintPath>..\packages\EventStore.3.0.11326.44\lib\net40\EventStore.dll</HintPath>
     </Reference>
-    <Reference Include="FakeItEasy">
-      <HintPath>..\packages\FakeItEasy.1.7.4257.42\lib\NET40\FakeItEasy.dll</HintPath>
+    <Reference Include="FakeItEasy, Version=1.7.4507.61, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FakeItEasy.1.7.4507.61\lib\NET40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\packages\Machine.Specifications.0.5.5.0\lib\net40\Machine.Specifications.dll</HintPath>
@@ -79,11 +80,14 @@
     <Compile Include="Behaviors\Event_versions_are_monotonically_increasing.cs" />
     <Compile Include="CustomerTestFactory.cs" />
     <Compile Include="Customer_spec.cs" />
+    <Compile Include="DocumentMeta_spec.cs" />
     <Compile Include="EventRouter_spec.cs" />
     <Compile Include="Framework\EventListExtensions.cs" />
     <Compile Include="Framework\Ignoring.cs" />
     <Compile Include="Assumptions\Misc_spec.cs" />
+    <Compile Include="Handler_and_Aggregate_spec.cs" />
     <Compile Include="MsgImpl\Address.cs" />
+    <Compile Include="MsgImpl\CreateDocumentMeta.cs" />
     <Compile Include="MsgImpl\RegisterNew.cs" />
     <Compile Include="MsgImpl\Relocate.cs" />
     <Compile Include="Persistance_spec.cs" />

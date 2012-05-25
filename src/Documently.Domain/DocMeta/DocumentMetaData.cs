@@ -103,5 +103,6 @@ namespace Documently.Domain
 		public uint Version { get; set; }
 		public string Title { get; set; }
 		public DateTime UtcDate { get; set; }
+		public Guid CorrelationId { get; set; }
 	}
 }

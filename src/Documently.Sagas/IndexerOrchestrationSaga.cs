@@ -20,15 +20,15 @@ using Created = Documently.Messages.DocMetaEvents.Created;
 
 namespace Documently.Sagas
 {
-	public class Instance
+	public class IndexerOrchestrationSagaInstance
 		: SagaStateMachineInstance
 	{
-		public Instance(Guid correlationId)
+		public IndexerOrchestrationSagaInstance(Guid correlationId)
 		{
 			CorrelationId = correlationId;
 		}
 
-		protected Instance()
+		protected IndexerOrchestrationSagaInstance()
 		{
 		}
 
@@ -38,7 +38,7 @@ namespace Documently.Sagas
 	}
 
 	public class IndexerOrchestrationSaga
-		: AutomatonymousStateMachine<Instance>
+		: AutomatonymousStateMachine<IndexerOrchestrationSagaInstance>
 	{
 		public IndexerOrchestrationSaga()
 		{

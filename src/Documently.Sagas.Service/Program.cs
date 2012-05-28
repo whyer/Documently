@@ -3,11 +3,12 @@ using System.Threading;
 using Automatonymous;
 using MassTransit;
 using MassTransit.NHibernateIntegration.Saga;
+using MassTransit.NLogIntegration;
 using MassTransit.NLogIntegration.Logging;
 using MassTransit.Saga;
-using MassTransit.NLogIntegration;
 using MassTransit.Services.Timeout;
 using MassTransit.Services.Timeout.Server;
+using NHibernate;
 using NLog;
 using Topshelf;
 using log4net.Config;
@@ -41,28 +42,38 @@ namespace Documently.Sagas.Service
 
 		private void Start()
 		{
-			MassTransit.Logging.Logger.UseLogger(new NLogLogger());
+			try
+			{
+				MassTransit.Logging.Logger.UseLogger(new NLogLogger());
 
-			BasicConfigurator.Configure(); // for TopShelf until it upgrades
-			
-			_logger.Info("setting up saga service");
+				BasicConfigurator.Configure(); // for TopShelf until it upgrades
 
-			_bus = ServiceBusFactory.New(sbc =>
-				{
-					sbc.UseNLog();
-					sbc.UseRabbitMqRouting();
-					sbc.ReceiveFrom("rabbitmq://localhost/Documently.Sagas.Service");
-					sbc.Subscribe(s =>
+				_logger.Info("setting up saga service");
+
+				ISessionFactory sessionFactory = NHibernateSagaHelper.CreateSessionFactory();
+
+				_bus = ServiceBusFactory.New(sbc =>
 					{
-						s.StateMachineSaga(new IndexerOrchestrationSaga(), new InMemorySagaRepository<Instance>());
+						sbc.UseNLog();
+						sbc.UseRabbitMqRouting();
+						sbc.ReceiveFrom("rabbitmq://localhost/Documently.Sagas.Service");
+						sbc.Subscribe(s =>
+						{
+							s.StateMachineSaga(new IndexerOrchestrationSaga(),
+											   new NHibernateSagaRepository<IndexerOrchestrationSagaInstance>(sessionFactory));
+						});
 					});
-				});
 
-			// The timeout service should probably run in its own Topshelf process when we are done testing the sagas
-			_service = new TimeoutService(_bus, new InMemorySagaRepository<TimeoutSaga>());
-			_service.Start();
+				// The timeout service should probably run in its own Topshelf process when we are done testing the sagas
+				_service = new TimeoutService(_bus, new InMemorySagaRepository<TimeoutSaga>());
+				//_service.Start();
 
-			_logger.Info("application configured, it is now running");
+				_logger.Info("application configured, it is now running");
+			}
+			catch (Exception ex)
+			{
+				_logger.FatalException("Error when starting service", ex);
+			}
 		}
 
 		private void Stop()

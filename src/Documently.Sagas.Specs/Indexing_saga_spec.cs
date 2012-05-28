@@ -28,8 +28,9 @@ namespace Documently.Sagas.Specs
 		private Establish context_with_saga = () =>
 		{
 			_saga = new IndexerOrchestrationSaga();
-			_instance = new Instance(CombGuid.Generate());
-		};
+			_instance = new IndexerOrchestrationSagaInstance(CombGuid.Generate());
+
+			};
 
 		private Because of = () => 
 			_saga.RaiseEvent(_instance, x => x.MetaDataCreated);
@@ -38,7 +39,7 @@ namespace Documently.Sagas.Specs
 			_instance.CurrentState.ShouldEqual(_saga.IndexingPending);
 
 		static IndexerOrchestrationSaga _saga;
-		static Instance _instance;
+		static IndexerOrchestrationSagaInstance _instance;
 	}
 
 	[Subject(typeof(IndexerOrchestrationSaga))]
@@ -48,7 +49,7 @@ namespace Documently.Sagas.Specs
 		Establish context_with_saga = () =>
 		{
 			_saga = new IndexerOrchestrationSaga();
-			_instance = new Instance(CombGuid.Generate());
+			_instance = new IndexerOrchestrationSagaInstance(CombGuid.Generate());
 			_instance.CurrentState = _saga.IndexingPending;
 			_instance.Bus = An<IServiceBus>();
 		};
@@ -61,7 +62,7 @@ namespace Documently.Sagas.Specs
 			_instance.CurrentState.ShouldEqual(_saga.Indexing);
 
 		static IndexerOrchestrationSaga _saga;
-		static Instance _instance;
+		static IndexerOrchestrationSagaInstance _instance;
 
 		class TestIndexingStarted : Started
 		{
@@ -75,7 +76,7 @@ namespace Documently.Sagas.Specs
 		private Establish context_with_saga = () =>
 		{
 			_saga = new IndexerOrchestrationSaga();
-			_instance = new Instance(CombGuid.Generate());
+			_instance = new IndexerOrchestrationSagaInstance(CombGuid.Generate());
 			_instance.CurrentState = _saga.Indexing;
 		};
 
@@ -87,7 +88,7 @@ namespace Documently.Sagas.Specs
 			_instance.CurrentState.ShouldEqual(_saga.Final);
 
 		static IndexerOrchestrationSaga _saga;
-		static Instance _instance;
+		static IndexerOrchestrationSagaInstance _instance;
 
 		class TestIndexingCompleted : IndexingCompleted
 		{
@@ -102,7 +103,7 @@ namespace Documently.Sagas.Specs
 		private Establish context_with_saga = () =>
 		{
 			_saga = new IndexerOrchestrationSaga();
-			_instance = new Instance(CombGuid.Generate());
+			_instance = new IndexerOrchestrationSagaInstance(CombGuid.Generate());
 			_instance.CurrentState = _saga.Indexing;
 		};
 
@@ -113,7 +114,7 @@ namespace Documently.Sagas.Specs
 			_instance.CurrentState.ShouldNotEqual(_saga.Final);
 
 		static IndexerOrchestrationSaga _saga;
-		static Instance _instance;
+		static IndexerOrchestrationSagaInstance _instance;
 	}
 }
 
